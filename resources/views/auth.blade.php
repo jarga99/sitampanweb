@@ -1,4 +1,4 @@
-<!-- master dari dashboard -->
+<!-- master dari user (login,register) -->
 <!DOCTYPE html>
 <html lang="en">
 
@@ -29,9 +29,7 @@
 <body>
     <div class="container">
         <h1>@yield('title', $title)</h1>
-        <!-- @if(Request::url() === 'http://127.0.0.1:1234/register')
-            @yield('content_register')        
-        @endif -->
+        @yield('content_auth')
     </div>
 
     <!-- jQuery 3 -->
