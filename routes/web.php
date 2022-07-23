@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\TanamController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -43,4 +44,4 @@ Route::get('user',[UserController::class, 'create_user'])->name('login');
 //  ======== End User Config=========
 
 // +++++++++++ All Config Tanam ++++++++++++
-Route::get('tanam/pajale', [TanamController::class, 'index'])->name('tanam.index_pajale');
+Route::get('/tanam/pajale', [TanamController::class, 'index'])->name('tanam.index_pajale');

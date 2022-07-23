@@ -1,4 +1,4 @@
-@extends('content')
+@extends('app')
 
 @section('title')
 Pajale
