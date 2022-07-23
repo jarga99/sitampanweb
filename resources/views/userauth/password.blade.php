@@ -1,5 +1,6 @@
-@extends('app')
-@section('content')
+<!-- TODO: Pindah ke halaman dashboard -->
+@extends('auth')
+@section('content_auth')
 
     <div class="row">
         <div class="col-md-6">
