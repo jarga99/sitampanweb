@@ -1,12 +1,12 @@
 @extends('app')
 
 @section('title')
-    Pajale
+    Perkebunan
 @endsection
 
 @section('breadcrumb')
     @parent
-    <li class="active">Pajale</li>
+    <li class="active">Perkebunan</li>
 @endsection
 
 @section('content')

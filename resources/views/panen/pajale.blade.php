@@ -17,7 +17,7 @@
                     <button onclick="#" class="btn btn-danger "> <i class="fa fa-trash"> Hapus</i></button>
                     <button onclick="#" class="btn btn-success "> <i class="fa fa-plus"> Tambah</i></button>
                     <button onclick="#" class="btn btn-success "> <i class="fa fa-upload"> Import</i></button>
-                    <button onclick="#" class="btn btn-info "> <i class="fa fa-file-pdf-o"> PDF</i></button>
+                    <button onclick="#" class="btn btn-info "> <i class="fa fa-file-pdf-o"> Export PDF</i></button>
                     <button onclick="#" class="btn btn-primary "> <i class="fa fa-file-excel-o"> Excel</i></button>
                     {{-- <div class="btn-group">
                     <button onclick="addForm('{{ route('produk.store') }}')" class="btn btn-success  btn-flat"><i class="fa fa-plus-circle"></i> Tambah</button>
@@ -38,7 +38,11 @@
                                 <th>Kecamatan</th>
                                 <th>Desa</th>
                                 <th>Tanaman </th>
-                                <th>Luas Lahan</th>
+                                <th>Luas Panen</th>
+                                <th>Kadar</th>
+                                <th>Produksi</th>
+                                <th>Provitas</th>
+                                <th>harga</th>
                                 <th width="15%"><i class="fa fa-cog"></i> Aksi</th>
                             </thead>
                         </table>
