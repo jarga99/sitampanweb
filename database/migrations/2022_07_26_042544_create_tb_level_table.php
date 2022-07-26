@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTbUserTable extends Migration
+class CreateTbLevelTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,9 @@ class CreateTbUserTable extends Migration
      */
     public function up()
     {
-        Schema::create('tb_user', function (Blueprint $table) {
-            $table->bigIncrements('id_user');
-            $table->string('nama',50);
-            $table->string('username',50)->unique();
-            $table->string('password');
+        Schema::create('tb_level', function (Blueprint $table) {
+            $table->bigIncrements('id_level');
+            $table->string('nama_level',50);
             $table->timestamps();
         });
     }
@@ -29,6 +27,6 @@ class CreateTbUserTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tb_user');
+        Schema::dropIfExists('tb_level');
     }
 }

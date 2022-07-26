@@ -22,7 +22,7 @@
                     {{-- <div class="btn-group">
                     <button onclick="addForm('{{ route('produk.store') }}')" class="btn btn-success  btn-flat"><i class="fa fa-plus-circle"></i> Tambah</button>
                     <button onclick="deleteSelected('{{ route('produk.delete_selected') }}')" class="btn btn-danger  btn-flat"><i class="fa fa-trash"></i> Hapus</button>
-                    <button onclick="cetakBarcode('{{ route('produk.cetak_barcode') }}')" class="btn btn-info  btn-flat"><i class="fa fa-barcode"></i> Cetak Barcode</button>
+                     <button onclick="cetakBarcode('{{ route('produk.cetak_barcode') }}')" class="btn btn-info  btn-flat"><i class="fa fa-barcode"></i> Cetak Barcode</button>
                 </div> --}}
                 </div>
                 <div class="box-body table-responsive">
@@ -38,7 +38,11 @@
                                 <th>Kecamatan</th>
                                 <th>Desa</th>
                                 <th>Tanaman </th>
-                                <th>Luas Lahan</th>
+                                <th>Luas Panen</th>
+                                <th>Kadar</th>
+                                <th>Produksi</th>
+                                <th>Provitas</th>
+                                <th>harga</th>
                                 <th width="15%"><i class="fa fa-cog"></i> Aksi</th>
                             </thead>
                         </table>

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\TanamController;
+use App\Http\Controllers\PanenController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -44,4 +45,28 @@ Route::get('user',[UserController::class, 'create_user'])->name('login');
 //  ======== End User Config=========
 
 // +++++++++++ All Config Tanam ++++++++++++
-Route::get('/tanam/pajale', [TanamController::class, 'index'])->name('tanam.index_pajale');
+// Pajale
+Route::get('/tanam/pajale', [TanamController::class, 'pajale_index'])->name('tanam.index_pajale');
+
+// Horti
+Route::get('/tanam/horti', [TanamController::class, 'horti_index'])->name('tanam.index_horti');
+
+// Perkebunan
+Route::get('/tanam/perkebunan', [TanamController::class, 'perkebunan_index'])->name('tanam.index_perkebunan');
+
+// +++++++++++ End Config Tanam ++++++++++++
+
+// <<<<<<<<<<< All Config Panen >>>>>>>>>>>>
+// Pajale
+Route::get('/panen/pajale', [PanenController::class, 'pajale_index'])->name('panen.index_pajale');
+
+// Horti
+Route::get('/panen/horti/data', [HortiController::class, 'horti_data'])->name('horti.data');
+Route::get('/panen/horti', [PanenController::class, 'horti_index'])->name('panen.index_horti');
+Route::post('/panen/horti/delete-selected', [PanenController::class, 'horti_deleteSelected'])->name('panen.delete_selected');
+Route::resource('/panen', PanenController::class);
+
+// Perkebunan
+Route::get('/panen/perkebunan', [PanenController::class, 'perkebunan_index'])->name('panen.index_perkebunan');
+
+// <<<<<<<<<<< All Config Panen >>>>>>>>>>>>

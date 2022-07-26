@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTbUserTable extends Migration
+class CreateMstTanamanTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,9 @@ class CreateTbUserTable extends Migration
      */
     public function up()
     {
-        Schema::create('tb_user', function (Blueprint $table) {
-            $table->bigIncrements('id_user');
-            $table->string('nama',50);
-            $table->string('username',50)->unique();
-            $table->string('password');
+        Schema::create('mst_tanaman', function (Blueprint $table) {
+            $table->id('id_tanaman');
+            $table->string('nama_tanaman',50)->unique();
             $table->timestamps();
         });
     }
@@ -29,6 +27,6 @@ class CreateTbUserTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tb_user');
+        Schema::dropIfExists('mst_tanaman');
     }
 }

@@ -22,7 +22,7 @@
             {{-- end navigasi --}}
             <li>
                 <a href="#">
-                    <i class="fa fa-dashboard text-navy"></i> <span>Dashboard</span>
+                    <i class="fa fa-dashboard text-light"></i> <span>Dashboard</span>
                 </a>
             </li>
 
@@ -36,23 +36,23 @@
                 </a>
                 <ul class="treeview-menu " style="display: none">
                     <li><a href="{{route('tanam.index_pajale')}}"><i class="fa fa-th-list"></i>Tanam Pajale</a></li>
-                    <li><a href="#"><i class="fa fa-th-list"></i>Tanam Horti</a></li>
-                    <li><a href="#"><i class="fa fa-th-list"></i>Tanam Perkebunan</a></li>
+                    <li><a href="{{route('tanam.index_horti')}}"><i class="fa fa-th-list"></i>Tanam Horti</a></li>
+                    <li><a href="{{route('tanam.index_perkebunan')}}"><i class="fa fa-th-list"></i>Tanam Perkebunan</a></li>
                 </ul>
             </li>
 
             {{-- Panen --}}
             <li class=" treeview">
                 <a href="#">
-                    <i class="fa fa-arrows-up text-warning"></i> <span>Panen</span>
+                    <i class="fa fa-download text-warning"></i> <span>Panen</span>
                     <span class="pull-right-container">
                         <i class="fa fa-angle-left pull-right"></i>
                     </span>
                 </a>
                 <ul class="treeview-menu " style="display: none">
-                    <li><a href="#"><i class="fa fa-th-list"></i>Panen Pajale</a></li>
-                    <li><a href="#"><i class="fa fa-th-list"></i>Panen Horti</a></li>
-                    <li><a href="#"><i class="fa fa-th-list"></i>Panen Perkebunan</a></li>
+                    <li><a href="{{route('panen.index_pajale')}}"><i class="fa fa-th-list"></i>Panen Pajale</a></li>
+                    <li><a href="{{route('panen.index_horti')}}"><i class="fa fa-th-list"></i>Panen Horti</a></li>
+                    <li><a href="{{route('panen.index_perkebunan')}}"><i class="fa fa-th-list"></i>Panen Perkebunan</a></li>
                 </ul>
             </li>
 
