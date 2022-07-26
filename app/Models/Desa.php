@@ -5,10 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class desa extends Model
+class Desa extends Model
 {
     use HasFactory;
-
     protected $table = 'mst_desa';
     protected $primaryKey = 'id_desa';
     protected $fillable = ['nama_desa','luas_wilayah'];
@@ -18,4 +17,5 @@ class desa extends Model
     {
         return $this->belongsTo(Kecamatan::class, 'kecamatan_id', 'id_kecamatan');
     }
+
 }

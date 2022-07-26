@@ -16,9 +16,9 @@
                         <div class="col-lg-6">
                             <select name="id_kecamatan" id="id_kecamatan" class="form-control" required>
                                 <option value="">Pilih Kecamatan</option>
-                                @foreach ($kecamatan as $kec)
-                                    <option value="{{ $kec->id_kecamatan }}">{{ $kec->nama_kecamatan }}</option>
-                                @endforeach
+                                <option value="{{-- $kec->id_kecamatan --}}#">{{-- $kec->nama_kecamatan --}}</option>
+                                {{-- @foreach ($kecamatan as $kec)
+                                @endforeach --}}
                             </select>
                             <span class="help-block with-errors"></span>
                         </div>
@@ -28,9 +28,9 @@
                         <div class="col-lg-6">
                             <select name="id_desa" id="id_desa" class="form-control" required>
                                 <option value="">Pilih Desa</option>
-                                @foreach ($desa as $ds)
-                                    <option value="{{ $ds->id_desa }}">{{ $ds->nama_desa }}</option>
-                                @endforeach
+                                <option value="{{-- $ds->id_desa --}}#">{{-- $ds->nama_desa --}}</option>
+                                {{-- @foreach ($desa as $ds)
+                                @endforeach --}}
                             </select>
                             <span class="help-block with-errors"></span>
                         </div>
@@ -40,9 +40,9 @@
                         <div class="col-lg-6">
                             <select name="id_tanaman" id="id_tanaman" class="form-control" required>
                                 <option value="">Pilih Tanaman</option>
-                                @foreach ($tanaman as $jenis)
-                                    <option value="{{ $jenis->id_tanaman }}">{{ $jenis->nama_tanaman }}</option>
-                                @endforeach
+                                <option value="{{-- $jenis->id_tanaman --}}#">{{-- $jenis->nama_tanaman --}}</option>
+                                {{-- @foreach ($tanaman as $jenis)
+                                @endforeach --}}
                             </select>
                             <span class="help-block with-errors"></span>
                         </div>

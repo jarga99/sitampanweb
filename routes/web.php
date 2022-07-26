@@ -61,7 +61,10 @@ Route::get('/tanam/perkebunan', [TanamController::class, 'perkebunan_index'])->n
 Route::get('/panen/pajale', [PanenController::class, 'pajale_index'])->name('panen.index_pajale');
 
 // Horti
+Route::get('/panen/horti/data', [HortiController::class, 'horti_data'])->name('horti.data');
 Route::get('/panen/horti', [PanenController::class, 'horti_index'])->name('panen.index_horti');
+Route::post('/panen/horti/delete-selected', [PanenController::class, 'horti_deleteSelected'])->name('panen.delete_selected');
+Route::resource('/panen', PanenController::class);
 
 // Perkebunan
 Route::get('/panen/perkebunan', [PanenController::class, 'perkebunan_index'])->name('panen.index_perkebunan');

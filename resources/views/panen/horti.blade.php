@@ -14,20 +14,21 @@
         <div class="col-lg-12">
             <div class="box">
                 <div class="box-header with-border">
-                    <button onclick="#" class="btn btn-info "><i class="fa fa-plus-circle"></i> Filter Periode</button>
+                    <button onclick="#" class="btn btn-info"><i class="fa fa-plus-circle"></i> Filter Periode</button>
+                    <br>
+                    <br>
+                    <button onclick="#" class="btn btn-danger "> <i class="fa fa-trash"> Hapus</i></button>
+                    <button onclick="#" class="btn btn-success "> <i class="fa fa-plus"> Tambah</i></button>
+                    <button onclick="#" class="btn btn-success "> <i class="fa fa-upload"> Import</i></button>
                     <a href="#" target="_blank" class="btn btn-success "
                         onclick="event.preventDefault();document.getElementById('export-penjualan-form').submit();">
                         <i class="fa fa-file-excel-o"></i> Export PDF
                     </a>
                     <form id="export-penjualan-form" action="#" method="get" style="display: none;">
                         @csrf
-                        <input type="hidden" name="form_awal" id="form_awal" value="{{ $tanggalAwal }}">
-                        <input type="hidden" name="form_akhir" id="form_akhir" value="{{ $tanggalAkhir }}">
+                        <input type="hidden" name="form_awal" id="form_awal" value="{{-- $tanggalAwal --}}">
+                        <input type="hidden" name="form_akhir" id="form_akhir" value="{{-- $tanggalAkhir --}}">
                     </form>
-                    <button onclick="#" class="btn btn-danger "> <i class="fa fa-trash"> Hapus</i></button>
-                    <button onclick="#" class="btn btn-success "> <i class="fa fa-plus"> Tambah</i></button>
-                    <button onclick="#" class="btn btn-success "> <i class="fa fa-upload"> Import</i></button>
-                    <button onclick="#" class="btn btn-info "> <i class="fa fa-file-pdf-o"> PDF</i></button>
                     <button onclick="#" class="btn btn-primary "> <i class="fa fa-file-excel-o"> Excel</i></button>
                 </div>
                 <div class="box-body table-responsive">
@@ -35,10 +36,10 @@
                         @csrf
                         <table class="table table-stiped table-bordered">
                             <thead>
-                                <th width="5%">
+                                <th>
                                     <input type="checkbox" name="select_all" id="select_all">
                                 </th>
-                                <th width="2%">No</th>
+                                <th>No</th>
                                 <th>Tanggal</th>
                                 <th>Kecamatan</th>
                                 <th>Desa</th>
@@ -54,8 +55,10 @@
                     </form>
                 </div>
             </div>
-            @includeIf('panen.form_horti')
+
+        @includeIf('panen.form_horti')
         @endsection
+
         @push('scripts')
             <script src="{{ asset('/AdminLTE/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js') }}">
             </script>
@@ -112,6 +115,7 @@
 
                     });
 
+                    //Pilih Periode
                     $('#btn-search').on('click', function(e) {
                         const months = ["January", "February", "Maret", "April", "Mei", "Juni", "Juli", "Agustus",
                             "September", "Oktober", "November", "Desember"
