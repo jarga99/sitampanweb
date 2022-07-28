@@ -1,10 +1,10 @@
 <header class="main-header">
     <!-- Logo -->
-    <a href="index2.html" class="logo">
+    <a href="#" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
-      <span class="logo-mini"><b>A</b>LT</span>
+      <span class="logo-mini"><b>STPN</b></span>
       <!-- logo for regular state and mobile devices -->
-      <span class="logo-lg"><b>Admin</b>LTE</span>
+      <span class="logo-lg"><b>{{config('app.name')}}</b></span>
     </a>
     <!-- Header Navbar: style can be found in header.less -->
     <nav class="navbar navbar-static-top">
@@ -32,7 +32,7 @@
               <!-- Menu Footer-->
               <li class="user-footer">
                 <div class="pull-left">
-                    <a href="{{route('password')}}" class="btn btn-primary">Ganti Password</a>
+                    <a href="{{route('user.profil')}}" class="btn btn-default">profil</a>
                 </div>
                 <div class="pull-right">
                     <a href="{{route('logout')}}" class="btn btn-danger">Logout</a>

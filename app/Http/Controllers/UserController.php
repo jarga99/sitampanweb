@@ -9,6 +9,12 @@ use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
+    //Index
+    public function index(){
+        $data['title'] = 'User';
+        return view('user/index', $data);
+    }
+
     //Resgister
     public function register ()
     {
@@ -53,21 +59,23 @@ class UserController extends Controller
         return back()->withErrors(['password' => 'Wrong username or password!']);
     }
 
-    public function password ()
+    public function profil ()
     {
-        $data['title'] = 'Ganti Password';
-        return view('user/password', $data);
+        $data['title'] = 'Update Profil';
+        return view('user/profil', $data);
     }
 
-    public function password_action (Request $request)
+    public function profil_update (Request $request)
     {
         $request->validate([
+            'nama' => 'reqired',
             'password_lama' => 'required|current_password',
             'password_baru' => 'required',
             'konfirmasi_password_baru'=>'required|same:password_baru',
 
         ]);
         $user = User::find(Auth::id());
+        $user->$request->nama;
         $user->password = Hash::make($request->password_baru);
         $user->save();
 
@@ -80,7 +88,8 @@ class UserController extends Controller
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerate();
-        return redirect('/');
+        return redirect('login');
     }
+
 
 }

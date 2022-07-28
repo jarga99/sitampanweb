@@ -10,6 +10,11 @@ use Illuminate\Http\Request;
 
 class PanenController extends Controller
 {
+     /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     // Pajale
     public function pajale_index()
     {
@@ -18,7 +23,11 @@ class PanenController extends Controller
     }
 
     // ============================== All Config Horti ==================================
-
+ /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     // Horti Index
     public function horti_index()
     {
@@ -29,49 +38,56 @@ class PanenController extends Controller
     // Horti Data
     public function horti_data()
     {
-        $produktivitas = Produktivitas::with('mst_kecamatan', 'mst_desa', 'mst_tanaman')->orderBy('id_produktivitas','desc')->get();
+        $produktivitas = Produktivitas::with('mst_kecamatan', 'mst_desa', 'mst_tanaman')->orderBy('id_produktivitas', 'desc')->get();
         return datatables()
-        ->of($produktivitas)
-        ->addIndexColumn()
-        ->addColumn('select_all', function($produktivitas){
-            return '<input type="checkbox" name="id_produktivitas[]" value="'. $produktivitas->id_produktivitas .'">';
-        })
-        ->addColumn('id_kecamatan', function($produktivitas){
-            return ($produktivitas->mst_kecamatan->nama_kecamtan) ;
-        })
-        ->addColumn('id_desa', function ($produktivitas){
-            return ($produktivitas->mst_desa->nama_desa);
-        })
-        ->addColumn('id_tanaman', function($produktivitas){
-            return ($produktivitas->mst_tanaman->nama_tanaman);
-        })
-        ->addColumn('luas_lahan', function($produktivitas){
-            return ($produktivitas->tb_produktivitas->luas_lahan);
-        })
-        ->addColumn('kadar', function($produktivitas){
-            return ($produktivitas->tb_produktivitas->kadar);
-        })
-        ->addColumn('produksi', function($produktivitas){
-            return ($produktivitas->tb_produktivitas->produksi);
-        })
-        ->addColumn('provitas', function($produktivitas){
-            return ($produktivitas->tb_produktivitas->provitas);
-        })
-        ->addColumn('harga', function($produktivitas){
-            return ($produktivitas->tb_produktivitas->harga);
-        })
-        ->addColumn('aksi', function ($produktivitas) {
-            return '
+            ->of($produktivitas)
+            ->addIndexColumn()
+            ->addColumn('select_all', function ($produktivitas) {
+                return '<input type="checkbox" name="id_produktivitas[]" value="' . $produktivitas->id_produktivitas . '">';
+            })
+            ->addColumn('id_kecamatan', function ($produktivitas) {
+                return '<option value"' . $produktivitas->mst_kecamatan->nama_kecamtan . '">';
+            })
+            ->addColumn('id_desa', function ($produktivitas) {
+                return '<option value"' . $produktivitas->mst_desa->nama_desa . '">';
+            })
+            ->addColumn('id_tanaman', function ($produktivitas) {
+                return '<option value"' . $produktivitas->mst_tanaman->nama_tanaman . '">';
+            })
+            ->addColumn('luas_lahan', function ($produktivitas) {
+                return ($produktivitas->tb_produktivitas->luas_lahan);
+            })
+            ->addColumn('kadar', function ($produktivitas) {
+                return ($produktivitas->tb_produktivitas->kadar);
+            })
+            ->addColumn('produksi', function ($produktivitas) {
+                return ($produktivitas->tb_produktivitas->produksi);
+            })
+            ->addColumn('provitas', function ($produktivitas) {
+                return ($produktivitas->tb_produktivitas->provitas);
+            })
+            ->addColumn('harga', function ($produktivitas) {
+                return ($produktivitas->tb_produktivitas->harga);
+            })
+            ->addColumn('aksi', function ($produktivitas) {
+                return '
                 <button type="button" onclick="editForm(`' . route('horti.update', $produktivitas->id) . '`)" class="btn btn-info"><i class="fa fa-pencil"></i></button>
                 <button type="button" onclick="deleteData(`' . route('horti.destroy', $produktivitas->id) . '`)" class="btn btn-danger"><i class="fa fa-trash"></i></button>
             ';
-        })
-        ->rawColumns(['aksi', 'select_all'])
+            })
+            ->rawColumns(['aksi', 'select_all'])
             ->make(true);
     }
 
     // Horti Store
-    public function horti_store(Request $request){
+     /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function horti_store(Request $request)
+    {
         $produktivitas = Produktivitas::latest()->first() ?? new Produktivitas();
         $kecamatan = Kecamatan::latest()->first() ?? new Kecamatan();
         $desa = Desa::latest()->first() ?? new Desa();
@@ -140,12 +156,12 @@ class PanenController extends Controller
         ]);
 
         return response()->json('Data berhasil simpan', 200);
-
     }
 
 
     // Horti DeletetSelected
-    public function horti_deleteSelected(Request $request){
+    public function horti_deleteSelected(Request $request)
+    {
         foreach ($request->id_produktivitas as $id) {
             $delSelected = Produktivitas::find($id);
 
@@ -153,16 +169,36 @@ class PanenController extends Controller
             Kecamatan::where('id_kecamatan', $delSelected->kecamatan_id)->delete();
             Desa::where('id_desa', $delSelected->desa_id)->delete();
             Tanaman::where('id_tanaman', $delSelected->tanaman_id)->delete();
-
         }
     }
 
     // ============================== End Config Horti ==================================
 
     // Perkebunan
-    public function perkebunan_index()
+   public function perkebunan_index()
+   {
+       $data['title'] = 'Panen Perkebunan';
+       return view('panen/perkebunan', $data);
+   }
+
+    // For Front END
+    public function user_pajale_index()
+    {
+        $data['title'] = 'Panen Pajale';
+        return view('user/panen/pajale', $data);
+    }
+
+    // Horti
+    public function user_horti_index()
+    {
+        $data['title'] = 'Panen Horti';
+        return view('user/panen/horti', $data);
+    }
+
+    // Perkebunan
+    public function user_perkebunan_index()
     {
         $data['title'] = 'Panen Perkebunan';
-        return view('panen/perkebunan', $data);
+        return view('user/panen/perkebunan', $data);
     }
 }

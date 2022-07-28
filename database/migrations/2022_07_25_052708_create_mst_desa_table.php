@@ -17,8 +17,6 @@ class CreateMstDesaTable extends Migration
             $table->id('id_desa')->unique();
             $table->unsignedBigInteger('kecamatan_id');
             $table->string('nama_desa',50);
-            $table->float('luas_wilayah')->default();
-            $table->timestamps();
         });
     }
 
