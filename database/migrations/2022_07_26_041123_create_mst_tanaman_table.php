@@ -15,7 +15,8 @@ class CreateMstTanamanTable extends Migration
     {
         Schema::create('mst_tanaman', function (Blueprint $table) {
             $table->id('id_tanaman');
-            $table->string('jenis',10);
+            $table->unsignedBigInteger('jenis_tanam')->nullable();
+            $table->unsignedBigInteger('jenis_panen')->nullable();
             $table->string('nama_tanaman',30)->unique();
         });
     }

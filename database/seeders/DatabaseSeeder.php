@@ -18,9 +18,9 @@ class DatabaseSeeder extends Seeder
             UserTableSeeder::class,
             KecamatanTableSeeder::class,
             DesaTableSeeder::class,
-            TanamanTableSeeder::class,
             TanamTableSeeder::class,
             PanenTableSeeder::class,
+            TanamanTableSeeder::class,
         ]);
     }
 }
