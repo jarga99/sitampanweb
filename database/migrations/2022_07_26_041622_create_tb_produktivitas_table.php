@@ -15,9 +15,8 @@ class CreateTbProduktivitasTable extends Migration
     {
         Schema::create('tb_produktivitas', function (Blueprint $table) {
             $table->id('id_produktivitas');
-            $table->unsignedBigInteger('panen_id');
-            $table->unsignedBigInteger('tanam_id');
             $table->unsignedBigInteger('tanaman_id');
+            $table->unsignedBigInteger('kecamatan_id');
             $table->unsignedBigInteger('desa_id');
             $table->bigInteger('kadar')->nullable()->default();
             $table->bigInteger('provitas')->nullable()->default();

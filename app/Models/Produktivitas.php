@@ -17,6 +17,10 @@ class Produktivitas extends Model
         return $this->belongsTo(Tanaman::class, 'tanaman_id', 'id_tanaman');
     }
 
+    public function mst_kecamatan() {
+        return $this->belongsTo(Kecamatan::class, 'kecamatan_id', 'id_kecamatan');
+    }
+
     public function mst_desa() {
         return $this->belongsTo(Desa::class, 'desa_id', 'id_desa');
     }

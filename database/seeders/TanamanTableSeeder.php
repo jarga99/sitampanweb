@@ -17,37 +17,44 @@ class TanamanTableSeeder extends Seeder
         $data = [
             [
                 'id_tanaman' => 1,
-                'jenis' => 'Pajale',
+                'jenis_tanam' => 1,
+                'jenis_panen' => 1,
                 'nama_tanaman' => 'Padi',
             ],
             [
                 'id_tanaman' => 2,
-                'jenis' => 'Pajale',
+                'jenis_tanam' => 1,
+                'jenis_panen' => 1,
                 'nama_tanaman' => 'Kedelai',
             ],
             [
                 'id_tanaman' => 3,
-                'jenis' => 'Pajale',
+                'jenis_tanam' => 1,
+                'jenis_panen' => 1,
                 'nama_tanaman' => 'Jagung',
             ],
             [
                 'id_tanaman' => 4,
-                'jenis' => 'Horti',
+                'jenis_tanam' => 2,
+                'jenis_panen' => 2,
                 'nama_tanaman' => 'Bawang Merah',
             ],
             [
                 'id_tanaman' => 5,
-                'jenis' => 'Horti',
+                'jenis_tanam' => 2,
+                'jenis_panen' => 2,
                 'nama_tanaman' => 'Cabe Rawit',
             ],
             [
                 'id_tanaman' => 6,
-                'jenis' => 'Perkebunan',
+                'jenis_tanam' => 3,
+                'jenis_panen' => 3,
                 'nama_tanaman' => 'Tembakau',
             ],
             [
                 'id_tanaman' => 7,
-                'jenis' => 'Perkebunan',
+                'jenis_tanam' => 3,
+                'jenis_panen' => 3,
                 'nama_tanaman' => 'Kelapa',
             ],
 
