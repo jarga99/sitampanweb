@@ -10,7 +10,7 @@ class Desa extends Model
     use HasFactory;
     protected $table = 'mst_desa';
     protected $primaryKey = 'id_desa';
-    protected $fillable = ['nama_desa','luas_wilayah'];
+    protected $fillable = ['kecamatan_id','jenis','nama_desa'];
     protected $guarded = [];
 
     public function mst_kecamatan()

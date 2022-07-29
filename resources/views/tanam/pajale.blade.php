@@ -14,6 +14,9 @@
         <div class="col-lg-12">
             <div class="box">
                 <div class="box-header with-border">
+                    <button onclick="addForm('{{ route('panen.horti_store') }}')" class="btn btn-info"><i class="fa fa-plus-circle"></i> Filter Periode</button>
+                    <br>
+                    <br>
                     <button onclick="#" class="btn btn-danger "> <i class="fa fa-trash"> Hapus</i></button>
                     <button onclick="#" class="btn btn-success "> <i class="fa fa-plus"> Tambah</i></button>
                     <button onclick="#" class="btn btn-success "> <i class="fa fa-upload"> Import</i></button>

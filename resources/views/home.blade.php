@@ -40,8 +40,8 @@
             <!-- Content Header (Page header) -->
             <section class="content-header text-center">
                 <h1 class="text-success"><b>SISTEM INFORMASI TANAM PANEN</b></h1>
-                <h3 style="margin-top: -3px">DINAS KETAHANAN PANGAN DAN PERTANIAN</h3>
-                <h3 style="margin-top: -10px">KABUPATEN BOJONEGORO</h3>
+                {{-- <h3 style="margin-top: -3px">DINAS KETAHANAN PANGAN DAN PERTANIAN</h3>
+                <h3 style="margin-top: -10px">KABUPATEN BOJONEGORO</h3> --}}
             </section>
             <nav class="navbar navbar-inverse">
                 <div class="container-fluid">
