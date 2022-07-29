@@ -15,8 +15,8 @@ class CreateMstTanamanTable extends Migration
     {
         Schema::create('mst_tanaman', function (Blueprint $table) {
             $table->id('id_tanaman');
-            $table->string('nama_tanaman',50)->unique();
-            $table->timestamps();
+            $table->string('jenis',10);
+            $table->string('nama_tanaman',30)->unique();
         });
     }
 

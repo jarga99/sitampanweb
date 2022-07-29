@@ -37,7 +37,8 @@
                                 <th>Kadar</th>
                                 <th>Produksi</th>
                                 <th>Provitas</th>
-                                <th>harga</th>
+                                <th>Harga</th>
+                                <th>Nama Penginput</th>
                                 <th width="15%"><i class="fa fa-cog"></i> Aksi</th>
                             </thead>
                         </table>

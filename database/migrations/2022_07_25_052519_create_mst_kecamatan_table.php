@@ -15,7 +15,7 @@ class CreateMstKecamatanTable extends Migration
     {
         Schema::create('mst_kecamatan', function (Blueprint $table) {
             $table->id('id_kecamatan')->unique();
-            $table->string('nama_kecamatan',50);
+            $table->string('nama_kecamatan',20);
         });
     }
 
