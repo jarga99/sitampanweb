@@ -13,4 +13,13 @@ class User extends Authenticatable
     protected $primaryKey = 'id_user';
 
     protected $fillable = ['nama', 'username', 'password'];
+
+    protected $appends = [
+        'foto_profil_url',
+    ];
+
+    public function scopeIsNotAdmin($query)
+    {
+        return $query->where('level', '!=', 1);
+    }
 }

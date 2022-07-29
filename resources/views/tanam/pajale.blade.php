@@ -39,6 +39,7 @@
                                 <th>Desa</th>
                                 <th>Tanaman </th>
                                 <th>Luas Lahan</th>
+                                <th>Nama Penginput</th>
                                 <th width="15%"><i class="fa fa-cog"></i> Aksi</th>
                             </thead>
                         </table>

@@ -16,9 +16,8 @@ class CreateMstDesaTable extends Migration
         Schema::create('mst_desa', function (Blueprint $table) {
             $table->id('id_desa')->unique();
             $table->unsignedBigInteger('kecamatan_id');
-            $table->string('nama_desa',50);
-            $table->float('luas_wilayah')->default();
-            $table->timestamps();
+            $table->string('jenis',10);
+            $table->string('nama_desa',20);
         });
     }
 

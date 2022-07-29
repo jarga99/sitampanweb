@@ -1,7 +1,7 @@
 @extends('app')
 
 @section('title')
-    Horti
+    Panen Horti
 @endsection
 
 @section('breadcrumb')
@@ -14,7 +14,7 @@
         <div class="col-lg-12">
             <div class="box">
                 <div class="box-header with-border">
-                    <button onclick="#" class="btn btn-info"><i class="fa fa-plus-circle"></i> Filter Periode</button>
+                    <button onclick="addForm('{{ route('panen.horti_store') }}')" class="btn btn-info"><i class="fa fa-plus-circle"></i> Filter Periode</button>
                     <br>
                     <br>
                     <button onclick="#" class="btn btn-danger "> <i class="fa fa-trash"> Hapus</i></button>
@@ -48,7 +48,8 @@
                                 <th>Kadar</th>
                                 <th>Produksi</th>
                                 <th>Provitas</th>
-                                <th>harga</th>
+                                <th>Harga</th>
+                                <th>Nama Penginput</th>
                                 <th><i class="fa fa-cog"></i> Aksi</th>
                             </thead>
                         </table>
@@ -107,6 +108,9 @@
                                 data: 'harga'
                             },
                             {
+                                data: 'created_by'
+                            },
+                            {
                                 data: 'aksi',
                                 searchable: false,
                                 sortable: false
@@ -126,7 +130,7 @@
                         var tanggal_akhir = new Date($('#tanggal_akhir').val()).getDate() + ' ' + months[new Date($(
                                 '#tanggal_akhir').val()).getMonth()] + ' ' + new Date($('#tanggal_akhir').val())
                             .getFullYear();
-                        var content_title = `Daftar Penjualan ` + tanggal_awal + ` - ` + tanggal_akhir;
+                        var content_title = `Daftar Data Panen Horti` + tanggal_awal + ` - ` + tanggal_akhir;
                         table.draw();
                         e.preventDefault();
                         $('#modal-form').modal("hide");

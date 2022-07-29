@@ -21,7 +21,7 @@
             </li>
             {{-- end navigasi --}}
             <li>
-                <a href="#">
+                <a href="{{route('counter')}}">
                     <i class="fa fa-dashboard text-light"></i> <span>Dashboard</span>
                 </a>
             </li>
@@ -62,7 +62,7 @@
                     <i class="fa fa-users text-primary"></i> <span>User</span>
                 </a>
             </li>
-            <li><a href="#"><i class="fa fa-user-plus text-aqua"></i> <span>User</span></a></li>
+            <li><a href="{{route('user.index')}}"><i class="fa fa-user-plus text-aqua"></i> <span>Manajemen User</span></a></li>
         </ul>
 
 

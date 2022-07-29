@@ -14,8 +14,8 @@ class CreateRelationTanamAndPanenToProduktivitasTable extends Migration
     public function up()
     {
         Schema::table('tb_produktivitas', function (Blueprint $table) {
-            $table->foreign('tanam_id')->references('id_tanam')->on('mst_tanam')->onUpdate('cascade')->onDelete('cascade');
-            $table->foreign('panen_id')->references('id_panen')->on('mst_panen')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('tanam_id')->references('id_tanam')->on('mst_tanam');
+            $table->foreign('panen_id')->references('id_panen')->on('mst_panen');
         });
     }
 

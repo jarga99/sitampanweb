@@ -1,12 +1,12 @@
 @extends('app')
 
 @section('title')
-    Pajale
+    Panen Perkebunan
 @endsection
 
 @section('breadcrumb')
     @parent
-    <li class="active">Pajale</li>
+    <li class="active">Perkebunan</li>
 @endsection
 
 @section('content')
@@ -19,11 +19,6 @@
                     <button onclick="#" class="btn btn-success "> <i class="fa fa-upload"> Import</i></button>
                     <button onclick="#" class="btn btn-info "> <i class="fa fa-file-pdf-o"> PDF</i></button>
                     <button onclick="#" class="btn btn-primary "> <i class="fa fa-file-excel-o"> Excel</i></button>
-                    {{-- <div class="btn-group">
-                    <button onclick="addForm('{{ route('produk.store') }}')" class="btn btn-success  btn-flat"><i class="fa fa-plus-circle"></i> Tambah</button>
-                    <button onclick="deleteSelected('{{ route('produk.delete_selected') }}')" class="btn btn-danger  btn-flat"><i class="fa fa-trash"></i> Hapus</button>
-                     <button onclick="cetakBarcode('{{ route('produk.cetak_barcode') }}')" class="btn btn-info  btn-flat"><i class="fa fa-barcode"></i> Cetak Barcode</button>
-                </div> --}}
                 </div>
                 <div class="box-body table-responsive">
                     <form action="" method="post" class="form-produk">
@@ -42,7 +37,8 @@
                                 <th>Kadar</th>
                                 <th>Produksi</th>
                                 <th>Provitas</th>
-                                <th>harga</th>
+                                <th>Harga</th>
+                                <th>Nama Penginput</th>
                                 <th width="15%"><i class="fa fa-cog"></i> Aksi</th>
                             </thead>
                         </table>

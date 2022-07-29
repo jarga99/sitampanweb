@@ -12,7 +12,7 @@ class Tanaman extends Model
     use HasFactory;
     protected $table = 'mst_tanaman';
     protected $primaryKey = 'id_tanaman';
-    protected $fillable = ['nama_tanaman'];
+    protected $fillable = ['jenis','nama_tanaman'];
     protected $guarded = [];
 
     public function tb_produktivitas() {
