@@ -3,7 +3,7 @@
 @section('content')
 <section class="content-header">
     <h1>
-        LAPORAN Tanam HORTI
+        LAPORAN TANAM HORTI
     </h1>
     <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>

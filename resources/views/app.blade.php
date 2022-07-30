@@ -7,22 +7,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>{{ config('app.name') }} |@yield('title', $title)</title>
-    <!-- PWA  -->
-    <meta name="theme-color" content="#6777ef" />
-    <link rel="apple-touch-icon" href="{{ asset('logo.PNG') }}">
-    <link rel="manifest" href="{{ asset('/manifest.json') }}">
+
     <!-- Bootstrap 3.3.7 -->
-    <link rel="stylesheet" href="{{ asset('/AdminLTE/bower_components/bootstrap/dist/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('bootstrap/dist/css/bootstrap.min.css') }}">
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="{{ asset('/AdminLTE/bower_components/font-awesome/css/font-awesome.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('font-awesome/css/font-awesome.min.css') }}">
     <!-- Theme style -->
-    <link rel="stylesheet" href="{{ asset('/AdminLTE/dist/css/AdminLTE.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/AdminLTE.min.css') }}">
     <!-- AdminLTE Skins. Choose a skin from the css/skins
-        folder instead of downloading all of them to reduce the load. -->
-    <link rel="stylesheet" href="{{ asset('/AdminLTE/dist/css/skins/_all-skins.min.css') }}">
+folder instead of downloading all of them to reduce the load. -->
+    <link rel="stylesheet" href="{{ asset('css/_all-skins.min.css') }}">
     <!-- DataTables -->
-    <link rel="stylesheet"
-        href="{{ asset('/AdminLTE/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('datatables.net-bs/css/dataTables.bootstrap.min.css') }}">
 
     <!-- Google Font -->
     <link rel="stylesheet"
@@ -41,15 +37,16 @@
         <div class="content-wrapper">
             <!-- Content Header (Page header) -->
             <section class="content-header">
-                <h1>
-                    Dashboard
-                    <small>Control panel</small>
+                <h1 id="content-title">
+                    @yield('title')
                 </h1>
                 <ol class="breadcrumb">
-                    <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-                    <li class="active">Dashboard</li>
+                    @section('breadcrumb')
+                        <li><a href="{{ url('/') }}"><i class="fa fa-dashboard"></i> Home</a></li>
+                    @show
                 </ol>
             </section>
+
 
             <section class="content">
                 {{-- content --}}
@@ -61,18 +58,19 @@
         @includeIf('dashboard.footer')
 
     </div>
+
     <!-- jQuery 3 -->
-    <script src="{{ asset('AdminLTE/bower_components/jquery/dist/jquery.min.js') }}"></script>
+    <script src="{{ asset('js/jquery/dist/jquery.min.js') }}"></script>
     <!-- Bootstrap 3.3.7 -->
-    <script src="{{ asset('AdminLTE/bower_components/bootstrap/dist/js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('bootstrap/dist/js/bootstrap.min.js') }}"></script>
     <!-- Moment -->
-    <script src="{{ asset('AdminLTE/bower_components/moment/min/moment.min.js') }}"></script>
+    <script src="{{ asset('moment/min/moment.min.js') }}"></script>
 
     <!-- DataTables -->
-    <script src="{{ asset('AdminLTE/bower_components/datatables.net/js/jquery.dataTables.min.js') }}"></script>
-    <script src="{{ asset('AdminLTE/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js') }}"></script>
+    <script src="{{ asset('datatables.net/js/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('datatables.net-bs/js/dataTables.bootstrap.min.js') }}"></script>
     <!-- AdminLTE App -->
-    <script src="{{ asset('AdminLTE/dist/js/adminlte.min.js') }}"></script>
+    <script src="{{ asset('js/adminlte.min.js') }}"></script>
     <!-- Validator -->
     <script src="{{ asset('js/validator.min.js') }}"></script>
 
@@ -83,14 +81,6 @@
         }
     </script>
     @stack('scripts')
-    <script src="{{ asset('/sw.js') }}"></script>
-    <script>
-        if (!navigator.serviceWorker.controller) {
-            navigator.serviceWorker.register("/sw.js").then(function(reg) {
-                console.log("Service worker has been registered for scope: " + reg.scope);
-            });
-        }
-    </script>
 </body>
 
 </html>

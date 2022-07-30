@@ -1,12 +1,12 @@
 @extends('app')
 
 @section('title')
-    Panen Perkebunan
+  Panen Perkebunan
 @endsection
 
 @section('breadcrumb')
     @parent
-    <li class="active">Perkebunan</li>
+    <li class="active">Panen Perkebunan</li>
 @endsection
 
 @section('content')
@@ -14,7 +14,7 @@
         <div class="col-lg-12">
             <div class="box">
                 <div class="box-header with-border">
-                    <button onclick="addForm('{{ route('panen.horti_store') }}')" class="btn btn-info"><i class="fa fa-plus-circle"></i> Filter Periode</button>
+                    <button onclick="#" class="btn btn-info"><i class="fa fa-plus-circle"></i> Filter Periode</button>
                     <br>
                     <br>
                     <button onclick="#" class="btn btn-danger "> <i class="fa fa-trash"> Hapus</i></button>
