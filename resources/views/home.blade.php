@@ -7,27 +7,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>SITAMPAN</title>
-
     <!-- Bootstrap 3.3.7 -->
-    <link rel="stylesheet" href="{{ asset('/AdminLTE/bower_components/bootstrap/dist/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('bootstrap/dist/css/bootstrap.min.css') }}">
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="{{ asset('/AdminLTE/bower_components/font-awesome/css/font-awesome.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('font-awesome/css/font-awesome.min.css') }}">
     <!-- DataTables -->
-    <link rel="stylesheet"
-        href="{{ asset('/AdminLTE/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css') }}">
-
-    {{-- <!-- Bootstrap 3.3.7 -->
-    <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="{{ asset('css/font-awesome.min.css') }}">
-    <!-- Theme style -->
-    <link rel="stylesheet" href="{{ asset('css/AdminLTE.min.css') }}">
-    <!-- AdminLTE Skins. Choose a skin from the css/skins
-   folder instead of downloading all of them to reduce the load. -->
-    <link rel="stylesheet" href="{{ asset('css/_all-skins.min.css') }}">
-    <!-- DataTables -->
-    <link rel="stylesheet" href="{{ asset('css/dataTables.bootstrap.min.css') }}"> --}}
-
+    <link rel="stylesheet" href="{{ asset('datatables.net-bs/css/dataTables.bootstrap.min.css') }}">
     <!-- Google Font -->
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
@@ -97,33 +82,15 @@
         </div>
     </div>
     <!-- jQuery 3 -->
-    <script src="{{ asset('AdminLTE/bower_components/jquery/dist/jquery.min.js') }}"></script>
+    <script src="{{ asset('js/jquery/dist/jquery.min.js') }}"></script>
     <!-- Bootstrap 3.3.7 -->
-    <script src="{{ asset('AdminLTE/bower_components/bootstrap/dist/js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('bootstrap/dist/js/bootstrap.min.js') }}"></script>
     <!-- DataTables -->
-    <script src="{{ asset('AdminLTE/bower_components/datatables.net/js/jquery.dataTables.min.js') }}"></script>
-    <script src="{{ asset('AdminLTE/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js') }}"></script>
+    <script src="{{ asset('datatables.net/js/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('datatables.net-bs/js/dataTables.bootstrap.min.js') }}"></script>
     <!-- Validator -->
     <script src="{{ asset('js/validator.min.js') }}"></script>
 
-
-    {{-- footer
-    @includeIf('dashboard.footer')
-    <!-- jQuery 3 -->
-    <script src="{{ asset('js/jquery.min.js') }}"></script>
-    <!-- Bootstrap 3.3.7 -->
-    <script src="{{ asset('js/bootstrap.min.js') }}"></script>
-    <!-- Moment -->
-    <script src="{{ asset('js/moment.min.js') }}"></script>
-    <!-- DataTables -->
-    <script src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
-    <script src="{{ asset('js/dataTables.bootstrap.min.js') }}"></script>
-    <!-- AdminLTE App -->
-    <script src="{{ asset('js/adminlte.min.js') }}"></script>
-    <!-- Validator -->
-    <script src="{{ asset('js/validator.min.js') }}"></script> --}}
-
-    <link rel="stylesheet" href="{{ asset('/AdminLTE/bower_components/font-awesome/css/font-awesome.min.css') }}">
 
     @stack('scripts')
 </body>

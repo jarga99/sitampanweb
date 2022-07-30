@@ -1,5 +1,14 @@
 @extends('app')
 
+@section('title')
+    Daftar User Admin
+@endsection
+
+@section('breadcrumb')
+    @parent
+    <li class="active">User</li>
+@endsection
+
 @section('content')
 <div class="row">
     <div class="col-lg-12">

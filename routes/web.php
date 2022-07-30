@@ -1,8 +1,12 @@
 <?php
 
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\TanamController;
-use App\Http\Controllers\PanenController;
+use App\Http\Controllers\TanamPajaleController;
+use App\Http\Controllers\TanamHortiController;
+use App\Http\Controllers\TanamPerkebunanController;
+use App\Http\Controllers\PanenPajaleController;
+use App\Http\Controllers\PanenHortiController;
+use App\Http\Controllers\PanenPerkebunanController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -49,44 +53,44 @@ Route::get('user',[UserController::class, 'create_user'])->name('login');
 // +++++++++++ All Config Tanam +++++++++++++
 // ++++ For Back END / Admin lvl 1 and 2 ++++
 // Pajale
-Route::get('/tanam/pajale', [TanamController::class, 'pajale_index'])->name('tanam.index_pajale');
+Route::get('/tanam/pajale', [TanamPajaleController::class, 'index'])->name('tanam.index_pajale');
 
 // Horti
-Route::get('/tanam/horti', [TanamController::class, 'horti_index'])->name('tanam.index_horti');
+Route::get('/tanam/horti', [TanamHortiController::class, 'index'])->name('tanam.index_horti');
 
 // Perkebunan
-Route::get('/tanam/perkebunan', [TanamController::class, 'perkebunan_index'])->name('tanam.index_perkebunan');
+Route::get('/tanam/perkebunan', [TanamPerkebunanController::class, 'index'])->name('tanam.index_perkebunan');
 
 // ++++++++ For Front END / User +++++++++
-Route::get('/user/tanam/pajale', [TanamController::class, 'user_pajale_index'])->name('user.tanam.index_pajale');
+Route::get('/user/tanam/pajale', [TanamPajaleController::class, 'user_index'])->name('user.tanam.index_pajale');
 
 // Horti
-Route::get('/user/tanam/horti', [TanamController::class, 'user_horti_index'])->name('user.tanam.index_horti');
+Route::get('/user/tanam/horti', [TanamHortiController::class, 'user_index'])->name('user.tanam.index_horti');
 
 // Perkebunan
-Route::get('/user/tanam/perkebunan', [TanamController::class, 'user_perkebunan_index'])->name('user.tanam.index_perkebunan');
+Route::get('/user/tanam/perkebunan', [TanamPerkebunanController::class, 'user_index'])->name('user.tanam.index_perkebunan');
 // +++++++++++ End Config Tanam ++++++++++++
 
 // <<<<<<<<<<< All Config Panen >>>>>>>>>>>>
 // ++++ For Back END / Admin level 1 and 2 ++++
 // Pajale
-Route::get('/panen/pajale', [PanenController::class, 'pajale_index'])->name('panen.index_pajale');
+Route::get('/panen/pajale', [PanenPajaleController::class, 'index'])->name('panen.index_pajale');
 
 // Horti
-Route::get('/panen/horti/data', [HortiController::class, 'horti_data'])->name('horti.data');
-Route::get('/panen/horti', [PanenController::class, 'horti_index'])->name('panen.index_horti');
-Route::post('/panen/horti/delete-selected', [PanenController::class, 'horti_deleteSelected'])->name('panen.delete_selected');
-// Route::resource('/panen', PanenController::class);
+Route::resource('/panen/horti', PanenHortiController::class);
+Route::get('/panen/horti', [PanenHortiController::class, 'index'])->name('panen.index_horti');
+Route::get('/panen/horti/data', [PanenHortiController::class, 'horti_data'])->name('horti.data');
+Route::post('/panen/horti/delete-selected', [PanenHortiController::class, 'horti_deleteSelected'])->name('panen.delete_selected');
 
 // Perkebunan
-Route::get('/panen/perkebunan', [PanenController::class, 'perkebunan_index'])->name('panen.index_perkebunan');
+Route::get('/panen/perkebunan', [PanenPerkebunanController::class, 'index'])->name('panen.index_perkebunan');
 
 // ++++++++ For Front END / User +++++++++
-Route::get('/user/panen/pajale', [PanenController::class, 'user_pajale_index'])->name('user.panen.index_pajale');
+Route::get('/user/panen/pajale', [PanenPajaleController::class, 'user_index'])->name('user.panen.index_pajale');
 
 // Horti
-Route::get('/user/panen/horti', [PanenController::class, 'user_horti_index'])->name('user.panen.index_horti');
+Route::get('/user/panen/horti', [PanenHortiController::class, 'user_index'])->name('user.panen.index_horti');
 
 // Perkebunan
-Route::get('/user/panen/perkebunan', [PanenController::class, 'user_perkebunan_index'])->name('user.panen.index_perkebunan');
+Route::get('/user/panen/perkebunan', [PanenPerkebunanController::class, 'user_index'])->name('user.panen.index_perkebunan');
 // <<<<<<<<<<< All Config Panen >>>>>>>>>>>>
