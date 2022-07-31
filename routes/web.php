@@ -73,9 +73,15 @@ Route::get('/user/tanam/perkebunan', [TanamController::class, 'user_perkebunan_i
 Route::get('/panen/pajale', [PanenController::class, 'pajale_index'])->name('panen.index_pajale');
 
 // Horti
-Route::get('/panen/horti/data', [HortiController::class, 'horti_data'])->name('horti.data');
+Route::get('/panen/horti/data', [PanenController::class, 'horti_data'])->name('horti.data');
 Route::get('/panen/horti', [PanenController::class, 'horti_index'])->name('panen.index_horti');
+Route::post('/panen/horti/create', [PanenController::class, 'horti_store'])->name('panen.create_horti');
+Route::get('/panen/horti/edit', [PanenController::class, 'edit_horti'])->name('panen.edit_horti');
+Route::put('/panen/horti/update/{id}', [PanenController::class, 'update_horti'])->name('panen.update_horti');
+Route::delete('/panen/horti/delete/{id}', [PanenController::class, 'delete_horti'])->name('panen.delete_horti');
 Route::post('/panen/horti/delete-selected', [PanenController::class, 'horti_deleteSelected'])->name('panen.delete_selected');
+Route::get('/panen/horti/pdf', [PanenController::class, 'pdf_horti'])->name('panen.pdf_horti');
+Route::get('/panen/horti/excel', [PanenController::class, 'excel_horti'])->name('panen.excel_horti');
 // Route::resource('/panen', PanenController::class);
 
 // Perkebunan
