@@ -14,9 +14,9 @@ class User extends Authenticatable
 
     protected $fillable = ['nama', 'username', 'password'];
 
-    protected $appends = [
-        'foto_profil_url',
-    ];
+    // protected $appends = [
+    //     'foto_profil_url',
+    // ];
 
     public function scopeIsNotAdmin($query)
     {

@@ -71,14 +71,26 @@
                                 </ul>
                             </li>
                         </ul>
+                        <ul class="nav navbar-nav navbar-right">
+                            <li><a href="{{route('login')}}"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                          </ul>
                     </div><!-- /.navbar-collapse -->
                 </div><!-- /.container-fluid -->
             </nav>
 
-            <section class="content">
-                {{-- content --}}
-                @yield('content')
-            </section>
+            <div class="content-wrapper">
+                <!-- Content Header (Page header) -->
+                <section class="content-header">
+                    <h1 id="content-title">
+                        @yield('title')
+                    </h1>
+                </section>
+                <section class="content">
+                    {{-- content --}}
+                    @yield('content')
+                </section>
+            </div>
+
         </div>
     </div>
     <!-- jQuery 3 -->

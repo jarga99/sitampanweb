@@ -9,36 +9,30 @@ use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
-    //Index
-    public function index(){
-        $data['title'] = 'User';
-        return view('user/index', $data);
-    }
+    // //Resgister
+    // public function register ()
+    // {
+    //     $data['title'] = 'Register';
+    //     return view('userauth/register', $data);
+    // }
 
-    //Resgister
-    public function register ()
-    {
-        $data['title'] = 'Register';
-        return view('userauth/register', $data);
-    }
+    // public function register_action (Request $request)
+    // {
+    //     $request->validate([
+    //         'nama' => 'required',
+    //         'username' => 'required|unique:tb_user',
+    //         'password' => 'required',
+    //         'konfirmasi_password' => 'required|same:password',
+    //     ]);
+    //     $user = new User([
+    //         'nama' => $request->nama,
+    //         'username' => $request->username,
+    //         'password' => Hash::make($request->username),
 
-    public function register_action (Request $request)
-    {
-        $request->validate([
-            'nama' => 'required',
-            'username' => 'required|unique:tb_user',
-            'password' => 'required',
-            'konfirmasi_password' => 'required|same:password',
-        ]);
-        $user = new User([
-            'nama' => $request->nama,
-            'username' => $request->username,
-            'password' => Hash::make($request->username),
-
-        ]);
-        $user->save();
-        return redirect()->route('login')->with('success','Registrasi Sukses, Silahkan Login!');
-    }
+    //     ]);
+    //     $user->save();
+    //     return redirect()->route('login')->with('success','Registrasi Sukses, Silahkan Login!');
+    // }
 
     public function login ()
     {
@@ -54,7 +48,7 @@ class UserController extends Controller
         ]);
         if(Auth::attempt(['username' => $request->username,'password' => $request->password])) {
             $request->session()->regenerate();
-            return redirect()->intended('/');
+            return redirect()->intended('dashboard');
         }
         return back()->withErrors(['password' => 'Wrong username or password!']);
     }

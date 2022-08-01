@@ -1,7 +1,7 @@
 @extends('app')
 
 @section('title')
-   Panen Horti
+    Panen Horti
 @endsection
 
 @section('breadcrumb')
@@ -9,27 +9,35 @@
     <li class="active">Panen Horti</li>
 @endsection
 
+@push('css')
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+@endpush
+
 @section('content')
     <div class="row">
         <div class="col-lg-12">
             <div class="box">
                 <div class="box-header with-border">
-                    <button onclick="addForm('{{ route('horti.store') }}')" class="btn btn-info"><i class="fa fa-plus-circle"></i> Filter Periode</button>
+                    <button class="btn btn-info"><i class="fa fa-plus-circle"></i> Filter Periode</button>
                     <br>
                     <br>
                     <button onclick="#" class="btn btn-danger "> <i class="fa fa-trash"> Hapus</i></button>
-                    <button onclick="#" class="btn btn-success "> <i class="fa fa-plus"> Tambah</i></button>
+                    <button onclick="addForm();" class="btn btn-success "> <i class="fa fa-plus"> Tambah</i></button>
                     <button onclick="#" class="btn btn-success "> <i class="fa fa-upload"> Import</i></button>
-                    <a href="#" target="_blank" class="btn btn-success "
-                        onclick="event.preventDefault();document.getElementById('export-penjualan-form').submit();">
-                        <i class="fa fa-file-excel-o"></i> Export PDF
-                    </a>
-                    <form id="export-penjualan-form" action="#" method="get" style="display: none;">
+                    <form id="form_pdf" action="{{ route('panen.pdf_horti') }}" method="get" style="display: none;">
                         @csrf
                         <input type="hidden" name="form_awal" id="form_awal" value="{{-- $tanggalAwal --}}">
                         <input type="hidden" name="form_akhir" id="form_akhir" value="{{-- $tanggalAkhir --}}">
                     </form>
-                    <button onclick="#" class="btn btn-primary "> <i class="fa fa-file-excel-o"> Excel</i></button>
+                    <button target="_blank" class="btn btn-success export_pdf">
+                        <i class="fa fa-file-excel-o"></i> PDF
+                    </button>
+                    <form id="form_excel" action="{{ route('panen.excel_horti') }}" method="get" style="display: none;">
+                        @csrf
+                        <input type="hidden" name="form_awal" id="form_awal" value="{{-- $tanggalAwal --}}">
+                        <input type="hidden" name="form_akhir" id="form_akhir" value="{{-- $tanggalAkhir --}}">
+                    </form>
+                    <button class="btn btn-primary export_excel"> <i class="fa fa-file-excel-o"> Excel</i></button>
                 </div>
                 <div class="box-body table-responsive">
                     <form action="" method="post" class="form-panen-horti">
@@ -57,10 +65,16 @@
                 </div>
             </div>
 
-        @includeIf('panen.form_horti')
+            @includeIf('panen.form_horti')
         @endsection
 
         @push('scripts')
+            <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+            <script>
+                $(document).ready(function() {
+                    $('.select2').select2();
+                });
+            </script>
             <script src="{{ asset('/AdminLTE/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js') }}">
             </script>
             <script>
@@ -82,6 +96,9 @@
                                 data: 'DT_RowIndex',
                                 searchable: false,
                                 sortable: false
+                            },
+                            {
+                                data: 'created_at'
                             },
                             {
                                 data: 'mst_kecamatan.nama_kecamatan'
@@ -159,7 +176,8 @@
                     });
                 });
 
-                function addForm(url) {
+                function addForm() {
+                    var url = "{{ route('panen.create_horti') }}";
                     $('#modal-form').modal('show');
                     $('#modal-form .modal-title').text('Tambah Data Panen Horti');
 
@@ -169,31 +187,39 @@
                     $('#modal-form [name=nama_kecamatan]').focus();
                 }
 
-                function editForm(url) {
+                function editForm(id_produktivitas) {
+                    var url = "{{ url('panen/horti/update/') }}"+ "/" +id_produktivitas;
                     $('#modal-form').modal('show');
-                    $('#modal-form .modal-title').text('Edit Produk');
+                    $('#modal-form .modal-title').text('Edit Data Panen Horti');
 
                     $('#modal-form form')[0].reset();
                     $('#modal-form form').attr('action', url);
                     $('#modal-form [name=_method]').val('put');
 
-                    $.get(url)
-                        .done((response) => {
-
-                            // new
-                            $('#modal-form [name=nama_kecamatan]').val(response.mst_kecamtan.nama_kecamatan);
-                            $('#modal-form [name=nama_desa]').val(response.mst_desa.nama_desa);
-                            $('#modal-form [name=nama_tanaman').val(response.mst_tanaman.nama_tanaman);
-                            $('#modal-form [name=luas_lahan]').val(response.tb_produktivitas.luas_lahan);
-                            $('#modal-form [name=kadar]').val(response.tb_produktivitas.kadar);
-                            $('#modal-form [name=produksi]').val(response.tb_produktivitas.produksi);
-                            $('#modal-form [name=provitas]').val(response.tb_produktivitas.provitas);
-                            $('#modal-form [name=harga]').val(response.tb_produktivitas.harga);
-                        })
-                        .fail((errors) => {
+                    $.ajax({
+                        method: "get",
+                        url: "{{ route('panen.edit_horti') }}",
+                        data: {
+                            id_produktivitas: id_produktivitas
+                        },
+                        success: function(resp) {
+                            $('#id_kecamatan').val(resp.kecamatan_id);
+                            $('#id_kecamatan').select2().trigger('change');
+                            $('#id_desa').val(resp.desa_id);
+                            $('#id_desa').select2().trigger('change');
+                            $('#id_tanaman').val(resp.tanaman_id);
+                            $('#id_tanaman').select2().trigger('change');
+                            $('#modal-form [name=luas_lahan]').val(resp.luas_lahan);
+                            $('#modal-form [name=kadar]').val(resp.kadar);
+                            $('#modal-form [name=produksi]').val(resp.produksi);
+                            $('#modal-form [name=provitas]').val(resp.provitas);
+                            $('#modal-form [name=harga]').val(resp.harga);
+                        },
+                        error: function(err) {
                             alert('Tidak dapat menampilkan data');
                             return;
-                        });
+                        }
+                    });
                 }
 
                 function deleteData(url) {
@@ -231,5 +257,14 @@
                         return;
                     }
                 }
+                $('.export_pdf').click(function() {
+                    // var url = "{{ route('panen.pdf_horti') }}";
+                    // $('#export-penjualan-form form').attr('action', url);
+
+                    $('#form_pdf').submit();
+                });
+                $('.export_excel').click(function() {
+                    $('#form_excel').submit();
+                });
             </script>
         @endpush
