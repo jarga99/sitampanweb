@@ -1,13 +1,16 @@
+@auth
+
+
 <!-- master dari dashboard -->
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>{{ config('app.name') }} |@yield('title', $title)</title>
-
+    <title>{{ config('app.name') }} |@yield('title', $title ?? '')</title>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.7 -->
     <link rel="stylesheet" href="{{ asset('bootstrap/dist/css/bootstrap.min.css') }}">
     <!-- Font Awesome -->
@@ -15,11 +18,10 @@
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset('css/AdminLTE.min.css') }}">
     <!-- AdminLTE Skins. Choose a skin from the css/skins
-folder instead of downloading all of them to reduce the load. -->
+    folder instead of downloading all of them to reduce the load. -->
     <link rel="stylesheet" href="{{ asset('css/_all-skins.min.css') }}">
     <!-- DataTables -->
     <link rel="stylesheet" href="{{ asset('datatables.net-bs/css/dataTables.bootstrap.min.css') }}">
-
     <!-- Google Font -->
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
@@ -42,7 +44,7 @@ folder instead of downloading all of them to reduce the load. -->
                 </h1>
                 <ol class="breadcrumb">
                     @section('breadcrumb')
-                        <li><a href="{{ url('/') }}"><i class="fa fa-dashboard"></i> Home</a></li>
+                        <li><a href="{{ url('dashboard') }}"><i class="fa fa-dashboard"></i> Home</a></li>
                     @show
                 </ol>
             </section>
@@ -84,3 +86,4 @@ folder instead of downloading all of them to reduce the load. -->
 </body>
 
 </html>
+@endauth

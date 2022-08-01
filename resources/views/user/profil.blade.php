@@ -1,9 +1,19 @@
 @extends('app')
+
+@section('title')
+    EDIT PROFIL ADMIN
+@endsection
+
+@section('breadcrumb')
+    @parent
+    <li class="active">Edit Profil </li>
+@endsection
+
 @section('content')
 <div class="row">
     <div class="col-lg-12">
         <div class="box">
-            <form action="#" method="post" class="form-profil" data-toggle="validator" enctype="multipart/form-data">
+            <form action="{{ route('user.update_profil') }}" method="post" class="form-profil" data-toggle="validator" enctype="multipart/form-data">
                 @csrf
                 <div class="box-body">
                     <div class="alert alert-info alert-dismissible" style="display: none;">
@@ -13,24 +23,24 @@
                     <div class="form-group row">
                         <label for="nama" class="col-lg-2 control-label">Nama</label>
                         <div class="col-lg-6">
-                            <input type="text" name="nama" class="form-control" id="nama" required autofocus value="{{ old('nama') }}">
+                            <input type="text" name="nama" class="form-control" id="nama" required autofocus value="{{ $profil->nama }}">
                             <span class="help-block with-errors"></span>
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="foto" class="col-lg-2 control-label">Foto</label>
+                        <label for="foto" class="col-lg-2 control-label">Profil</label>
                         <div class="col-lg-4">
                             <input type="file" name="foto" class="form-control" id="foto"
                                 onchange="preview('.tampil-foto', this.files[0])">
                             <span class="help-block with-errors"></span>
                             <br>
                             <div class="tampil-foto">
-                                <img src="#" width="200">preview('.tampil-foto', this.files[0])
+                                <img src="{{ url($profil->foto ?? '/') }}" width="200">
                             </div>
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="password_lama" class="col-lg-2 control-label">Password Lama</label>
+                        <label for="old_password" class="col-lg-2 control-label">Password Lama</label>
                         <div class="col-lg-6">
                             <input type="password" name="password_lama" id="password_lama" class="form-control"
                             minlength="6">
@@ -38,7 +48,7 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="password_baru" class="col-lg-2 control-label">Password Baru</label>
+                        <label for="password" class="col-lg-2 control-label">Password</label>
                         <div class="col-lg-6">
                             <input type="password" name="password_baru" id="password_baru" class="form-control"
                             minlength="6">
@@ -46,7 +56,7 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="konfirmasi_password" class="col-lg-2 control-label">Konfirmasi Password</label>
+                        <label for="password_confirmation" class="col-lg-2 control-label">Konfirmasi Password</label>
                         <div class="col-lg-6">
                             <input type="password" name="konfirmasi_password" id="konfirmasi_password" class="form-control"
                                 data-match="#password">
@@ -62,3 +72,45 @@
     </div>
 </div>
 @endsection
+
+@push('scripts')
+<script>
+    $(function () {
+        $('#password_lama').on('keyup', function () {
+            if ($(this).val() != "") $('#password_baru, #konfirmasi_password').attr('required', true);
+            else $('#password_baru, #konfirmasi_password').attr('required', false);
+        });
+
+        $('.form-profil').validator().on('submit', function (e) {
+            if (! e.preventDefault()) {
+                $.ajax({
+                    url: $('.form-profil').attr('action'),
+                    type: $('.form-profil').attr('method'),
+                    data: new FormData($('.form-profil')[0]),
+                    async: false,
+                    processData: false,
+                    contentType: false
+                })
+                .done(response => {
+                    $('[name=nama]').val(response.nama);
+                    $('.tampil-foto').html(`<img src="{{ url('/') }}${response.foto}" width="200">`);
+                    $('.img-profil').attr('src', `{{ url('/') }}/${response.foto}`);
+
+                    $('.alert').fadeIn();
+                    setTimeout(() => {
+                        $('.alert').fadeOut();
+                    }, 3000);
+                })
+                .fail(errors => {
+                    if (errors.status == 422) {
+                        alert(errors.responseJSON);
+                    } else {
+                        alert('Tidak dapat menyimpan data');
+                    }
+                    return;
+                });
+            }
+        });
+    });
+</script>
+@endpush

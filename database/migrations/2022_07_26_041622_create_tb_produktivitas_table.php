@@ -19,6 +19,7 @@ class CreateTbProduktivitasTable extends Migration
             $table->unsignedBigInteger('kecamatan_id');
             $table->unsignedBigInteger('desa_id');
             $table->bigInteger('kadar')->nullable()->default();
+            $table->bigInteger('produksi')->nullable()->default();
             $table->bigInteger('provitas')->nullable()->default();
             $table->bigInteger('harga')->nullable()->default();
             $table->float('luas_lahan')->nullable()->default();
