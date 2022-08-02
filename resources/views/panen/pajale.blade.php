@@ -1,7 +1,7 @@
 @extends('app')
 
 @section('title')
-    Panen Pajale
+Data Panen Pajale
 @endsection
 
 @section('breadcrumb')
@@ -44,7 +44,7 @@
                         @csrf
                         <table class="table table-stiped table-bordered">
                             <thead>
-                                <th>
+                                <th >
                                     <input type="checkbox" name="select_all" id="select_all">
                                 </th>
                                 <th>No</th>

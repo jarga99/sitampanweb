@@ -41,7 +41,7 @@
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <a class="navbar-brand" href="#"><span>SITAMPAN</span></a>
+                        <a class="navbar-brand" href="{{url('/')}}"><span>SITAMPAN</span></a>
                     </div>
                     <!-- Collect the nav links, forms, and other content for toggling -->
                     <div class="collapse navbar-collapse" id="tugel-nav">

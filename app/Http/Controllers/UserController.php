@@ -16,7 +16,7 @@ class UserController extends Controller
     }
     public function data()
     {
-        $user = User::isNotAdmin()->orderBy('id', 'desc')->get();
+        $user = User::isNotAdmin()->orderBy('id_user', 'desc')->get();
 
         return datatables()
             ->of($user)
@@ -24,8 +24,8 @@ class UserController extends Controller
             ->addColumn('aksi', function ($user) {
                 return '
                 <div class="btn-group">
-                    <button type="button" onclick="editForm(`' . route('user.update', $user->id) . '`)" class="btn btn-info "><i class="fa fa-pencil"></i></button>
-                    <button type="button" onclick="deleteData(`' . route('user.destroy', $user->id) . '`)" class="btn btn-danger "><i class="fa fa-trash"></i></button>
+                    <button type="button" onclick="editForm(`' . route('user.update', $user->id_user) . '`)" class="btn btn-info "><i class="fa fa-pencil"></i></button>
+                    <button type="button" onclick="deleteData(`' . route('user.destroy', $user->id_user) . '`)" class="btn btn-danger "><i class="fa fa-trash"></i></button>
                 </div>
                 ';
             })
@@ -46,7 +46,7 @@ class UserController extends Controller
         $user->username = $request->username;
         $user->password = bcrypt($request->password);
         $user->level = 2;
-        $user->foto = '/img/avatar2.png';
+        $user->foto = '/img/avatar5.png';
         $user->save();
 
         return response()->json('Data berhasil disimpan', 200);
@@ -74,7 +74,7 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $user = User::find($id);
+        $user = User::find( $id);
         $user->nama = $request->nama;
         $user->username = $request->username;
         if ($request->has('password') && $request->password != "")
@@ -91,7 +91,7 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        $user = User::find($id)->delete();
+        $user = User::find( $id)->delete();
 
         return response(null, 204);
     }

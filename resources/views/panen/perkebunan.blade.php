@@ -1,7 +1,7 @@
 @extends('app')
 
 @section('title')
-    Panen Perkebunan
+Data Panen Perkebunan
 @endsection
 
 @section('breadcrumb')

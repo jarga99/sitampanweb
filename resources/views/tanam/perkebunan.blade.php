@@ -1,12 +1,12 @@
 @extends('app')
 
 @section('title')
-    Tanam Pajale
+Data Tanam Perkebunan
 @endsection
 
 @section('breadcrumb')
     @parent
-    <li class="active">Tanam Pajale</li>
+    <li class="active">Tanam Perkebunan</li>
 @endsection
 
 @push('css')
@@ -131,7 +131,7 @@
                         var tanggal_akhir = new Date($('#tanggal_akhir').val()).getDate() + ' ' + months[new Date($(
                                 '#tanggal_akhir').val()).getMonth()] + ' ' + new Date($('#tanggal_akhir').val())
                             .getFullYear();
-                        var content_title = `Daftar Data Tanam Pajale` + tanggal_awal + ` - ` + tanggal_akhir;
+                        var content_title = `Daftar Data Tanam Perkebunan` + tanggal_awal + ` - ` + tanggal_akhir;
                         table.draw();
                         e.preventDefault();
                         $('#modal-form').modal("hide");
@@ -163,7 +163,7 @@
                 function addForm() {
                     var url = "{{ route('tanam.create_perkebunan') }}";
                     $('#modal-form').modal('show');
-                    $('#modal-form .modal-title').text('Tambah Data Tanam Pajale');
+                    $('#modal-form .modal-title').text('Tambah Data Tanam Perkebunan');
 
                     $('#modal-form form')[0].reset();
                     $('#modal-form form').attr('action', url);
@@ -174,7 +174,7 @@
                 function editForm(id_produktivitas) {
                     var url = "{{ url('tanam/perkebunan/update/') }}"+ "/" +id_produktivitas;
                     $('#modal-form').modal('show');
-                    $('#modal-form .modal-title').text('Edit Data Tanam Pajale');
+                    $('#modal-form .modal-title').text('Edit Data Tanam Perkebunan');
 
                     $('#modal-form form')[0].reset();
                     $('#modal-form form').attr('action', url);

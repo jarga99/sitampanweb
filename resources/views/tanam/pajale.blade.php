@@ -1,7 +1,7 @@
 @extends('app')
 
 @section('title')
-    Tanam Pajale
+Data Tanam Pajale
 @endsection
 
 @section('breadcrumb')

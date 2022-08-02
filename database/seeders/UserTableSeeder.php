@@ -19,21 +19,21 @@ class UserTableSeeder extends Seeder
                 'nama' => 'Super Admin',
                 'username' => 'superAdmin',
                 'password' => bcrypt('AdminSuper'),
-                'foto' => '/img/foto.png',
+                'foto' => '/img/avatar.png',
                 'level' => 1
             ],
             [
                 'nama' => 'Kepala Dinas',
                 'username' => 'kadin',
                 'password' => bcrypt('kadin dkpp'),
-                'foto' => '/img/foto.png',
+                'foto' => '/img/avatar3.png',
                 'level' => 1
             ],
             [
                 'nama' => 'Admin',
                 'username' => 'desa1',
                 'password' => bcrypt('admindesa1'),
-                'foto' => '/img/foto.png',
+                'foto' => '/img/avatar5.png',
                 'level' => 2
             ],
         );

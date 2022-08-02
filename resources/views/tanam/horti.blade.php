@@ -1,7 +1,7 @@
 @extends('app')
 
 @section('title')
-    Tanam Horti
+   Data Tanam Horti
 @endsection
 
 @section('breadcrumb')
