@@ -37,14 +37,20 @@ Route::post('login', [UserController::class, 'login_action'])->name('login.actio
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('counter');
 
-        // User Config
-        Route::get('/user/data', [UserController::class, 'data'])->name('user.data');
-        Route::resource('/user', UserController::class);
+    Route::group(['middleware' => 'level:1'], function()
+    {
+         // User Config
+         Route::get('/user/data', [UserController::class, 'data'])->name('user.data');
+         Route::resource('/user', UserController::class);
+    });
+
+    Route::group(['middleware' => 'level:1,2'], function()
+    {
         // Profil Config
         Route::get('/profil', [UserController::class, 'profil'])->name('user.profil');
         Route::post('/profil', [UserController::class, 'updateProfil'])->name('user.update_profil');
 
-        Route::GET('logout',[UserController::class, 'logout'])->name('logout');
+        Route::get('logout',[UserController::class, 'logout'])->name('logout');
 
         // Tanam Pajale
         Route::get('/tanam/pajale/data', [TanamPajaleController::class, 'data'])->name('pajale.data');
@@ -107,8 +113,9 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('/panen/perkebunan/delete-selected', [PanenPerkebunanController::class, 'deleteSelected'])->name('panen.delete_selected');
         Route::get('/panen/perkebunan/pdf', [PanenPerkebunanController::class, 'pdf_perkebunan'])->name('panen.pdf_perkebunan');
         Route::get('/panen/perkebunan/excel', [PanenPerkebunanController::class, 'excel_perkebunan'])->name('panen.excel_perkebunan');
-});
+    });
 
+});
 
 // ++++++++ For Front END / User +++++++++
 // Tanam

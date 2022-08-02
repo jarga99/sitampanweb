@@ -7,7 +7,7 @@
     <title>{{ config('app.name') }} | Log in</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-    {{-- <link rel="icon" href="{{ url($setting->path_logo ?? '') }}" type="image/png"> --}}
+    <link rel="icon" href="{{ asset('/img/sitampan.jpg') }}" type="image/png">
 
     <!-- Bootstrap 3.3.7 -->
     <link rel="stylesheet" href="{{ asset('bootstrap/dist/css/bootstrap.min.css') }}">
