@@ -14,15 +14,15 @@
     <div class="col-lg-12">
         <div class="box">
             <div class="box-header with-border">
-                <button onclick="addForm('{{ route('user.store') }}')" class="btn btn-success btn-xs btn-flat"><i class="fa fa-plus-circle"></i> Tambah</button>
+                <button onclick="addForm('{{ route('user.store') }}')" class="btn btn-success "><i class="fa fa-plus-circle"></i> Tambah</button>
             </div>
             <div class="box-body table-responsive">
                 <table class="table table-stiped table-bordered">
                     <thead>
-                        <th width="5%">No</th>
+                        <th width="3%">No</th>
                         <th>Nama</th>
                         <th>Username</th>
-                        <th width="15%"><i class="fa fa-cog"></i></th>
+                        <th width="15%"><i class="fa fa-cog"></i> Aksi</th>
                     </thead>
                 </table>
             </div>
@@ -46,7 +46,7 @@
             },
             columns: [
                 {data: 'DT_RowIndex', searchable: false, sortable: false},
-                {data: 'name'},
+                {data: 'nama'},
                 {data: 'username'},
                 {data: 'aksi', searchable: false, sortable: false},
             ]
@@ -74,7 +74,7 @@
         $('#modal-form form')[0].reset();
         $('#modal-form form').attr('action', url);
         $('#modal-form [name=_method]').val('post');
-        $('#modal-form [name=name]').focus();
+        $('#modal-form [name=nama]').focus();
 
         $('#password, #password_confirmation').attr('required', true);
     }
@@ -86,14 +86,14 @@
         $('#modal-form form')[0].reset();
         $('#modal-form form').attr('action', url);
         $('#modal-form [name=_method]').val('put');
-        $('#modal-form [name=name]').focus();
+        $('#modal-form [name=nama]').focus();
 
         $('#password, #password_confirmation').attr('required', false);
 
         $.get(url)
             .done((response) => {
-                $('#modal-form [name=name]').val(response.name);
-                $('#modal-form [name=email]').val(response.email);
+                $('#modal-form [name=nama]').val(response.nama);
+                $('#modal-form [name=username]').val(response.username);
             })
             .fail((errors) => {
                 alert('Tidak dapat menampilkan data');

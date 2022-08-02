@@ -40,7 +40,7 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="old_password" class="col-lg-2 control-label">Password Lama</label>
+                        <label for="password_lama" class="col-lg-2 control-label">Password Lama</label>
                         <div class="col-lg-6">
                             <input type="password" name="password_lama" id="password_lama" class="form-control"
                             minlength="6">
@@ -48,15 +48,15 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="password" class="col-lg-2 control-label">Password</label>
+                        <label for="password" class="col-lg-2 control-label">Password Baru</label>
                         <div class="col-lg-6">
-                            <input type="password" name="password_baru" id="password_baru" class="form-control"
+                            <input type="password" name="password" id="password" class="form-control"
                             minlength="6">
                             <span class="help-block with-errors"></span>
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="password_confirmation" class="col-lg-2 control-label">Konfirmasi Password</label>
+                        <label for="konfirmasi_password" class="col-lg-2 control-label">Konfirmasi Password</label>
                         <div class="col-lg-6">
                             <input type="password" name="konfirmasi_password" id="konfirmasi_password" class="form-control"
                                 data-match="#password">
@@ -77,8 +77,8 @@
 <script>
     $(function () {
         $('#password_lama').on('keyup', function () {
-            if ($(this).val() != "") $('#password_baru, #konfirmasi_password').attr('required', true);
-            else $('#password_baru, #konfirmasi_password').attr('required', false);
+            if ($(this).val() != "") $('#password, #konfirmasi_password').attr('required', true);
+            else $('#password, #konfirmasi_password').attr('required', false);
         });
 
         $('.form-profil').validator().on('submit', function (e) {

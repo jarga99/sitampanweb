@@ -19,17 +19,17 @@
                 <!-- User Account: style can be found in dropdown.less -->
                 <li class="dropdown user user-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <img src="{{ asset('AdminLTE/dist/img/user2-160x160.jpg') }}" class="user-image"
+                        <img src="{{ url(auth()->user()->foto ?? '') }}" class="user-image"
                             alt="User Image">
-                        <span class="hidden-xs">ini nama user</span>
+                        <span class="hidden-xs">{{auth()->user()->nama}}</span>
                     </a>
                     <ul class="dropdown-menu">
                         <!-- User image -->
                         <li class="user-header">
-                            <img src="{{ asset('AdminLTE/dist/img/user2-160x160.jpg') }}" class="img-circle"
+                            <img src="{{ url(auth()->user()->foto ?? '') }}" class="img-circle"
                                 alt="User Image">
 
-                            <p><b>ini nama user</b> ini username user </p>
+                            <p><b>{{auth()->user()->nama}}</b> {{auth()->user()->username}} </p>
                         </li>
                         <!-- Menu Footer-->
                         <li class="user-footer">

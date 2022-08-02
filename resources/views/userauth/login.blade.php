@@ -4,7 +4,7 @@
         <div class="login-box-body">
             <div class="login-logo">
                 <a href="#">
-                    <img src="#" alt="logo.png" width="100">
+                    <img src="{{asset('img/sitampan.jpg')}}" alt="logo.png" width="100">
                 </a>
             </div>
             @if (session('success'))
