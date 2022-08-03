@@ -56,7 +56,7 @@ Data Panen Horti
                                 <th>Tanaman </th>
                                 <th>Luas Panen</th>
                                 <th>Kadar</th>
-                                <th>Produksi</th>
+                                {{-- <th>Produksi</th> --}}
                                 <th>Provitas</th>
                                 <th>Harga</th>
                                 <th>Nama Penginput</th>

@@ -12,7 +12,7 @@ use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 use Maatwebsite\Excel\Concerns\WithMapping;
 use Maatwebsite\Excel\Concerns\WithEvents;
 
-class HortiExport implements FromCollection, WithHeadings, ShouldAutoSize, WithEvents, WithMapping
+class PajaleExport implements FromCollection, WithHeadings, ShouldAutoSize, WithEvents, WithMapping
 {
     use Exportable;
 

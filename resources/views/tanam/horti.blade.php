@@ -171,8 +171,8 @@
                     $('#modal-form [name=nama_kecamatan]').focus();
                 }
 
-                function editForm(id_produktivitas) {
-                    var url = "{{ url('tanam/horti/update/') }}"+ "/" +id_produktivitas;
+                function editForm(id_produktivitas_tanam) {
+                    var url = "{{ url('tanam/horti/update/') }}"+ "/" +id_produktivitas_tanam;
                     $('#modal-form').modal('show');
                     $('#modal-form .modal-title').text('Edit Data Tanam Horti');
 
@@ -184,7 +184,7 @@
                         method: "get",
                         url: "{{ route('tanam.edit_horti') }}",
                         data: {
-                            id_produktivitas: id_produktivitas
+                            id_produktivitas_tanam: id_produktivitas_tanam
                         },
                         success: function(resp) {
                             $('#id_kecamatan').val(resp.kecamatan_id);
