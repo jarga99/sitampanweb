@@ -37,14 +37,14 @@ Route::post('login', [UserController::class, 'login_action'])->name('login.actio
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('counter');
 
-    Route::group(['middleware' => 'level:1'], function()
+    Route::group(['middleware' => 'superadmin'], function()
     {
          // User Config
          Route::get('/user/data', [UserController::class, 'data'])->name('user.data');
          Route::resource('/user', UserController::class);
     });
 
-    Route::group(['middleware' => 'level:1,2'], function()
+    Route::group(['middleware' => 'superadmin', 'admin'], function()
     {
         // Profil Config
         Route::get('/profil', [UserController::class, 'profil'])->name('user.profil');
