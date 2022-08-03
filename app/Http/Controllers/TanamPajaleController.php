@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Exports\Pajale_Export;
 use App\Models\Desa;
 use App\Models\Kecamatan;
 use App\Models\Produktivitas;
@@ -16,8 +16,16 @@ class TanamPajaleController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        // $tanggalAwal = date('Y-m-d', mktime(0, 0, 0, date('m'), 1, date('Y')));
+        // $tanggalAkhir = date('Y-m-d');
+
+        // if ($request->has('tanggal_awal') && $request->tanggal_awal != "" && $request->has('tanggal_akhir') && $request->tanggal_akhir) {
+        //     $tanggalAwal = $request->tanggal_awal;
+        //     $tanggalAkhir = $request->tanggal_akhir;
+        // }
+
         $data['title'] = 'Tanam Pajale';
         $data['kecamatans'] = Kecamatan::all();
         $data['desas'] = Desa::all();
@@ -25,11 +33,6 @@ class TanamPajaleController extends Controller
         return view('tanam/pajale',$data);
     }
 
-    public function user_index()
-    {
-        $data['title'] = 'Tanam Pajale';
-        return view('user/tanam/pajale',$data);
-    }
 
     /**
      * Show the form for creating a new resource.
@@ -54,7 +57,7 @@ class TanamPajaleController extends Controller
                 return '<input type="checkbox" name="id_produktivitas[]" value="' . $produktivitas->id_produktivitas . '">';
             })
             ->addColumn('id_kecamatan', function ($produktivitas) {
-                return '<option value"' . $produktivitas->mst_kecamatan->nama_kecamtan . '">';
+                return '<option value"' . $produktivitas->mst_kecamatan->nama_kecamatan . '">';
             })
             ->addColumn('id_desa', function ($produktivitas) {
                 return '<option value"' . $produktivitas->mst_desa->nama_desa . '">';
@@ -173,7 +176,7 @@ class TanamPajaleController extends Controller
 
     public function excel_pajale(Request $request)
     {
-        return (new PajaleExport)->setDari($request->form_awal)->setSampai($request->form_akhir)->download('tanam_pajale.xlsx');
+        return (new Pajale_Export)->setDari($request->form_awal)->setSampai($request->form_akhir)->download('tanam_pajale.xlsx');
     }
 
     public function deleteSelected(Request $request)

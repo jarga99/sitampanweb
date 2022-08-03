@@ -15,7 +15,7 @@
             <th>Desa</th>
             <th>Tanaman </th>
             <th>Luas Tanam</th>
-            <th>Nama Penginput</th>
+            {{-- <th>Nama Penginput</th> --}}
         </thead>
         <tbody>
             @foreach ($produktivitas as $item)
@@ -26,7 +26,7 @@
                     <td>{{ $item->mst_desa->nama_desa }}</td>
                     <td>{{ $item->mst_tanaman->nama_tanaman }}</td>
                     <td>{{ $item->luas_lahan }}</td>
-                    <td>{{ $item->user->nama }}</td>
+                    {{-- <td>{{ $item->user->nama }}</td> --}}
                 </tr>
             @endforeach
         </tbody>

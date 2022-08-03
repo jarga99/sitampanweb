@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Exports\Pajale_Export;
 use App\Models\Desa;
 use App\Models\Kecamatan;
 use App\Models\Produktivitas;
@@ -16,8 +16,16 @@ class TanamPerkebunanController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        // $tanggalAwal = date('Y-m-d', mktime(0, 0, 0, date('m'), 1, date('Y')));
+        // $tanggalAkhir = date('Y-m-d');
+
+        // if ($request->has('tanggal_awal') && $request->tanggal_awal != "" && $request->has('tanggal_akhir') && $request->tanggal_akhir) {
+        //     $tanggalAwal = $request->tanggal_awal;
+        //     $tanggalAkhir = $request->tanggal_akhir;
+        // }
+
         $data['title'] = 'Tanam Perkebunan';
         $data['kecamatans'] = Kecamatan::all();
         $data['desas'] = Desa::all();
@@ -168,7 +176,7 @@ class TanamPerkebunanController extends Controller
 
     public function excel_perkebunan(Request $request)
     {
-        return (new HortiExport)->setDari($request->form_awal)->setSampai($request->form_akhir)->download('tanam_perkebunan.xlsx');
+        return (new Perkebunan_Export)->setDari($request->form_awal)->setSampai($request->form_akhir)->download('tanam_perkebunan.xlsx');
     }
 
     public function deleteSelected(Request $request)

@@ -19,7 +19,7 @@
             <th>Produksi</th>
             <th>Provitas</th>
             <th>Harga</th>
-            <th>Nama Penginput</th>
+            {{-- <th>Nama Penginput</th> --}}
         </thead>
         <tbody>
             @foreach ($produktivitas as $item)
@@ -34,7 +34,7 @@
                     <td>{{ $item->produksi }}</td>
                     <td>{{ $item->provitas }}</td>
                     <td>Rp. {{ number_format($item->harga) }}</td>
-                    <td>{{ $item->user->nama }}</td>
+                    {{-- <td>{{ $item->user->nama }}</td> --}}
                 </tr>
             @endforeach
         </tbody>
