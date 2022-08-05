@@ -62,13 +62,13 @@
                             <span class="help-block with-errors"></span>
                         </div>
                     </div>
-                    {{-- <div class="form-group row">
+                    <div class="form-group row">
                         <label for="produksi" class="col-lg-2 col-lg-offset-1 control-label">Produksi</label>
                         <div class="col-lg-6">
                             <input type="number" name="produksi" id="produksi" class="form-control" required>
                             <span class="help-block with-errors"></span>
                         </div>
-                    </div> --}}
+                    </div>
                     <div class="form-group row">
                         <label for="provitas" class="col-lg-2 col-lg-offset-1 control-label">Provitas</label>
                         <div class="col-lg-6">

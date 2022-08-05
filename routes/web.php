@@ -8,6 +8,12 @@ use App\Http\Controllers\TanamPerkebunanController;
 use App\Http\Controllers\PanenPajaleController;
 use App\Http\Controllers\PanenHortiController;
 use App\Http\Controllers\PanenPerkebunanController;
+use App\Http\Controllers\UserPanenPajaleController;
+use App\Http\Controllers\UserPanenHortiController;
+use App\Http\Controllers\UserPanenPerkebunanController;
+use App\Http\Controllers\UserTanamPajaleController;
+use App\Http\Controllers\UserTanamHortiController;
+use App\Http\Controllers\UserTanamPerkebunanController;
 use Doctrine\DBAL\Schema\Index;
 use Illuminate\Support\Facades\Route;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
@@ -44,13 +50,13 @@ Route::group(['middleware' => 'auth'], function () {
          Route::resource('/user', UserController::class);
     });
 
-    Route::group(['middleware' => 'superadmin', 'admin'], function()
+    Route::group(['middleware' => 'superadmin','admin'], function()
     {
         // Profil Config
         Route::get('/profil', [UserController::class, 'profil'])->name('user.profil');
         Route::post('/profil', [UserController::class, 'updateProfil'])->name('user.update_profil');
 
-        Route::get('logout',[UserController::class, 'logout'])->name('logout');
+        Route::post('logout',[UserController::class, 'logout'])->name('logout');
 
         // Tanam Pajale
         Route::get('/tanam/pajale/data', [TanamPajaleController::class, 'data'])->name('pajale.data');
@@ -120,36 +126,36 @@ Route::group(['middleware' => 'auth'], function () {
 // ++++++++ For Front END / User +++++++++
 // Tanam
 // Pajale
-Route::get('/tanam/pajale/data', [TanamPajaleController::class, 'data'])->name('pajale.data');
-Route::get('/user/tanam/pajale', [TanamPajaleController::class, 'user_index'])->name('user.tanam.index_pajale');
-Route::get('/tanam/pajale/pdf', [TanamPajaleController::class, 'pdf_pajale'])->name('tanam.pdf_pajale');
-Route::get('/tanam/pajale/excel', [TanamPajaleController::class, 'excel_pajale'])->name('tanam.excel_pajale');
+Route::get('/tanam/pajale/data', [UserTanamPajaleController::class, 'data'])->name('user.pajale.data');
+Route::get('/user/tanam/pajale', [UserTanamPajaleController::class, 'index'])->name('user.tanam.index_pajale');
+Route::get('/tanam/pajale/pdf', [UserTanamPajaleController::class, 'pdf_pajale'])->name('tanam.pdf_pajale');
+Route::get('/tanam/pajale/excel', [UserTanamPajaleController::class, 'excel_pajale'])->name('tanam.excel_pajale');
 // Horti
-Route::get('/tanam/horti/data', [TanamHortiController::class, 'data'])->name('horti.data');
-Route::get('/user/tanam/horti', [TanamHortiController::class, 'user_index'])->name('user.tanam.index_horti');
-Route::get('/tanam/horti/pdf', [TanamHortiController::class, 'pdf_horti'])->name('tanam.pdf_horti');
-Route::get('/tanam/horti/excel', [TanamHortiController::class, 'excel_horti'])->name('tanam.excel_horti');
+Route::get('/tanam/horti/data', [UserTanamHortiController::class, 'data'])->name('user.horti.data');
+Route::get('/user/tanam/horti', [UserTanamHortiController::class, 'index'])->name('user.tanam.index_horti');
+Route::get('/tanam/horti/pdf', [UserTanamHortiController::class, 'pdf_horti'])->name('tanam.pdf_horti');
+Route::get('/tanam/horti/excel', [UserTanamHortiController::class, 'excel_horti'])->name('tanam.excel_horti');
 
 // Perkebunan
-Route::get('/tanam/perkebunan/data', [TanamPajaleController::class, 'data'])->name('perkebunan.data');
-Route::get('/user/tanam/perkebunan', [TanamPerkebunanController::class, 'user_index'])->name('user.tanam.index_perkebunan');
-Route::get('/tanam/perkebunan/pdf', [TanamHPajaleontroller::class, 'pdf_perkebunan'])->name('tanam.pdf_perkebunan');
-Route::get('/tanam/perkebunan/excel', [TanamPajaleController::class, 'excel_perkebunan'])->name('tanam.excel_perkebunan');
+Route::get('/tanam/perkebunan/data', [UserTanamPajaleController::class, 'data'])->name('user.perkebunan.data');
+Route::get('/user/tanam/perkebunan', [UserTanamPerkebunanController::class, 'index'])->name('user.tanam.index_perkebunan');
+Route::get('/tanam/perkebunan/pdf', [UserTanamPajaleController::class, 'pdf_perkebunan'])->name('tanam.pdf_perkebunan');
+Route::get('/tanam/perkebunan/excel', [UserTanamPajaleController::class, 'excel_perkebunan'])->name('tanam.excel_perkebunan');
 // Panen
 // Pajale
-Route::get('/user/panen/pajale/data', [PanenPajaleController::class, 'data'])->name('user.pajale.data');
-Route::get('/user/panen/pajale', [PanenPajaleController::class, 'user_index'])->name('user.panen.index_pajale');
-Route::get('/user/panen/pajale/pdf', [PanenPajaleController::class, 'pdf_pajale'])->name('user.panen.pdf_pajale');
-Route::get('/user/panen/pajale/excel', [PanenPajaleController::class, 'excel_pajale'])->name('user.panen.excel_pajale');
+Route::get('/user/panen/pajale/data', [UserPanenPajaleController::class, 'data'])->name('user.pajale.data');
+Route::get('/user/panen/pajale', [UserPanenPajaleController::class, 'index'])->name('user.panen.index_pajale');
+Route::get('/user/panen/pajale/pdf', [UserPanenPajaleController::class, 'pdf_pajale'])->name('user.panen.pdf_pajale');
+Route::get('/user/panen/pajale/excel', [UserPanenPajaleController::class, 'excel_pajale'])->name('user.panen.excel_pajale');
 
 // Horti
-Route::get('/user/panen/horti/data', [PanenHortiController::class, 'data'])->name('user.horti.data');
-Route::get('/user/panen/horti', [PanenHortiController::class, 'user_index'])->name('user.panen.index_horti');
-Route::get('/user/panen/horti/pdf', [PanenHortiController::class, 'pdf_horti'])->name('user.panen.pdf_horti');
-Route::get('/user/panen/horti/excel', [PanenHortiController::class, 'excel_horti'])->name('user.panen.excel_horti');
+Route::get('/user/panen/horti/data', [UserPanenHortiController::class, 'data'])->name('user.horti.data');
+Route::get('/user/panen/horti', [UserPanenHortiController::class, 'index'])->name('user.panen.index_horti');
+Route::get('/user/panen/horti/pdf', [UserPanenHortiController::class, 'pdf_horti'])->name('user.panen.pdf_horti');
+Route::get('/user/panen/horti/excel', [UserPanenHortiController::class, 'excel_horti'])->name('user.panen.excel_horti');
 
 // Perkebunan
-Route::get('/user/panen/perkebunan/data', [PanenPerkebunanController::class, 'data'])->name('user.perkebunan.data');
-Route::get('/user/panen/perkebunan', [PanenPerkebunanController::class, 'user_index'])->name('user.panen.index_perkebunan');
-Route::get('/user/panen/perkebunan/pdf', [PanenPerkebunanController::class, 'pdf_perkebunan'])->name('user.panen.pdf_perkebunan');
-Route::get('/user/panen/perkebunan/excel', [PanenPerkebunanController::class, 'excel_perkebunan'])->name('user.panen.excel_perkebunan');
+Route::get('/user/panen/perkebunan/data', [UserPanenPerkebunanController::class, 'data'])->name('user.perkebunan.data');
+Route::get('/user/panen/perkebunan', [UserPanenPerkebunanController::class, 'index'])->name('user.panen.index_perkebunan');
+Route::get('/user/panen/perkebunan/pdf', [UserPanenPerkebunanController::class, 'pdf_perkebunan'])->name('user.panen.pdf_perkebunan');
+Route::get('/user/panen/perkebunan/excel', [UserPanenPerkebunanController::class, 'excel_perkebunan'])->name('user.panen.excel_perkebunan');

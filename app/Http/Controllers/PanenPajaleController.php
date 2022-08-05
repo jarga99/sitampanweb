@@ -16,8 +16,16 @@ class PanenPajaleController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        // $tanggalAwal = date('Y-m-d', mktime(0, 0, 0, date('m'), 1, date('Y')));
+        // $tanggalAkhir = date('Y-m-d');
+
+        // if ($request->has('tanggal_awal') && $request->tanggal_awal != "" && $request->has('tanggal_akhir') && $request->tanggal_akhir) {
+        //     $tanggalAwal = $request->tanggal_awal;
+        //     $tanggalAkhir = $request->tanggal_akhir;
+        // }
+
         $data['title'] = 'Panen Pajale';
         $data['kecamatans'] = Kecamatan::all();
         $data['desas'] = Desa::all();
@@ -25,11 +33,7 @@ class PanenPajaleController extends Controller
         return view('panen/pajale', $data);
     }
 
-    public function user_index()
-    {
-        $data['title'] = 'Panen Pajale';
-        return view('user/panen/pajale', $data);
-    }
+
 
     /**
      * Show the form for creating a new resource.
@@ -53,7 +57,7 @@ class PanenPajaleController extends Controller
                 return '<input type="checkbox" name="id_produktivitas[]" value="' . $produktivitas->id_produktivitas . '">';
             })
             ->addColumn('id_kecamatan', function ($produktivitas) {
-                return '<option value"' . $produktivitas->mst_kecamatan->nama_kecamtan . '">';
+                return '<option value"' . $produktivitas->mst_kecamatan->nama_kecamatan . '">';
             })
             ->addColumn('id_desa', function ($produktivitas) {
                 return '<option value"' . $produktivitas->mst_desa->nama_desa . '">';
@@ -190,7 +194,7 @@ class PanenPajaleController extends Controller
 
     public function excel_pajale(Request $request)
     {
-        return (new PajaleExsport)->setDari($request->form_awal)->setSampai($request->form_akhir)->download('panen_pajale.xlsx');
+        return (new PajaleExport)->setDari($request->form_awal)->setSampai($request->form_akhir)->download('panen_pajale.xlsx');
     }
 
     public function deleteSelected(Request $request)

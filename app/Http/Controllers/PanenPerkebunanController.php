@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\PerkebunanExport;
 use App\Models\Desa;
 use App\Models\Kecamatan;
 use App\Models\Produktivitas;
@@ -16,19 +17,21 @@ class PanenPerkebunanController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        // $tanggalAwal = date('Y-m-d', mktime(0, 0, 0, date('m'), 1, date('Y')));
+        // $tanggalAkhir = date('Y-m-d');
+
+        // if ($request->has('tanggal_awal') && $request->tanggal_awal != "" && $request->has('tanggal_akhir') && $request->tanggal_akhir) {
+        //     $tanggalAwal = $request->tanggal_awal;
+        //     $tanggalAkhir = $request->tanggal_akhir;
+        // }
+
         $data['title'] = 'Panen Perkebunan';
         $data['kecamatans'] = Kecamatan::all();
         $data['desas'] = Desa::all();
         $data['tanamans'] = Tanaman::all();
         return view('panen/perkebunan', $data);
-    }
-
-    public function user_index()
-    {
-        $data['title'] = 'Panen Perkebunan';
-        return view('user/panen/perkebunan', $data);
     }
 
     /**

@@ -1,12 +1,12 @@
 @extends('app')
 
 @section('title')
-    Tanam Pajale
+Data Tanam Perkebunan
 @endsection
 
 @section('breadcrumb')
     @parent
-    <li class="active">Tanam Pajale</li>
+    <li class="active">Tanam Perkebunan</li>
 @endsection
 
 @push('css')
@@ -18,12 +18,12 @@
         <div class="col-lg-12">
             <div class="box">
                 <div class="box-header with-border">
-                    <button class="btn btn-info"><i class="fa fa-plus-circle"></i> Filter Periode</button>
+                    {{-- <button class="btn btn-info"><i class="fa fa-plus-circle"></i> Filter Periode</button>
                     <br>
-                    <br>
+                    <br> --}}
                     <button onclick="#" class="btn btn-danger "> <i class="fa fa-trash"> Hapus</i></button>
                     <button onclick="addForm();" class="btn btn-success "> <i class="fa fa-plus"> Tambah</i></button>
-                    <button onclick="#" class="btn btn-success "> <i class="fa fa-upload"> Import</i></button>
+                    {{-- <button onclick="#" class="btn btn-success "> <i class="fa fa-upload"> Import</i></button> --}}
                     <form id="form_pdf" action="{{ route('tanam.pdf_perkebunan') }}" method="get" style="display: none;">
                         @csrf
                         <input type="hidden" name="form_awal" id="form_awal" value="{{-- $tanggalAwal --}}">
@@ -71,7 +71,7 @@
                     $('.select2').select2();
                 });
             </script>
-            <script src="{{ asset('/AdminLTE/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js') }}">
+            <script src="{{ asset('/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js') }}">
             </script>
             <script>
                 let table;
@@ -131,7 +131,7 @@
                         var tanggal_akhir = new Date($('#tanggal_akhir').val()).getDate() + ' ' + months[new Date($(
                                 '#tanggal_akhir').val()).getMonth()] + ' ' + new Date($('#tanggal_akhir').val())
                             .getFullYear();
-                        var content_title = `Daftar Data Tanam Pajale` + tanggal_awal + ` - ` + tanggal_akhir;
+                        var content_title = `Daftar Data Tanam Perkebunan` + tanggal_awal + ` - ` + tanggal_akhir;
                         table.draw();
                         e.preventDefault();
                         $('#modal-form').modal("hide");
@@ -163,7 +163,7 @@
                 function addForm() {
                     var url = "{{ route('tanam.create_perkebunan') }}";
                     $('#modal-form').modal('show');
-                    $('#modal-form .modal-title').text('Tambah Data Tanam Pajale');
+                    $('#modal-form .modal-title').text('Tambah Data Tanam Perkebunan');
 
                     $('#modal-form form')[0].reset();
                     $('#modal-form form').attr('action', url);
@@ -174,7 +174,7 @@
                 function editForm(id_produktivitas) {
                     var url = "{{ url('tanam/perkebunan/update/') }}"+ "/" +id_produktivitas;
                     $('#modal-form').modal('show');
-                    $('#modal-form .modal-title').text('Edit Data Tanam Pajale');
+                    $('#modal-form .modal-title').text('Edit Data Tanam Perkebunan');
 
                     $('#modal-form form')[0].reset();
                     $('#modal-form form').attr('action', url);

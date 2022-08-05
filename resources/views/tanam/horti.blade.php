@@ -1,7 +1,7 @@
 @extends('app')
 
 @section('title')
-    Tanam Horti
+   Data Tanam Horti
 @endsection
 
 @section('breadcrumb')
@@ -18,12 +18,12 @@
         <div class="col-lg-12">
             <div class="box">
                 <div class="box-header with-border">
-                    <button class="btn btn-info"><i class="fa fa-plus-circle"></i> Filter Periode</button>
+                    {{-- <button class="btn btn-info"><i class="fa fa-plus-circle"></i> Filter Periode</button>
                     <br>
-                    <br>
+                    <br> --}}
                     <button onclick="#" class="btn btn-danger "> <i class="fa fa-trash"> Hapus</i></button>
                     <button onclick="addForm();" class="btn btn-success "> <i class="fa fa-plus"> Tambah</i></button>
-                    <button onclick="#" class="btn btn-success "> <i class="fa fa-upload"> Import</i></button>
+                    {{-- <button onclick="#" class="btn btn-success "> <i class="fa fa-upload"> Import</i></button> --}}
                     <form id="form_pdf" action="{{ route('tanam.pdf_horti') }}" method="get" style="display: none;">
                         @csrf
                         <input type="hidden" name="form_awal" id="form_awal" value="{{-- $tanggalAwal --}}">
@@ -71,7 +71,7 @@
                     $('.select2').select2();
                 });
             </script>
-            <script src="{{ asset('/AdminLTE/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js') }}">
+            <script src="{{ asset('/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js') }}">
             </script>
             <script>
                 let table;
@@ -171,8 +171,8 @@
                     $('#modal-form [name=nama_kecamatan]').focus();
                 }
 
-                function editForm(id_produktivitas) {
-                    var url = "{{ url('tanam/horti/update/') }}"+ "/" +id_produktivitas;
+                function editForm(id_produktivitas_tanam) {
+                    var url = "{{ url('tanam/horti/update/') }}"+ "/" +id_produktivitas_tanam;
                     $('#modal-form').modal('show');
                     $('#modal-form .modal-title').text('Edit Data Tanam Horti');
 
@@ -184,7 +184,7 @@
                         method: "get",
                         url: "{{ route('tanam.edit_horti') }}",
                         data: {
-                            id_produktivitas: id_produktivitas
+                            id_produktivitas_tanam: id_produktivitas_tanam
                         },
                         success: function(resp) {
                             $('#id_kecamatan').val(resp.kecamatan_id);

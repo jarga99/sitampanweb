@@ -34,12 +34,6 @@ class PanenHortiController extends Controller
         $data['tanamans'] = Tanaman::where('jenis_tanam', 2)->where('jenis_panen', 2)->get();
         return view('panen/horti', $data, compact('tanggalAwal', 'tanggalAkhir'));
     }
-    // Front End Index
-    public function user_index()
-    {
-        $data['title'] = 'Panen Horti';
-        return view('user/panen/horti', $data);
-    }
 
     /**
      * Show the form for creating a new resource.
@@ -64,7 +58,7 @@ class PanenHortiController extends Controller
                 return '<input type="checkbox" name="id_produktivitas[]" value="' . $produktivitas->id_produktivitas . '">';
             })
             ->addColumn('id_kecamatan', function ($produktivitas) {
-                return '<option value"' . $produktivitas->mst_kecamatan->nama_kecamtan . '">';
+                return '<option value"' . $produktivitas->mst_kecamatan->nama_kecamatan . '">';
             })
             ->addColumn('id_desa', function ($produktivitas) {
                 return '<option value"' . $produktivitas->mst_desa->nama_desa . '">';
@@ -78,9 +72,9 @@ class PanenHortiController extends Controller
             ->addColumn('kadar', function ($produktivitas) {
                 return ($produktivitas->kadar ?? '0');
             })
-            // ->addColumn('produksi', function ($produktivitas) {
-            //     return ($produktivitas->produksi ?? '0');
-            // })
+            ->addColumn('produksi', function ($produktivitas) {
+                return ($produktivitas->produksi ?? '0');
+            })
             ->addColumn('provitas', function ($produktivitas) {
                 return ($produktivitas->provitas ?? '0');
             })

@@ -42,7 +42,6 @@ class HortiExport implements FromCollection, WithHeadings, ShouldAutoSize, WithE
             'Produksi',
             'Provitas',
             'Harga',
-            'Nama Penginput'
         ];
     }
 
@@ -68,7 +67,6 @@ class HortiExport implements FromCollection, WithHeadings, ShouldAutoSize, WithE
             $item->produksi,
             $item->provitas,
             $item->harga,
-            $item->user->nama
         ];
     }
 

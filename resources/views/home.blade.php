@@ -27,8 +27,8 @@
             <!-- Content Header (Page header) -->
             <section class="content-header text-center">
                 <h1 class="text-success"><b>SISTEM INFORMASI TANAM PANEN</b></h1>
-                {{-- <h3 style="margin-top: -3px">DINAS KETAHANAN PANGAN DAN PERTANIAN</h3>
-                <h3 style="margin-top: -10px">KABUPATEN BOJONEGORO</h3> --}}
+                <h3 style="margin-top: -3px">DINAS KETAHANAN PANGAN DAN PERTANIAN</h3>
+                <h3 style="margin-top: -10px">KABUPATEN BOJONEGORO</h3>
             </section>
             <nav class="navbar navbar-inverse">
                 <div class="container-fluid">
@@ -41,7 +41,7 @@
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <a class="navbar-brand" href="#"><span>SITAMPAN</span></a>
+                        <a class="navbar-brand" href="{{url('/')}}"><span>SITAMPAN</span></a>
                     </div>
                     <!-- Collect the nav links, forms, and other content for toggling -->
                     <div class="collapse navbar-collapse" id="tugel-nav">
