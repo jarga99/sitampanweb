@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\FilterController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\TanamPajaleController;
 use App\Http\Controllers\TanamHortiController;
@@ -120,6 +121,8 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/panen/perkebunan/pdf', [PanenPerkebunanController::class, 'pdf_perkebunan'])->name('panen.pdf_perkebunan');
         Route::get('/panen/perkebunan/excel', [PanenPerkebunanController::class, 'excel_perkebunan'])->name('panen.excel_perkebunan');
     });
+
+    Route::get('/get-desa', [FilterController::class, 'getDesa'])->name('getdesa');
 
 });
 
