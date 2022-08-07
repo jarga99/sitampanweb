@@ -87,9 +87,11 @@ class PanenPerkebunanController extends Controller
             })
             ->addColumn('aksi', function ($produktivitas) {
                 return '
+                <div class="btn-group">
                 <button type="button" onclick="editForm('. $produktivitas->id_produktivitas . ');" class="btn btn-info btn-sm"><i class="fa fa-pencil"></i></button>
                 <button type="button" onclick="deleteData(`' . route('panen.delete_perkebunan', ['id' => $produktivitas->id_produktivitas]) . '`)" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
-            ';
+                </div>
+                ';
             return "Ok";
             })
             ->rawColumns(['aksi', 'select_all'])

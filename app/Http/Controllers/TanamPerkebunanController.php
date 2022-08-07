@@ -72,8 +72,10 @@ class TanamPerkebunanController extends Controller
             })
             ->addColumn('aksi', function ($produktivitas_tanam) {
                 return '
+                <div class="btn-group">
                 <button type="button" onclick="editForm('. $produktivitas_tanam->id_produktivitas_tanam . ');" class="btn btn-sm btn-info"><i class="fa fa-pencil"></i></button>
                 <button type="button" onclick="deleteData(`' . route('tanam.delete_perkebunan', ['id' => $produktivitas_tanam->id_produktivitas_tanam]) . '`)" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></button>
+                </div>
             ';
             return "Ok";
             })

@@ -26,7 +26,7 @@
                     {{-- <button class="btn btn-info"><i class="fa fa-plus-circle"></i> Filter Periode</button>
                     <br>
                     <br> --}}
-                    <button onclick="#" class="btn btn-danger "> <i class="fa fa-trash"> Hapus</i></button>
+                    {{-- <button onclick="#" class="btn btn-danger "> <i class="fa fa-trash"> Hapus</i></button> --}}
                     <button onclick="addForm();" class="btn btn-success "> <i class="fa fa-plus"> Tambah</i></button>
                     {{-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#importExcel"> Import</button> --}}
                     <form id="form_pdf" action="{{ route('panen.pdf_perkebunan') }}" method="get" style="display: none;">
@@ -34,25 +34,27 @@
                         <input type="hidden" name="form_awal" id="form_awal" value="{{-- $tanggalAwal --}}">
                         <input type="hidden" name="form_akhir" id="form_akhir" value="{{-- $tanggalAkhir --}}">
                     </form>
-                    <button target="_blank" class="btn btn-success export_pdf">
-                        <i class="fa fa-file-excel-o"></i> PDF
-                    </button>
+                    <div class="btn-group">
+                        <button target="_blank" class="btn btn-success export_pdf">
+                            <i class="fa fa-file-excel-o"></i> PDF
+                        </button>
+                        <button class="btn btn-primary export_excel"> <i class="fa fa-file-excel-o"> Excel</i></button>
+                    </div>
                     <form id="form_excel" action="{{ route('panen.excel_perkebunan') }}" method="get"
                         style="display: none;">
                         @csrf
                         <input type="hidden" name="form_awal" id="form_awal" value="{{-- $tanggalAwal --}}">
                         <input type="hidden" name="form_akhir" id="form_akhir" value="{{-- $tanggalAkhir --}}">
                     </form>
-                    <button class="btn btn-primary export_excel"> <i class="fa fa-file-excel-o"> Excel</i></button>
                 </div>
                 <div class="box-body table-responsive">
                     <form action="" method="post" class="form-panen-perkebunan">
                         @csrf
                         <table class="table table-stiped table-bordered">
                             <thead>
-                                <th>
+                                {{-- <th>
                                     <input type="checkbox" name="select_all" id="select_all">
-                                </th>
+                                </th> --}}
                                 <th>No</th>
                                 <th>Tanggal</th>
                                 <th>Kecamatan</th>
@@ -64,7 +66,7 @@
                                 <th>Provitas</th>
                                 <th>Harga</th>
                                 <th>Nama Penginput</th>
-                                <th><i class="fa fa-cog"></i> Aksi</th>
+                                <th width="8%"><i class="fa fa-cog"></i> Aksi</th>
                             </thead>
                         </table>
                     </form>
@@ -73,7 +75,7 @@
 
             @includeIf('panen.form_perkebunan')
         @endsection
-        <!-- Import Excel -->
+        {{-- <!-- Import Excel -->
         <div class="modal fade" id="importExcel" tabindex="-1" role="dialog" aria-labelledby="importFileExcel"
             aria-hidden="true">
             <div class="modal-dialog" role="document">
@@ -99,7 +101,7 @@
                     </div>
                 </form>
             </div>
-        </div>
+        </div> --}}
 
         @push('scripts')
             <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
@@ -119,11 +121,12 @@
                         ajax: {
                             url: '{{ route('panen_perkebunan.data') }}',
                         },
-                        columns: [{
-                                data: 'select_all',
-                                searchable: false,
-                                sortable: false
-                            },
+                        columns: [
+                            // {
+                            //     data: 'select_all',
+                            //     searchable: false,
+                            //     sortable: false
+                            // },
                             {
                                 data: 'DT_RowIndex',
                                 searchable: false,
@@ -310,7 +313,7 @@
                         success: function(resp) {
                             $.each(resp, function(i, v) {
                                 html += '<option value="' + v.id_desa + '">' + v.nama_desa +
-                                '</option>';
+                                    '</option>';
                                 $('#id_desa').html(html);
                             });
                         },
