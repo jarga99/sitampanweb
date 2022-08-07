@@ -40,7 +40,7 @@
                         @csrf
                         <table class="table table-stiped table-bordered">
                             <thead>
-                                <th>No</th>
+                                <th width="2%">No</th>
                                 <th>Tanggal</th>
                                 <th>Kecamatan</th>
                                 <th>Desa</th>

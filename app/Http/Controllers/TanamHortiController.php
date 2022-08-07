@@ -30,7 +30,7 @@ class TanamHortiController extends Controller
         $data['title'] = 'Tanam Horti';
         $data['kecamatans'] = Kecamatan::all();
         $data['desas'] = Desa::all();
-        $data['tanamans'] = Tanaman::all();
+        $data['tanamans'] = Tanaman::where('jenis_tanam', 2)->get();
         return view('tanam/tanam_horti',$data, compact('tanggalAwal', 'tanggalAkhir'));
     }
 
@@ -66,7 +66,10 @@ class TanamHortiController extends Controller
                 return '<option value"' . $produktivitas_tanam->mst_tanaman->nama_tanaman . '">';
             })
             ->addColumn('luas_lahan', function ($produktivitas_tanam) {
-                return ($produktivitas_tanam->luas_lahan ?? '0');
+                return ($produktivitas_tanam->luas_lahan).' %';
+            })
+            ->addColumn('created_by', function ($produktivitas_tanam) {
+                return ($produktivitas_tanam->user->nama);
             })
             ->addColumn('created_at', function($produktivitas_tanam) {
                 return \Carbon\Carbon::parse($produktivitas_tanam->created_at)->format('d-m-Y');
@@ -163,7 +166,7 @@ class TanamHortiController extends Controller
             $produktivitas_tanam = ProduktivitasTanam::whereIn('tanaman_id', $tanaman)->get();
         }
 
-        $pdf = Pdf::loadView('tanam.pdf_horti', compact('produktivitas_tanam'))->setPaper('a4', 'potrait');
+        $pdf = Pdf::loadView('tanam.pdf_horti', compact('produktivitas_tanam'))->setPaper('a4', 'landscape');
 
         return $pdf->stream();
     }

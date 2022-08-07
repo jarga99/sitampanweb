@@ -11,6 +11,11 @@
 
 @push('css')
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <style>
+        .select2-container {
+            width: 100% !important;
+        }
+    </style>
 @endpush
 
 @section('content')
@@ -245,6 +250,26 @@
                 });
                 $('.export_excel').click(function() {
                     $('#form_excel').submit();
+                });
+                $('#id_kecamatan').change(function() {
+                    var id_kecamatan = $(this).val();
+                    var html = "";
+                    $.ajax({
+                        method: "get",
+                        url: "{{ route('getdesa') }}",
+                        data: {
+                            id_kecamatan: id_kecamatan
+                        },
+                        success: function(resp) {
+                            $.each(resp, function(i, v) {
+                                html += '<option value="' + v.id_desa + '">' + v.nama_desa + '</option>';
+                                $('#id_desa').html(html);
+                            });
+                        },
+                        error: function(err) {
+                            console.log(err);
+                        }
+                    });
                 });
             </script>
         @endpush

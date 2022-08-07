@@ -1,7 +1,7 @@
 @extends('app')
 
 @section('title')
-Data Panen Perkebunan
+    Data Panen Perkebunan
 @endsection
 
 @section('breadcrumb')
@@ -11,6 +11,11 @@ Data Panen Perkebunan
 
 @push('css')
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <style>
+        .select2-container {
+            width: 100% !important;
+        }
+    </style>
 @endpush
 
 @section('content')
@@ -23,7 +28,7 @@ Data Panen Perkebunan
                     <br> --}}
                     <button onclick="#" class="btn btn-danger "> <i class="fa fa-trash"> Hapus</i></button>
                     <button onclick="addForm();" class="btn btn-success "> <i class="fa fa-plus"> Tambah</i></button>
-                    {{-- <button onclick="#" class="btn btn-success "> <i class="fa fa-upload"> Import</i></button> --}}
+                    {{-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#importExcel"> Import</button> --}}
                     <form id="form_pdf" action="{{ route('panen.pdf_perkebunan') }}" method="get" style="display: none;">
                         @csrf
                         <input type="hidden" name="form_awal" id="form_awal" value="{{-- $tanggalAwal --}}">
@@ -32,7 +37,8 @@ Data Panen Perkebunan
                     <button target="_blank" class="btn btn-success export_pdf">
                         <i class="fa fa-file-excel-o"></i> PDF
                     </button>
-                    <form id="form_excel" action="{{ route('panen.excel_perkebunan') }}" method="get" style="display: none;">
+                    <form id="form_excel" action="{{ route('panen.excel_perkebunan') }}" method="get"
+                        style="display: none;">
                         @csrf
                         <input type="hidden" name="form_awal" id="form_awal" value="{{-- $tanggalAwal --}}">
                         <input type="hidden" name="form_akhir" id="form_akhir" value="{{-- $tanggalAkhir --}}">
@@ -67,6 +73,33 @@ Data Panen Perkebunan
 
             @includeIf('panen.form_perkebunan')
         @endsection
+        <!-- Import Excel -->
+        <div class="modal fade" id="importExcel" tabindex="-1" role="dialog" aria-labelledby="importFileExcel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <form method="post" action="/siswa/import_excel" enctype="multipart/form-data">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="importFileExcel">Import Excel</h5>
+                        </div>
+                        <div class="modal-body">
+
+                            {{ csrf_field() }}
+
+                            <label>Pilih file excel</label>
+                            <div class="form-group">
+                                <input type="file" name="file" required="required">
+                            </div>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Import</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
 
         @push('scripts')
             <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
@@ -75,8 +108,7 @@ Data Panen Perkebunan
                     $('.select2').select2();
                 });
             </script>
-            <script src="{{ asset('/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js') }}">
-            </script>
+            <script src="{{ asset('/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js') }}"></script>
             <script>
                 let table;
 
@@ -188,7 +220,7 @@ Data Panen Perkebunan
                 }
 
                 function editForm(id_produktivitas) {
-                    var url = "{{ url('panen/panen_perkebunan/update/') }}"+ "/" +id_produktivitas;
+                    var url = "{{ url('panen/panen_perkebunan/update/') }}" + "/" + id_produktivitas;
                     $('#modal-form').modal('show');
                     $('#modal-form .modal-title').text('Edit Data Panen Perkebunan');
 
@@ -265,6 +297,27 @@ Data Panen Perkebunan
                 });
                 $('.export_excel').click(function() {
                     $('#form_excel').submit();
+                });
+                $('#id_kecamatan').change(function() {
+                    var id_kecamatan = $(this).val();
+                    var html = "";
+                    $.ajax({
+                        method: "get",
+                        url: "{{ route('getdesa') }}",
+                        data: {
+                            id_kecamatan: id_kecamatan
+                        },
+                        success: function(resp) {
+                            $.each(resp, function(i, v) {
+                                html += '<option value="' + v.id_desa + '">' + v.nama_desa +
+                                '</option>';
+                                $('#id_desa').html(html);
+                            });
+                        },
+                        error: function(err) {
+                            console.log(err);
+                        }
+                    });
                 });
             </script>
         @endpush

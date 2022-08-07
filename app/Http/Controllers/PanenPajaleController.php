@@ -3,12 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Exports\PajaleExport;
+use App\Imports\Import_Pajale;
 use App\Models\Desa;
 use App\Models\Kecamatan;
 use App\Models\Produktivitas;
 use App\Models\Tanaman;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
+use Maatwebsite\Excel\Facades\Excel;
+
 class PanenPajaleController extends Controller
 {
     /**
@@ -30,7 +34,7 @@ class PanenPajaleController extends Controller
         $data['kecamatans'] = Kecamatan::all();
         $data['desas'] = Desa::all();
         $data['tanamans'] = Tanaman::where('jenis_panen', 1)->get();
-        return view('panen/pajale', $data);
+        return view('panen/panen_pajale', $data);
     }
 
 
@@ -66,22 +70,22 @@ class PanenPajaleController extends Controller
                 return '<option value"' . $produktivitas->mst_tanaman->nama_tanaman . '">';
             })
             ->addColumn('luas_lahan', function ($produktivitas) {
-                return ($produktivitas->luas_lahan ?? '0');
+                return ($produktivitas->luas_lahan) . ' ha';
             })
             ->addColumn('kadar', function ($produktivitas) {
-                return ($produktivitas->kadar ?? '0');
+                return ($produktivitas->kadar). ' %';
             })
             ->addColumn('produksi', function ($produktivitas) {
-                return ($produktivitas->produksi ?? '0');
+                return ($produktivitas->produksi). ' ton';
             })
             ->addColumn('provitas', function ($produktivitas) {
-                return ($produktivitas->provitas ?? '0');
+                return ($produktivitas->provitas). ' ku/ha';
             })
             ->addColumn('harga', function ($produktivitas) {
-                return ($produktivitas->harga ?? '0');
+                return 'Rp. '. format_uang($produktivitas->harga).',00';
             })
             ->addColumn('created_by', function ($produktivitas) {
-                return ($produktivitas->user->nama ?? '-');
+                return ($produktivitas->user->nama);
             })
             ->addColumn('created_at', function($produktivitas) {
                 return \Carbon\Carbon::parse($produktivitas->created_at)->format('d-m-Y');
@@ -178,6 +182,26 @@ class PanenPajaleController extends Controller
         return response()->json('Data berhasil hapus', 200);
     }
 
+    // public function import_pajale(Request $request)
+    // {
+    //     // validasi
+    //     $this->validate($request,[
+    //         'file'  => 'required|mimes:csv,xls,xlsx'
+    //     ]);
+    //     // menangkap file excel
+    //     $file = $request->file('file');
+    //     // membuat nama file unik
+    //     $nama_file = rand().$file->getClientOriginalName();
+    //     // upload ke folder import Excel di dalam dir public
+    //     $file->move('pajale_excel', $nama_file);
+    //     // import data
+    //     Excel::import(new Import_Pajale, public_path('/pajale_excel/'.$nama_file));
+    //     // notifikasi dengan session
+    //     Session::flash('sukses', 'Data Excel Berhasil Diimport!');
+    //     // kembali ke laman awal
+    //     return redirect('/panen/panen_pajale');
+    // }
+
     public function pdf_pajale(Request $request)
     {
         $tanaman = Tanaman::where('jenis_panen', 1)->pluck('id_tanaman');
@@ -187,7 +211,7 @@ class PanenPajaleController extends Controller
             $produktivitas = Produktivitas::whereIn('tanaman_id', $tanaman)->get();
         }
 
-        $pdf = Pdf::loadView('panen.pdf_pajale', compact('produktivitas'))->setPaper('a4', 'potrait');
+        $pdf = Pdf::loadView('panen.pdf_pajale', compact('produktivitas'))->setPaper('a4', 'landscape');
 
         return $pdf->stream();
     }

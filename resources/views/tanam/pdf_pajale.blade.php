@@ -21,11 +21,11 @@
             @foreach ($produktivitas_tanam as $item)
                 <tr>
                     <td>{{ $loop->iteration }}</td>
-                    <td>{{ \Carbon\Carbon::parse($item->created_at) }}</td>
+                    <td>{{ \Carbon\Carbon::parse($item->created_at)->format('d-m-Y') }}</td>
                     <td>{{ $item->mst_kecamatan->nama_kecamatan }}</td>
                     <td>{{ $item->mst_desa->nama_desa }}</td>
                     <td>{{ $item->mst_tanaman->nama_tanaman }}</td>
-                    <td>{{ $item->luas_lahan }}</td>
+                    <td>{{ $item->luas_lahan }} ha</td>
                     {{-- <td>{{ $item->user->nama }}</td> --}}
                 </tr>
             @endforeach

@@ -38,7 +38,7 @@ class Horti_Export implements FromCollection, WithHeadings, ShouldAutoSize, With
             'Desa',
             'Tanaman',
             'Luas Tanam',
-            'Nama Penginput'
+            // 'Nama Penginput'
         ];
     }
 
@@ -59,8 +59,8 @@ class Horti_Export implements FromCollection, WithHeadings, ShouldAutoSize, With
             $item->mst_kecamatan->nama_kecamatan,
             $item->mst_desa->nama_desa,
             $item->mst_tanaman->nama_tanaman,
-            $item->luas_lahan,
-            $item->user->nama
+            $item->luas_lahan. ' ha',
+            // $item->user->nama
         ];
     }
 

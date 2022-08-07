@@ -36,19 +36,19 @@ class UserPanenHortiController extends Controller
                 return '<option value"' . $produktivitas->mst_tanaman->nama_tanaman . '">';
             })
             ->addColumn('luas_lahan', function ($produktivitas) {
-                return ($produktivitas->luas_lahan ?? '0');
+                return ($produktivitas->luas_lahan).' ha';
             })
             ->addColumn('kadar', function ($produktivitas) {
-                return ($produktivitas->kadar ?? '0');
+                return ($produktivitas->kadar).' %';
             })
             ->addColumn('produksi', function ($produktivitas) {
-                return ($produktivitas->produksi ?? '0');
+                return ($produktivitas->produksi).' ton';
             })
             ->addColumn('provitas', function ($produktivitas) {
-                return ($produktivitas->provitas ?? '0');
+                return ($produktivitas->provitas). ' ku/ha';
             })
             ->addColumn('harga', function ($produktivitas) {
-                return ($produktivitas->harga ?? '0');
+                return 'Rp. '. format_uang($produktivitas->harga).',00';
             })
             ->addColumn('created_at', function($produktivitas) {
                 return \Carbon\Carbon::parse($produktivitas->created_at)->format('d-m-Y');
@@ -73,7 +73,7 @@ class UserPanenHortiController extends Controller
             $produktivitas = Produktivitas::whereIn('tanaman_id', $tanaman)->get();
         }
 
-        $pdf = Pdf::loadView('panen.pdf_horti', compact('produktivitas'))->setPaper('a4', 'potrait');
+        $pdf = Pdf::loadView('panen.pdf_horti', compact('produktivitas'))->setPaper('a4', 'landscape');
 
         return $pdf->stream();
     }

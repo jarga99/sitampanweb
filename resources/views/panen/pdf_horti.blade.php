@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
 </head>
@@ -25,15 +26,15 @@
             @foreach ($produktivitas as $item)
                 <tr>
                     <td>{{ $loop->iteration }}</td>
-                    <td>{{ \Carbon\Carbon::parse($item->created_at) }}</td>
+                    <td>{{ \Carbon\Carbon::parse($item->created_at)->format('d-m-Y') }}</td>
                     <td>{{ $item->mst_kecamatan->nama_kecamatan }}</td>
                     <td>{{ $item->mst_desa->nama_desa }}</td>
                     <td>{{ $item->mst_tanaman->nama_tanaman }}</td>
-                    <td>{{ $item->luas_lahan }}</td>
-                    <td>{{ $item->kadar }}</td>
-                    <td>{{ $item->produksi }}</td>
-                    <td>{{ $item->provitas }}</td>
-                    <td>Rp. {{ number_format($item->harga) }}</td>
+                    <td>{{ $item->luas_lahan }} ha</td>
+                    <td>{{ $item->kadar }} %</td>
+                    <td>{{ $item->produksi }} ton</td>
+                    <td>{{ $item->provitas }} ku/ha</td>
+                    <td>Rp. {{ format_uang($item->harga) }},00</td>
                     {{-- <td>{{ $item->user->nama }}</td> --}}
                 </tr>
             @endforeach
