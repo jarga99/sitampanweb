@@ -85,7 +85,7 @@ Data Panen Pajale
                         processing: true,
                         autoWidth: false,
                         ajax: {
-                            url: '{{ route('pajale.data') }}',
+                            url: '{{ route('panen_pajale.data') }}',
                         },
                         columns: [{
                                 data: 'select_all',
@@ -98,7 +98,7 @@ Data Panen Pajale
                                 sortable: false
                             },
                             {
-                                data: 'produksi'
+                                data: 'created_at'
                             },
                             {
                                 data: 'mst_kecamatan.nama_kecamatan'
@@ -188,7 +188,7 @@ Data Panen Pajale
                 }
 
                 function editForm(id_produktivitas) {
-                    var url = "{{ url('panen/pajale/update/') }}"+ "/" +id_produktivitas;
+                    var url = "{{ url('panen/panen_pajale/update/') }}"+ "/" +id_produktivitas;
                     $('#modal-form').modal('show');
                     $('#modal-form .modal-title').text('Edit Data Panen Pajale');
 

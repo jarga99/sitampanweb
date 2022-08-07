@@ -29,7 +29,7 @@ class PanenPajaleController extends Controller
         $data['title'] = 'Panen Pajale';
         $data['kecamatans'] = Kecamatan::all();
         $data['desas'] = Desa::all();
-        $data['tanamans'] = Tanaman::where('jenis_tanam', 1)->where('jenis_panen', 1)->get();
+        $data['tanamans'] = Tanaman::where('jenis_panen', 1)->get();
         return view('panen/pajale', $data);
     }
 

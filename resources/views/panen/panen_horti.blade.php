@@ -1,16 +1,21 @@
 @extends('app')
 
 @section('title')
-   Data Tanam Horti
+Data Panen Horti
 @endsection
 
 @section('breadcrumb')
     @parent
-    <li class="active">Tanam Horti</li>
+    <li class="active">Panen Horti</li>
 @endsection
 
 @push('css')
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <style>
+        .select2-container {
+            width: 100% !important;
+        }
+    </style>
 @endpush
 
 @section('content')
@@ -18,33 +23,35 @@
         <div class="col-lg-12">
             <div class="box">
                 <div class="box-header with-border">
-                    {{-- <button class="btn btn-info"><i class="fa fa-plus-circle"></i> Filter Periode</button>
+                    {{-- <button onclick="updatePeriode()" class="btn btn-info"><i class="fa fa-plus-circle"></i> Filter
+                        Periode</button>
                     <br>
                     <br> --}}
-                    <button onclick="#" class="btn btn-danger "> <i class="fa fa-trash"> Hapus</i></button>
+                    <button onclick="deleteSelected('{{ route('panen.delete_selected') }}')" class="btn btn-danger "> <i
+                            class="fa fa-trash"> Hapus</i></button>
                     <button onclick="addForm();" class="btn btn-success "> <i class="fa fa-plus"> Tambah</i></button>
                     {{-- <button onclick="#" class="btn btn-success "> <i class="fa fa-upload"> Import</i></button> --}}
-                    <form id="form_pdf" action="{{ route('tanam.pdf_horti') }}" method="get" style="display: none;">
+                    <form id="form_pdf" action="{{ route('panen.pdf_horti') }}" method="get" style="display: none;">
                         @csrf
-                        <input type="hidden" name="form_awal" id="form_awal" value="{{-- $tanggalAwal --}}">
-                        <input type="hidden" name="form_akhir" id="form_akhir" value="{{-- $tanggalAkhir --}}">
+                        <input type="hidden" name="form_awal" id="form_awal" value="{{ $tanggalAwal }}">
+                        <input type="hidden" name="form_akhir" id="form_akhir" value="{{ $tanggalAkhir }}">
                     </form>
                     <button target="_blank" class="btn btn-success export_pdf">
                         <i class="fa fa-file-excel-o"></i> PDF
                     </button>
-                    <form id="form_excel" action="{{ route('tanam.excel_horti') }}" method="get" style="display: none;">
+                    <form id="form_excel" action="{{ route('panen.excel_horti') }}" method="get" style="display: none;">
                         @csrf
-                        <input type="hidden" name="form_awal" id="form_awal" value="{{-- $tanggalAwal --}}">
-                        <input type="hidden" name="form_akhir" id="form_akhir" value="{{-- $tanggalAkhir --}}">
+                        <input type="hidden" name="form_awal" id="form_awal" value="{{ $tanggalAwal }}">
+                        <input type="hidden" name="form_akhir" id="form_akhir" value="{{ $tanggalAkhir }}">
                     </form>
                     <button class="btn btn-primary export_excel"> <i class="fa fa-file-excel-o"> Excel</i></button>
                 </div>
                 <div class="box-body table-responsive">
-                    <form action="" method="post" class="form-tanam-horti">
+                    <form action="" method="post" class="form-panen-horti">
                         @csrf
                         <table class="table table-stiped table-bordered">
                             <thead>
-                                <th>
+                                <th width="5%">
                                     <input type="checkbox" name="select_all" id="select_all">
                                 </th>
                                 <th>No</th>
@@ -52,7 +59,11 @@
                                 <th>Kecamatan</th>
                                 <th>Desa</th>
                                 <th>Tanaman </th>
-                                <th>Luas Tanam</th>
+                                <th>Luas Panen</th>
+                                <th>Kadar</th>
+                                <th>Produksi</th>
+                                <th>Provitas</th>
+                                <th>Harga</th>
                                 <th>Nama Penginput</th>
                                 <th><i class="fa fa-cog"></i> Aksi</th>
                             </thead>
@@ -61,7 +72,7 @@
                 </div>
             </div>
 
-            @includeIf('tanam.form_horti')
+            @includeIf('panen.form_horti')
         @endsection
 
         @push('scripts')
@@ -81,7 +92,7 @@
                         processing: true,
                         autoWidth: false,
                         ajax: {
-                            url: '{{ route('horti.data') }}',
+                            url: '{{ route('panen_horti.data') }}',
                         },
                         columns: [{
                                 data: 'select_all',
@@ -109,6 +120,18 @@
                                 data: 'luas_lahan'
                             },
                             {
+                                data: 'kadar'
+                            },
+                            {
+                                data: 'produksi'
+                            },
+                            {
+                                data: 'provitas'
+                            },
+                            {
+                                data: 'harga'
+                            },
+                            {
                                 data: 'created_by'
                             },
                             {
@@ -131,7 +154,7 @@
                         var tanggal_akhir = new Date($('#tanggal_akhir').val()).getDate() + ' ' + months[new Date($(
                                 '#tanggal_akhir').val()).getMonth()] + ' ' + new Date($('#tanggal_akhir').val())
                             .getFullYear();
-                        var content_title = `Daftar Data Tanam Horti` + tanggal_awal + ` - ` + tanggal_akhir;
+                        var content_title = `Daftar Data Panen Horti` + tanggal_awal + ` - ` + tanggal_akhir;
                         table.draw();
                         e.preventDefault();
                         $('#modal-form').modal("hide");
@@ -161,9 +184,9 @@
                 });
 
                 function addForm() {
-                    var url = "{{ route('tanam.create_horti') }}";
+                    var url = "{{ route('panen.create_horti') }}";
                     $('#modal-form').modal('show');
-                    $('#modal-form .modal-title').text('Tambah Data Tanam Horti');
+                    $('#modal-form .modal-title').text('Tambah Data Panen Horti');
 
                     $('#modal-form form')[0].reset();
                     $('#modal-form form').attr('action', url);
@@ -171,10 +194,10 @@
                     $('#modal-form [name=nama_kecamatan]').focus();
                 }
 
-                function editForm(id_produktivitas_tanam) {
-                    var url = "{{ url('tanam/horti/update/') }}"+ "/" +id_produktivitas_tanam;
+                function editForm(id_produktivitas) {
+                    var url = "{{ url('panen/panen_horti/update/') }}" + "/" + id_produktivitas;
                     $('#modal-form').modal('show');
-                    $('#modal-form .modal-title').text('Edit Data Tanam Horti');
+                    $('#modal-form .modal-title').text('Edit Data Panen Horti');
 
                     $('#modal-form form')[0].reset();
                     $('#modal-form form').attr('action', url);
@@ -182,9 +205,9 @@
 
                     $.ajax({
                         method: "get",
-                        url: "{{ route('tanam.edit_horti') }}",
+                        url: "{{ route('panen.edit_horti') }}",
                         data: {
-                            id_produktivitas_tanam: id_produktivitas_tanam
+                            id_produktivitas: id_produktivitas
                         },
                         success: function(resp) {
                             $('#id_kecamatan').val(resp.kecamatan_id);
@@ -194,6 +217,10 @@
                             $('#id_tanaman').val(resp.tanaman_id);
                             $('#id_tanaman').select2().trigger('change');
                             $('#modal-form [name=luas_lahan]').val(resp.luas_lahan);
+                            $('#modal-form [name=kadar]').val(resp.kadar);
+                            $('#modal-form [name=produksi]').val(resp.produksi);
+                            $('#modal-form [name=provitas]').val(resp.provitas);
+                            $('#modal-form [name=harga]').val(resp.harga);
                         },
                         error: function(err) {
                             alert('Tidak dapat menampilkan data');
@@ -223,7 +250,7 @@
                 function deleteSelected(url) {
                     if ($('input:checked').length > 1) {
                         if (confirm('Yakin ingin menghapus data terpilih?')) {
-                            $.post(url, $('.form-tanam-horti').serialize())
+                            $.post(url, $('.form-panen-horti').serialize())
                                 .done((response) => {
                                     table.ajax.reload();
                                 })
@@ -237,14 +264,39 @@
                         return;
                     }
                 }
+
+                function updatePeriode() {
+                    $('#modal-form').modal('show');
+                }
                 $('.export_pdf').click(function() {
-                    // var url = "{{ route('tanam.pdf_horti') }}";
+                    // var url = "{{ route('panen.pdf_horti') }}";
                     // $('#export-penjualan-form form').attr('action', url);
 
                     $('#form_pdf').submit();
                 });
                 $('.export_excel').click(function() {
                     $('#form_excel').submit();
+                });
+
+                $('#id_kecamatan').change(function() {
+                    var id_kecamatan = $(this).val();
+                    var html = "";
+                    $.ajax({
+                        method: "get",
+                        url: "{{ route('getdesa') }}",
+                        data: {
+                            id_kecamatan: id_kecamatan
+                        },
+                        success: function(resp) {
+                            $.each(resp, function(i, v) {
+                                html += '<option value="' + v.id_desa + '">' + v.nama_desa + '</option>';
+                                $('#id_desa').html(html);
+                            });
+                        },
+                        error: function(err) {
+                            console.log(err);
+                        }
+                    });
                 });
             </script>
         @endpush

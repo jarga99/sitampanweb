@@ -12,7 +12,7 @@ class UserPanenHortiController extends Controller
     public function index()
     {
         $data['title'] = 'Panen Horti';
-        return view('user/panen/horti', $data);
+        return view('user/panen/user_panen_horti', $data);
     }
     public function data()
     {

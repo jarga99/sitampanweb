@@ -2,7 +2,7 @@
 
 namespace App\Exports;
 
-use App\Models\Produktivitas;
+use App\Models\ProduktivitasTanam;
 use App\Models\Tanaman;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\Exportable;
@@ -69,15 +69,15 @@ class Horti_Export implements FromCollection, WithHeadings, ShouldAutoSize, With
     */
     public function collection()
     {
-        $tanaman = Tanaman::where('jenis_tanam', 2)->where('jenis_panen', 2)->pluck('id_tanaman');
-        $data =  Produktivitas::with('mst_tanaman', 'mst_kecamatan', 'mst_desa', 'user')->whereIn('tanaman_id', $tanaman);
+        $tanaman = Tanaman::where('jenis_tanam', 2)->pluck('id_tanaman');
+        $data =  ProduktivitasTanam::with('mst_tanaman', 'mst_kecamatan', 'mst_desa', 'user')->whereIn('tanaman_id', $tanaman);
 
         if($this->dari != null && $this->sampai != null) {
-            $produktivitas = $data->whereBetween('created_at', [$this->dari, $this->sampai])->get();
+            $produktivitas_tanam = $data->whereBetween('created_at', [$this->dari, $this->sampai])->get();
         } else {
-            $produktivitas = $data->get();
+            $produktivitas_tanam = $data->get();
         }
 
-        return $produktivitas;
+        return $produktivitas_tanam;
     }
 }

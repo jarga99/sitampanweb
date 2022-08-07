@@ -12,7 +12,7 @@ class UserPanenPerkebunanController extends Controller
     public function index()
     {
         $data['title'] = 'Panen Perkebunan';
-        return view('user/panen/perkebunan', $data);
+        return view('user/panen/user_panen_perkebunan', $data);
     }
     public function data()
     {
@@ -63,9 +63,9 @@ class UserPanenPerkebunanController extends Controller
             ->rawColumns(['aksi', 'select_all'])
             ->make(true);
     }
-    public function pdf_horti(Request $request)
+    public function pdf_perkebunan(Request $request)
     {
-        $tanaman = Tanaman::where('jenis_panen', 1)->pluck('id_tanaman');
+        $tanaman = Tanaman::where('jenis_panen', 3)->pluck('id_tanaman');
         if($request->form_awal && $request->form_akhir) {
             $produktivitas = Produktivitas::whereIn('tanaman_id', $tanaman)->whereBetween('created_at', [$request->form_awal, $request->form_akhir])->get();
         } else {
@@ -79,7 +79,7 @@ class UserPanenPerkebunanController extends Controller
 
     public function excel_perkebunan(Request $request)
     {
-        return (new Perkebunan_Export)->setDari($request->form_awal)->setSampai($request->form_akhir)->download('panen_perkebunan.xlsx');
+        return (new PerkebunanExport)->setDari($request->form_awal)->setSampai($request->form_akhir)->download('panen_perkebunan.xlsx');
     }
 
 }

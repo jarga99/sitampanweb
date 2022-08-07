@@ -81,7 +81,7 @@ Data Tanam Perkebunan
                         processing: true,
                         autoWidth: false,
                         ajax: {
-                            url: '{{ route('perkebunan.data') }}',
+                            url: '{{ route('tanam_perkebunan.data') }}',
                         },
                         columns: [{
                                 data: 'select_all',
@@ -172,7 +172,7 @@ Data Tanam Perkebunan
                 }
 
                 function editForm(id_produktivitas) {
-                    var url = "{{ url('tanam/perkebunan/update/') }}"+ "/" +id_produktivitas;
+                    var url = "{{ url('tanam/tanam_perkebunan/update/') }}"+ "/" +id_produktivitas;
                     $('#modal-form').modal('show');
                     $('#modal-form .modal-title').text('Edit Data Tanam Perkebunan');
 
