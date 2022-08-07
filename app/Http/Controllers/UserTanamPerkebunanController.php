@@ -38,19 +38,7 @@ class UserTanamPerkebunanController extends Controller
                 return '<option value"' . $produktivitas_tanam->mst_tanaman->nama_tanaman . '">';
             })
             ->addColumn('luas_lahan', function ($produktivitas_tanam) {
-                return ($produktivitas_tanam->luas_lahan ?? '0');
-            })
-            ->addColumn('kadar', function ($produktivitas_tanam) {
-                return ($produktivitas_tanam->kadar ?? '0');
-            })
-            ->addColumn('produksi', function ($produktivitas_tanam) {
-                return ($produktivitas_tanam->produksi ?? '0');
-            })
-            ->addColumn('provitas', function ($produktivitas_tanam) {
-                return ($produktivitas_tanam->provitas ?? '0');
-            })
-            ->addColumn('harga', function ($produktivitas_tanam) {
-                return ($produktivitas_tanam->harga ?? '0');
+                return ($produktivitas_tanam->luas_lahan).' %';
             })
             ->addColumn('created_at', function($produktivitas_tanam) {
                 return \Carbon\Carbon::parse($produktivitas_tanam->created_at)->format('d-m-Y');
@@ -74,7 +62,7 @@ class UserTanamPerkebunanController extends Controller
             $produktivitas_tanam = ProduktivitasTanam::whereIn('tanaman_id', $tanaman)->get();
         }
 
-        $pdf = Pdf::loadView('tanam.pdf_perkebunan', compact('produktivitas_tanam'))->setPaper('a4', 'potrait');
+        $pdf = Pdf::loadView('tanam.pdf_perkebunan', compact('produktivitas_tanam'))->setPaper('a4', 'landscape');
 
         return $pdf->stream();
     }

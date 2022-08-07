@@ -62,11 +62,11 @@ class HortiExport implements FromCollection, WithHeadings, ShouldAutoSize, WithE
             $item->mst_kecamatan->nama_kecamatan,
             $item->mst_desa->nama_desa,
             $item->mst_tanaman->nama_tanaman,
-            $item->luas_lahan,
-            $item->kadar,
-            $item->produksi,
-            $item->provitas,
-            $item->harga,
+            $item->luas_lahan. ' ha',
+            $item->kadar.' %',
+            $item->produksi.' ton',
+            $item->provitas.' ku/ha',
+    'Rp. '. format_uang ($item ->harga).',00',
         ];
     }
 

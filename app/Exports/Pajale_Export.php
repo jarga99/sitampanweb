@@ -59,7 +59,7 @@ class Pajale_Export implements FromCollection, WithHeadings, ShouldAutoSize, Wit
             $item->mst_kecamatan->nama_kecamatan,
             $item->mst_desa->nama_desa,
             $item->mst_tanaman->nama_tanaman,
-            $item->luas_lahan,
+            $item->luas_lahan. ' ha',
             // $item->user->nama
         ];
     }

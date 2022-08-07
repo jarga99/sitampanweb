@@ -98,8 +98,9 @@ Route::group(['middleware' => 'auth'], function () {
         Route::put('/panen/panen_pajale/update/{id}', [PanenPajaleController::class, 'update'])->name('panen.update_pajale');
         Route::delete('/panen/panen_pajale/delete/{id}', [PanenPajaleController::class, 'destroy'])->name('panen.delete_pajale');
         Route::post('/panen/panen_pajale/delete-selected', [PanenPajaleController::class, 'deleteSelected'])->name('panen.delete_selected');
-        Route::get('/panen/panen_pajale/pdf', [PanenPajaleController::class, 'pdf_pajale'])->name('panen.pdf_pajale');
+        // Route::post('panen/panen_pajale/excel'. [PanenPajaleController::class, 'import_pajale'])->name('panen/panen_pajale/import_pajale');
         Route::get('/panen/panen_pajale/excel', [PanenPajaleController::class, 'excel_pajale'])->name('panen.excel_pajale');
+        Route::get('/panen/panen_pajale/pdf', [PanenPajaleController::class, 'pdf_pajale'])->name('panen.pdf_pajale');
         // Panen Horti
         Route::get('/panen/panen_horti/data', [PanenHortiController::class, 'data'])->name('panen_horti.data');
         Route::get('/panen/panen_horti', [PanenHortiController::class, 'index'])->name('panen.index_horti');
