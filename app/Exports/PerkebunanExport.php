@@ -38,7 +38,11 @@ class PerkebunanExport implements FromCollection, WithHeadings, ShouldAutoSize, 
             'Desa',
             'Tanaman',
             'Luas Panen',
-            'Nama Penginput'
+            'Kadar',
+            'Produksi',
+            'Provitas',
+            'Harga',
+
         ];
     }
 
@@ -61,8 +65,9 @@ class PerkebunanExport implements FromCollection, WithHeadings, ShouldAutoSize, 
             $item->mst_tanaman->nama_tanaman,
             $item->luas_lahan,
             $item->kadar,
-            $item->user->nama
-        ];
+            $item->produksi,
+            $item->provitas,
+            $item->harga,        ];
     }
 
     /**
@@ -70,8 +75,8 @@ class PerkebunanExport implements FromCollection, WithHeadings, ShouldAutoSize, 
     */
     public function collection()
     {
-        $tanaman = Tanaman::where('jenis_tanam', 2)->where('jenis_panen', 2)->pluck('id_tanaman');
-        $data =  Produktivitas::with('mst_tanaman', 'mst_kecamatan', 'mst_desa', 'user')->whereIn('tanaman_id', $tanaman);
+        $tanaman = Tanaman::where('jenis_panen', 3)->pluck('id_tanaman');
+        $data =  Produktivitas::with('mst_tanaman', 'mst_kecamatan', 'mst_desa')->whereIn('tanaman_id', $tanaman);
 
         if($this->dari != null && $this->sampai != null) {
             $produktivitas = $data->whereBetween('created_at', [$this->dari, $this->sampai])->get();

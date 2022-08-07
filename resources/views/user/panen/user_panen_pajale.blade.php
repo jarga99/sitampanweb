@@ -1,15 +1,15 @@
 @extends('home')
-
 @section('content')
     <section class="content-header">
         <h1>
-            LAPORAN TANAM PAJALE
+            LAPORAN PANEN HORTI
         </h1>
         <ol class="breadcrumb">
             <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-            <li class="active">Tanam Pajale</li>
+            <li class="active">Panen Horti</li>
         </ol>
     </section>
+
     @push('css')
         <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     @endpush
@@ -17,26 +17,26 @@
         <div class="col-lg-12">
             <div class="box">
                 <div class="box-header with-border">
-                    {{-- <button class="btn btn-info" style="margin-bottom: 1%"><i class="fa fa-plus-circle"></i> Filter Periode</button>
+                    {{-- <button class="btn btn-info" style="margin-bottom: 1%"><i class="fa fa-plus-circle" ></i> Filter Periode</button>
                     <br> --}}
-                    <form id="form_pdf" action="{{ route('tanam.pdf_pajale') }}" method="get" style="display: none;">
+                    <form id="form_pdf" action="{{ route('panen.pdf_pajale') }}" method="get" style="display: none;">
                         @csrf
-                        <input type="hidden" name="form_awal" id="form_awal" value="{{--  $tanggalAwal --}}">
-                        <input type="hidden" name="form_akhir" id="form_akhir" value="{{--  $tanggalAkhir --}}">
+                        <input type="hidden" name="form_awal" id="form_awal" value="{{-- $tanggalAwal --}}">
+                        <input type="hidden" name="form_akhir" id="form_akhir" value="{{-- $tanggalAkhir --}}">
                     </form>
                     <button target="_blank" class="btn btn-success export_pdf">
                         <i class="fa fa-file-excel-o"></i> PDF
                     </button>
-                    <form id="form_excel" action="{{ route('tanam.excel_pajale') }}" method="get" style="display: none;">
+                    <form id="form_excel" action="{{ route('panen.excel_pajale') }}" method="get" style="display: none;">
                         @csrf
-                        <input type="hidden" name="form_awal" id="form_awal" value="{{--  $tanggalAwal --}}">
-                        <input type="hidden" name="form_akhir" id="form_akhir" value="{{--  $tanggalAkhir --}}">
+                        <input type="hidden" name="form_awal" id="form_awal" value="{{-- $tanggalAwal --}}">
+                        <input type="hidden" name="form_akhir" id="form_akhir" value="{{-- $tanggalAkhir --}}">
                     </form>
                     <button class="btn btn-primary export_excel"> <i class="fa fa-file-excel-o"> Excel</i></button>
                 </div>
                 <br>
                 <div class="box-body table-responsive">
-                    <form action="" method="post" class="form-tanam-pajale">
+                    <form action="" method="post" class="form-panen-horti">
                         @csrf
                         <table class="table table-stiped table-bordered">
                             <thead>
@@ -45,7 +45,11 @@
                                 <th>Kecamatan</th>
                                 <th>Desa</th>
                                 <th>Tanaman </th>
-                                <th>Luas Tanam</th>
+                                <th>Luas panen</th>
+                                <th>Kadar</th>
+                                <th>Produksi</th>
+                                <th>Provitas</th>
+                                <th>Harga</th>
                             </thead>
                         </table>
                     </form>
@@ -60,7 +64,7 @@
                     $('.select2').select2();
                 });
             </script>
-            <script src="{{ asset('/AdminLTE/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js') }}">
+            <script src="{{ asset('/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js') }}">
             </script>
             <script>
                 let table;
@@ -70,7 +74,7 @@
                         processing: true,
                         autoWidth: false,
                         ajax: {
-                            url: '{{ route('user.pajale.data') }}',
+                            url: '{{ route('user.user_panen_pajale.data') }}',
                         },
                         columns: [{
                                 data: 'DT_RowIndex',
@@ -92,6 +96,19 @@
                             {
                                 data: 'luas_lahan'
                             },
+                            {
+                                data: 'kadar'
+                            },
+                            {
+                                data: 'produksi'
+                            },
+                            {
+                                data: 'provitas'
+                            },
+                            {
+                                data: 'harga'
+                            },
+
                         ]
 
                     });
@@ -107,7 +124,7 @@
                         var tanggal_akhir = new Date($('#tanggal_akhir').val()).getDate() + ' ' + months[new Date($(
                                 '#tanggal_akhir').val()).getMonth()] + ' ' + new Date($('#tanggal_akhir').val())
                             .getFullYear();
-                        var content_title = `Daftar Data tanam pajale` + tanggal_awal + ` - ` + tanggal_akhir;
+                        var content_title = `Daftar Data panen Horti` + tanggal_awal + ` - ` + tanggal_akhir;
                         table.draw();
                         e.preventDefault();
                         $('#modal-form').modal("hide");
@@ -118,7 +135,7 @@
                 });
 
                 $('.export_pdf').click(function() {
-                    // var url = "{{ route('tanam.pdf_horti') }}";
+                    // var url = "{{ route('panen.pdf_horti') }}";
                     // $('#export-penjualan-form form').attr('action', url);
 
                     $('#form_pdf').submit();

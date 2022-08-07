@@ -31,7 +31,7 @@ class TanamHortiController extends Controller
         $data['kecamatans'] = Kecamatan::all();
         $data['desas'] = Desa::all();
         $data['tanamans'] = Tanaman::all();
-        return view('tanam/horti',$data, compact('tanggalAwal', 'tanggalAkhir'));
+        return view('tanam/tanam_horti',$data, compact('tanggalAwal', 'tanggalAkhir'));
     }
 
     /**
@@ -163,7 +163,7 @@ class TanamHortiController extends Controller
             $produktivitas_tanam = ProduktivitasTanam::whereIn('tanaman_id', $tanaman)->get();
         }
 
-        $pdf = Pdf::loadView('tanam.pdf_horti', compact('ProduktivitasTanam'))->setPaper('a4', 'potrait');
+        $pdf = Pdf::loadView('tanam.pdf_horti', compact('produktivitas_tanam'))->setPaper('a4', 'potrait');
 
         return $pdf->stream();
     }

@@ -32,7 +32,7 @@ class PanenHortiController extends Controller
         $data['kecamatans'] = Kecamatan::all();
         $data['desas'] = Desa::all();
         $data['tanamans'] = Tanaman::where('jenis_tanam', 2)->where('jenis_panen', 2)->get();
-        return view('panen/horti', $data, compact('tanggalAwal', 'tanggalAkhir'));
+        return view('panen/panen_horti', $data, compact('tanggalAwal', 'tanggalAkhir'));
     }
 
     /**

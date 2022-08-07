@@ -1,12 +1,12 @@
 @extends('app')
 
 @section('title')
-Data Panen Perkebunan
+Data Tanam Pajale
 @endsection
 
 @section('breadcrumb')
     @parent
-    <li class="active">Panen Perkebunan</li>
+    <li class="active">Tanam Pajale</li>
 @endsection
 
 @push('css')
@@ -24,7 +24,7 @@ Data Panen Perkebunan
                     <button onclick="#" class="btn btn-danger "> <i class="fa fa-trash"> Hapus</i></button>
                     <button onclick="addForm();" class="btn btn-success "> <i class="fa fa-plus"> Tambah</i></button>
                     {{-- <button onclick="#" class="btn btn-success "> <i class="fa fa-upload"> Import</i></button> --}}
-                    <form id="form_pdf" action="{{ route('panen.pdf_perkebunan') }}" method="get" style="display: none;">
+                    <form id="form_pdf" action="{{ route('tanam.pdf_pajale') }}" method="get" style="display: none;">
                         @csrf
                         <input type="hidden" name="form_awal" id="form_awal" value="{{-- $tanggalAwal --}}">
                         <input type="hidden" name="form_akhir" id="form_akhir" value="{{-- $tanggalAkhir --}}">
@@ -32,7 +32,7 @@ Data Panen Perkebunan
                     <button target="_blank" class="btn btn-success export_pdf">
                         <i class="fa fa-file-excel-o"></i> PDF
                     </button>
-                    <form id="form_excel" action="{{ route('panen.excel_perkebunan') }}" method="get" style="display: none;">
+                    <form id="form_excel" action="{{ route('tanam.excel_pajale') }}" method="get" style="display: none;">
                         @csrf
                         <input type="hidden" name="form_awal" id="form_awal" value="{{-- $tanggalAwal --}}">
                         <input type="hidden" name="form_akhir" id="form_akhir" value="{{-- $tanggalAkhir --}}">
@@ -40,7 +40,7 @@ Data Panen Perkebunan
                     <button class="btn btn-primary export_excel"> <i class="fa fa-file-excel-o"> Excel</i></button>
                 </div>
                 <div class="box-body table-responsive">
-                    <form action="" method="post" class="form-panen-perkebunan">
+                    <form action="" method="post" class="form-tanam-pajale">
                         @csrf
                         <table class="table table-stiped table-bordered">
                             <thead>
@@ -52,11 +52,7 @@ Data Panen Perkebunan
                                 <th>Kecamatan</th>
                                 <th>Desa</th>
                                 <th>Tanaman </th>
-                                <th>Luas Panen</th>
-                                <th>Kadar</th>
-                                <th>Produksi</th>
-                                <th>Provitas</th>
-                                <th>Harga</th>
+                                <th>Luas Tanam</th>
                                 <th>Nama Penginput</th>
                                 <th><i class="fa fa-cog"></i> Aksi</th>
                             </thead>
@@ -65,7 +61,7 @@ Data Panen Perkebunan
                 </div>
             </div>
 
-            @includeIf('panen.form_perkebunan')
+            @includeIf('tanam.form_pajale')
         @endsection
 
         @push('scripts')
@@ -85,7 +81,7 @@ Data Panen Perkebunan
                         processing: true,
                         autoWidth: false,
                         ajax: {
-                            url: '{{ route('perkebunan.data') }}',
+                            url: '{{ route('tanam_pajale.data') }}',
                         },
                         columns: [{
                                 data: 'select_all',
@@ -113,18 +109,6 @@ Data Panen Perkebunan
                                 data: 'luas_lahan'
                             },
                             {
-                                data: 'kadar'
-                            },
-                            {
-                                data: 'produksi'
-                            },
-                            {
-                                data: 'provitas'
-                            },
-                            {
-                                data: 'harga'
-                            },
-                            {
                                 data: 'created_by'
                             },
                             {
@@ -147,7 +131,7 @@ Data Panen Perkebunan
                         var tanggal_akhir = new Date($('#tanggal_akhir').val()).getDate() + ' ' + months[new Date($(
                                 '#tanggal_akhir').val()).getMonth()] + ' ' + new Date($('#tanggal_akhir').val())
                             .getFullYear();
-                        var content_title = `Daftar Data Panen Horti` + tanggal_awal + ` - ` + tanggal_akhir;
+                        var content_title = `Daftar Data Tanam Pajale` + tanggal_awal + ` - ` + tanggal_akhir;
                         table.draw();
                         e.preventDefault();
                         $('#modal-form').modal("hide");
@@ -177,9 +161,9 @@ Data Panen Perkebunan
                 });
 
                 function addForm() {
-                    var url = "{{ route('panen.create_perkebunan') }}";
+                    var url = "{{ route('tanam.create_pajale') }}";
                     $('#modal-form').modal('show');
-                    $('#modal-form .modal-title').text('Tambah Data Panen Horti');
+                    $('#modal-form .modal-title').text('Tambah Data Tanam Pajale');
 
                     $('#modal-form form')[0].reset();
                     $('#modal-form form').attr('action', url);
@@ -188,9 +172,9 @@ Data Panen Perkebunan
                 }
 
                 function editForm(id_produktivitas) {
-                    var url = "{{ url('panen/perkebunan/update/') }}"+ "/" +id_produktivitas;
+                    var url = "{{ url('tanam/tanam_pajale/update/') }}"+ "/" +id_produktivitas;
                     $('#modal-form').modal('show');
-                    $('#modal-form .modal-title').text('Edit Data Panen Perkebunan');
+                    $('#modal-form .modal-title').text('Edit Data Tanam Pajale');
 
                     $('#modal-form form')[0].reset();
                     $('#modal-form form').attr('action', url);
@@ -198,7 +182,7 @@ Data Panen Perkebunan
 
                     $.ajax({
                         method: "get",
-                        url: "{{ route('panen.edit_perkebunan') }}",
+                        url: "{{ route('tanam.edit_pajale') }}",
                         data: {
                             id_produktivitas: id_produktivitas
                         },
@@ -210,10 +194,6 @@ Data Panen Perkebunan
                             $('#id_tanaman').val(resp.tanaman_id);
                             $('#id_tanaman').select2().trigger('change');
                             $('#modal-form [name=luas_lahan]').val(resp.luas_lahan);
-                            $('#modal-form [name=kadar]').val(resp.kadar);
-                            $('#modal-form [name=produksi]').val(resp.produksi);
-                            $('#modal-form [name=provitas]').val(resp.provitas);
-                            $('#modal-form [name=harga]').val(resp.harga);
                         },
                         error: function(err) {
                             alert('Tidak dapat menampilkan data');
@@ -243,7 +223,7 @@ Data Panen Perkebunan
                 function deleteSelected(url) {
                     if ($('input:checked').length > 1) {
                         if (confirm('Yakin ingin menghapus data terpilih?')) {
-                            $.post(url, $('.form-panen-perkebunan').serialize())
+                            $.post(url, $('.form-tanam-pajale').serialize())
                                 .done((response) => {
                                     table.ajax.reload();
                                 })
@@ -258,7 +238,7 @@ Data Panen Perkebunan
                     }
                 }
                 $('.export_pdf').click(function() {
-                    // var url = "{{ route('panen.pdf_perkebunan') }}";
+                    // var url = "{{ route('tanam.pdf_pajale') }}";
                     // $('#export-penjualan-form form').attr('action', url);
 
                     $('#form_pdf').submit();

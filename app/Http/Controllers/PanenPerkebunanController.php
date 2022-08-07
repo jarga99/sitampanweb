@@ -30,7 +30,7 @@ class PanenPerkebunanController extends Controller
         $data['title'] = 'Panen Perkebunan';
         $data['kecamatans'] = Kecamatan::all();
         $data['desas'] = Desa::all();
-        $data['tanamans'] = Tanaman::where('jenis_tanam', 3)->where('jenis_panen', 3)->get();
+        $data['tanamans'] = Tanaman::where('jenis_panen', 3)->get();
         return view('panen/perkebunan', $data);
     }
 

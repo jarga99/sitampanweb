@@ -75,7 +75,7 @@ class HortiExport implements FromCollection, WithHeadings, ShouldAutoSize, WithE
     */
     public function collection()
     {
-        $tanaman = Tanaman::where('jenis_tanam', 2)->where('jenis_panen', 2)->pluck('id_tanaman');
+        $tanaman = Tanaman::where('jenis_panen', 2)->pluck('id_tanaman');
         $data =  Produktivitas::with('mst_tanaman', 'mst_kecamatan', 'mst_desa', 'user')->whereIn('tanaman_id', $tanaman);
 
         if($this->dari != null && $this->sampai != null) {

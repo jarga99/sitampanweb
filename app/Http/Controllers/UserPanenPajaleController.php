@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Exports\PajaleExport;
+use App\Exports\HortiExport;
 use App\Models\Produktivitas;
 use App\Models\Tanaman;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -13,11 +13,11 @@ class UserPanenPajaleController extends Controller
     public function index()
     {
         $data['title'] = 'Panen Pajale';
-        return view('user/panen/pajale', $data);
+        return view('user/panen/user_panen_pajale', $data);
     }
     public function data()
     {
-        // cari tamaman yang jenis tanam sama panen horti
+        // cari tamaman yang jenis tanam sama panen pajale
         $tanaman = Tanaman::where('jenis_panen', 1)->pluck('id_tanaman');
         // ambil data berdasarkan tanaman id dalam array
         $produktivitas = Produktivitas::with('mst_kecamatan', 'mst_desa', 'mst_tanaman')->whereIn('tanaman_id', $tanaman)->orderBy('id_produktivitas', 'desc')->get();
@@ -65,7 +65,7 @@ class UserPanenPajaleController extends Controller
             ->make(true);
     }
 
-    public function pdf_horti(Request $request)
+    public function pdf_pajale(Request $request)
     {
         $tanaman = Tanaman::where('jenis_panen', 1)->pluck('id_tanaman');
         if($request->form_awal && $request->form_akhir) {
@@ -81,7 +81,7 @@ class UserPanenPajaleController extends Controller
 
     public function excel_pajale(Request $request)
     {
-        return (new Pajale_Export)->setDari($request->form_awal)->setSampai($request->form_akhir)->download('panen_pajale.xlsx');
+        return (new HortiExport)->setDari($request->form_awal)->setSampai($request->form_akhir)->download('panen_pajale.xlsx');
     }
 
 }

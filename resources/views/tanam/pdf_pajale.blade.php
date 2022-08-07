@@ -18,7 +18,7 @@
             {{-- <th>Nama Penginput</th> --}}
         </thead>
         <tbody>
-            @foreach ($produktivitas as $item)
+            @foreach ($produktivitas_tanam as $item)
                 <tr>
                     <td>{{ $loop->iteration }}</td>
                     <td>{{ \Carbon\Carbon::parse($item->created_at) }}</td>

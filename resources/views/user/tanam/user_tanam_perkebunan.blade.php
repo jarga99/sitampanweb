@@ -60,7 +60,7 @@
                     $('.select2').select2();
                 });
             </script>
-            <script src="{{ asset('/AdminLTE/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js') }}">
+            <script src="{{ asset('/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js') }}">
             </script>
             <script>
                 let table;
@@ -70,7 +70,7 @@
                         processing: true,
                         autoWidth: false,
                         ajax: {
-                            url: '{{ route('user.perkebunan.data') }}',
+                            url: '{{ route('user.user_tanam_perkebunan.data') }}',
                         },
                         columns: [{
                                 data: 'DT_RowIndex',
