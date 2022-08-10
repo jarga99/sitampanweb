@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 
 class DashboardController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $created_at = date('Y-m-d');
         $updated_at = date('Y-m-d');
@@ -54,12 +54,40 @@ class DashboardController extends Controller
                 'count_tanam_perkebunan',
                 'count_panen_perkebunan'));
         }
-        // {
-        //     return view('dashboard.counter' , compact('count_tanam_pajale','count_panen_pajale','count_tanam_horti','count_panen_horti','count_tanam_perkebunan','count_panen_perkebunan'));
-        // }
+
         elseif (auth()->user()->level == 2)
         {
-            return view('dashboard.counter');
+            return view('dashboard.counter',
+            compact(
+                'created_at',
+                'updated_at',
+                'count_data',
+                'tanam_pajale',
+                'panen_pajale',
+                'count_tanam_pajale',
+                'count_panen_pajale',
+                'count_tanam_horti',
+                'count_panen_horti',
+                'count_tanam_perkebunan',
+                'count_panen_perkebunan'));
+        }
+        elseif (auth()->user()->level == 3)
+        {
+            {
+                return view('dashboard.counter',
+                compact(
+                    'created_at',
+                    'updated_at',
+                    'count_data',
+                    'tanam_pajale',
+                    'panen_pajale',
+                    'count_tanam_pajale',
+                    'count_panen_pajale',
+                    'count_tanam_horti',
+                    'count_panen_horti',
+                    'count_tanam_perkebunan',
+                    'count_panen_perkebunan'));
+            }
         }
     }
 }

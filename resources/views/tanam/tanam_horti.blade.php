@@ -26,7 +26,7 @@
                     {{-- <button class="btn btn-info"><i class="fa fa-plus-circle"></i> Filter Periode</button>
                     <br>
                     <br> --}}
-                    <button onclick="#" class="btn btn-danger "> <i class="fa fa-trash"> Hapus</i></button>
+                    {{-- <button onclick="#" class="btn btn-danger "> <i class="fa fa-trash"> Hapus</i></button> --}}
                     <button onclick="addForm();" class="btn btn-success "> <i class="fa fa-plus"> Tambah</i></button>
                     {{-- <button onclick="#" class="btn btn-success "> <i class="fa fa-upload"> Import</i></button> --}}
                     <form id="form_pdf" action="{{ route('tanam.pdf_horti') }}" method="get" style="display: none;">
@@ -34,24 +34,26 @@
                         <input type="hidden" name="form_awal" id="form_awal" value="{{-- $tanggalAwal --}}">
                         <input type="hidden" name="form_akhir" id="form_akhir" value="{{-- $tanggalAkhir --}}">
                     </form>
-                    <button target="_blank" class="btn btn-success export_pdf">
-                        <i class="fa fa-file-excel-o"></i> PDF
-                    </button>
+                    <div class="btn-group">
+                        <button target="_blank" class="btn btn-success export_pdf">
+                            <i class="fa fa-file-pdf-o"></i> PDF
+                        </button>
+                        <button class="btn btn-primary export_excel"> <i class="fa fa-file-excel-o"> Excel</i></button>
+                    </div>
                     <form id="form_excel" action="{{ route('tanam.excel_horti') }}" method="get" style="display: none;">
                         @csrf
                         <input type="hidden" name="form_awal" id="form_awal" value="{{-- $tanggalAwal --}}">
                         <input type="hidden" name="form_akhir" id="form_akhir" value="{{-- $tanggalAkhir --}}">
                     </form>
-                    <button class="btn btn-primary export_excel"> <i class="fa fa-file-excel-o"> Excel</i></button>
                 </div>
                 <div class="box-body table-responsive">
                     <form action="" method="post" class="form-tanam-horti">
                         @csrf
                         <table class="table table-stiped table-bordered">
                             <thead>
-                                <th>
+                                {{-- <th>
                                     <input type="checkbox" name="select_all" id="select_all">
-                                </th>
+                                </th> --}}
                                 <th>No</th>
                                 <th>Tanggal</th>
                                 <th>Kecamatan</th>
@@ -86,13 +88,14 @@
                         processing: true,
                         autoWidth: false,
                         ajax: {
-                            url: '{{ route('tanam_horti.data') }}',
+                            url: '{{ route('head.tanam_horti.data') }}',
                         },
-                        columns: [{
-                                data: 'select_all',
-                                searchable: false,
-                                sortable: false
-                            },
+                        columns: [
+                            // {
+                            //     data: 'select_all',
+                            //     searchable: false,
+                            //     sortable: false
+                            // },
                             {
                                 data: 'DT_RowIndex',
                                 searchable: false,

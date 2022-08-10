@@ -26,7 +26,7 @@ Data Tanam Perkebunan
                     {{-- <button class="btn btn-info"><i class="fa fa-plus-circle"></i> Filter Periode</button>
                     <br>
                     <br> --}}
-                    <button onclick="#" class="btn btn-danger "> <i class="fa fa-trash"> Hapus</i></button>
+                    {{-- <button onclick="#" class="btn btn-danger "> <i class="fa fa-trash"> Hapus</i></button> --}}
                     <button onclick="addForm();" class="btn btn-success "> <i class="fa fa-plus"> Tambah</i></button>
                     {{-- <button onclick="#" class="btn btn-success "> <i class="fa fa-upload"> Import</i></button> --}}
                     <form id="form_pdf" action="{{ route('tanam.pdf_perkebunan') }}" method="get" style="display: none;">
@@ -34,24 +34,26 @@ Data Tanam Perkebunan
                         <input type="hidden" name="form_awal" id="form_awal" value="{{-- $tanggalAwal --}}">
                         <input type="hidden" name="form_akhir" id="form_akhir" value="{{-- $tanggalAkhir --}}">
                     </form>
-                    <button target="_blank" class="btn btn-success export_pdf">
-                        <i class="fa fa-file-excel-o"></i> PDF
-                    </button>
+                    <div class="btn-group">
+                        <button target="_blank" class="btn btn-success export_pdf">
+                            <i class="fa fa-file-pdf-o"></i> PDF
+                        </button>
+                        <button class="btn btn-primary export_excel"> <i class="fa fa-file-excel-o"> Excel</i></button>
+                    </div>
                     <form id="form_excel" action="{{ route('tanam.excel_perkebunan') }}" method="get" style="display: none;">
                         @csrf
                         <input type="hidden" name="form_awal" id="form_awal" value="{{-- $tanggalAwal --}}">
                         <input type="hidden" name="form_akhir" id="form_akhir" value="{{-- $tanggalAkhir --}}">
                     </form>
-                    <button class="btn btn-primary export_excel"> <i class="fa fa-file-excel-o"> Excel</i></button>
                 </div>
                 <div class="box-body table-responsive">
                     <form action="" method="post" class="form-tanam-perkebunan">
                         @csrf
                         <table class="table table-stiped table-bordered">
                             <thead>
-                                <th>
+                                {{-- <th>
                                     <input type="checkbox" name="select_all" id="select_all">
-                                </th>
+                                </th> --}}
                                 <th>No</th>
                                 <th>Tanggal</th>
                                 <th>Kecamatan</th>
@@ -88,11 +90,12 @@ Data Tanam Perkebunan
                         ajax: {
                             url: '{{ route('tanam_perkebunan.data') }}',
                         },
-                        columns: [{
-                                data: 'select_all',
-                                searchable: false,
-                                sortable: false
-                            },
+                        columns: [
+                            // {
+                            //     data: 'select_all',
+                            //     searchable: false,
+                            //     sortable: false
+                            // },
                             {
                                 data: 'DT_RowIndex',
                                 searchable: false,

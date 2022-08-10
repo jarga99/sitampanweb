@@ -47,7 +47,10 @@ class TanamPerkebunanController extends Controller
     {
         // cari tamaman yang jenis tanam sama tanam perkebunan
         $tanaman = Tanaman::where('jenis_tanam', 3)->pluck('id_tanaman');
+        // get id user for created_by
+        // $user   = auth()->user()->id_user;
         // ambil data berdasarkan tanaman id dalam array
+        // $produktivitas_tanam = ProduktivitasTanam::with('user','mst_kecamatan', 'mst_desa', 'mst_tanaman')->where('created_by', $user)->whereIn('tanaman_id', $tanaman)->orderBy('id_produktivitas_tanam', 'desc')->get();
         $produktivitas_tanam = ProduktivitasTanam::with('user','mst_kecamatan', 'mst_desa', 'mst_tanaman')->whereIn('tanaman_id', $tanaman)->orderBy('id_produktivitas_tanam', 'desc')->get();
         return datatables()
             ->of($produktivitas_tanam)
@@ -65,15 +68,20 @@ class TanamPerkebunanController extends Controller
                 return '<option value"' . $produktivitas_tanam->mst_tanaman->nama_tanaman . '">';
             })
             ->addColumn('luas_lahan', function ($produktivitas_tanam) {
-                return ($produktivitas_tanam->luas_lahan).' %';
+                return ($produktivitas_tanam->luas_lahan).' ha';
+            })
+            ->addColumn('created_by', function ($produktivitas_tanam) {
+                return ($produktivitas_tanam->user->nama);
             })
             ->addColumn('created_at', function($produktivitas_tanam) {
                 return \Carbon\Carbon::parse($produktivitas_tanam->created_at)->format('d-m-Y');
             })
             ->addColumn('aksi', function ($produktivitas_tanam) {
                 return '
+                <div class="btn-group">
                 <button type="button" onclick="editForm('. $produktivitas_tanam->id_produktivitas_tanam . ');" class="btn btn-sm btn-info"><i class="fa fa-pencil"></i></button>
                 <button type="button" onclick="deleteData(`' . route('tanam.delete_perkebunan', ['id' => $produktivitas_tanam->id_produktivitas_tanam]) . '`)" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></button>
+                </div>
             ';
             return "Ok";
             })
@@ -94,7 +102,7 @@ class TanamPerkebunanController extends Controller
             'desa_id' => $request->id_desa,
             'tanaman_id' => $request->id_tanaman,
             'luas_lahan' => $request->luas_lahan,
-            'created_by' => 1
+            'created_by' => auth()->user()->id_user
            ]);
            return response()->json('Data berhasil disimpan', 200);
     }

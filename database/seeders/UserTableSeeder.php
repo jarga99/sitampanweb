@@ -16,26 +16,27 @@ class UserTableSeeder extends Seeder
     {
         $user = array (
             [
-                'nama' => 'Super Admin',
-                'username' => 'superAdmin',
-                'password' => bcrypt('AdminSuper'),
+                'nama' => 'Tester1',
+                'username' => 'Tester01',
+                'password' => bcrypt('tester01'),
                 'foto' => '/img/avatar.png',
                 'level' => 1
             ],
             [
-                'nama' => 'Kepala Dinas',
-                'username' => 'kadin',
-                'password' => bcrypt('kadin dkpp'),
-                'foto' => '/img/avatar3.png',
-                'level' => 1
-            ],
-            [
-                'nama' => 'Admin',
-                'username' => 'desa1',
-                'password' => bcrypt('admindesa1'),
-                'foto' => '/img/avatar5.png',
+                'nama' => 'Terter2',
+                'username' => 'Tester02',
+                'password' => bcrypt('testter02'),
+                'foto' => '/img/avatar.png',
                 'level' => 2
             ],
+            [
+                'nama' => 'Terter3',
+                'username' => 'Tester03',
+                'password' => bcrypt('testter03'),
+                'foto' => '/img/avatar.png',
+                'level' => 3
+            ],
+
         );
         array_map(function (array $user){
           User::query()->updateOrCreate(

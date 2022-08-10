@@ -20,7 +20,7 @@
                     <p >Total Data Tanam Pajale</p>
                 </div>
                 <div class="icon">
-                    <i class="ion ion-bag"></i>
+                    <i class="fa fa-tree "></i>
                 </div>
                 <a href="{{route('tanam.index_pajale')}}" class="small-box-footer"> Detail <i class="fa fa-arrow-circle-right"></i></a>
             </div>
@@ -36,7 +36,7 @@
                     <p>Total Data Tanam Horti</p>
                 </div>
                 <div class="icon">
-                    <i class="ion ion-stats-bars"></i>
+                    <i class="fa fa-tree "></i>
                 </div>
                 <a href="{{route('tanam.index_horti')}}" class="small-box-footer">  Detail  <i class="fa fa-arrow-circle-right"></i></a>
             </div>
@@ -51,7 +51,7 @@
                     <p>Total Data Tanam Perkebunan</p>
                 </div>
                 <div class="icon">
-                    <i class="ion ion-person-add"></i>
+                    <i class="fa fa-tree "></i>
                 </div>
                 <a href="{{route('tanam.index_perkebunan')}}" class="small-box-footer">  Detail  <i class="fa fa-arrow-circle-right"></i></a>
             </div>
@@ -65,7 +65,7 @@
                     <p>Total Data Panen Pajale</p>
                 </div>
                 <div class="icon">
-                    <i class="ion ion-bag"></i>
+                    <i class="fa fa-download "></i>
                 </div>
                 <a href="{{route('panen.index_pajale')}}" class="small-box-footer">  Detail  <i class="fa fa-arrow-circle-right"></i></a>
             </div>
@@ -81,7 +81,7 @@
                     <p>Total Data Panen Horti</p>
                 </div>
                 <div class="icon">
-                    <i class="ion ion-stats-bars"></i>
+                    <i class="fa fa-download "></i>
                 </div>
                 <a href="{{route('panen.index_horti')}}" class="small-box-footer">  Detail  <i class="fa fa-arrow-circle-right"></i></a>
             </div>
@@ -96,7 +96,7 @@
                     <p>Total Data Panen Perkebunan</p>
                 </div>
                 <div class="icon">
-                    <i class="ion ion-person-add"></i>
+                    <i class="fa fa-download "></i>
                 </div>
                 <a href="{{route('panen.index_perkebunan')}}" class="small-box-footer">  Detail  <i class="fa fa-arrow-circle-right"></i></a>
             </div>

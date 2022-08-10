@@ -37,19 +37,21 @@ class UserTanamPajaleController extends Controller
                 return '<option value"' . $produktivitas_tanam->mst_tanaman->nama_tanaman . '">';
             })
             ->addColumn('luas_lahan', function ($produktivitas_tanam) {
-                return ($produktivitas_tanam->luas_lahan). ' %';
+                return ($produktivitas_tanam->luas_lahan). ' ha';
             })
             ->addColumn('created_at', function($produktivitas_tanam) {
                 return \Carbon\Carbon::parse($produktivitas_tanam->created_at)->format('d-m-Y');
             })
-            ->addColumn('aksi', function ($produktivitas_tanam) {
-                return '
-                <button type="button" onclick="editForm('. $produktivitas_tanam->id_produktivitas_tanam . ');" class="btn btn-sm btn-info"><i class="fa fa-pencil"></i></button>
-                <button type="button" onclick="deleteData(`' . route('tanam.delete_pajale', ['id' => $produktivitas_tanam->id_produktivitas_tanam]) . '`)" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></button>
-            ';
-            return "Ok";
-            })
-            ->rawColumns(['aksi', 'select_all'])
+            // ->addColumn('aksi', function ($produktivitas_tanam) {
+            //     return '
+            //     <div class="btn-group">
+            //     <button type="button" onclick="editForm('. $produktivitas_tanam->id_produktivitas_tanam . ');" class="btn btn-sm btn-info"><i class="fa fa-pencil"></i></button>
+            //     <button type="button" onclick="deleteData(`' . route('tanam.delete_pajale', ['id' => $produktivitas_tanam->id_produktivitas_tanam]) . '`)" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></button>
+            //     </div>
+            // ';
+            // return "Ok";
+            // })
+            // ->rawColumns(['aksi', 'select_all'])
             ->make(true);
     }
     public function pdf_pajale(Request $request)

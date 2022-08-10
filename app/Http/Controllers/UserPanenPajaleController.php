@@ -54,14 +54,16 @@ class UserPanenPajaleController extends Controller
             ->addColumn('created_at', function($produktivitas) {
                 return \Carbon\Carbon::parse($produktivitas->created_at)->format('d-m-Y');
             })
-            ->addColumn('aksi', function ($produktivitas) {
-                return '
-                <button type="button" onclick="editForm('. $produktivitas->id_produktivitas . ');" class="btn btn-sm btn-info"><i class="fa fa-pencil"></i></button>
-                <button type="button" onclick="deleteData(`' . route('panen.delete_pajale', ['id' => $produktivitas->id_produktivitas]) . '`)" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></button>
-            ';
-            return "Ok";
-            })
-            ->rawColumns(['aksi', 'select_all'])
+            // ->addColumn('aksi', function ($produktivitas) {
+            //     return '
+            //     <div class="btn-group">
+            //     <button type="button" onclick="editForm('. $produktivitas->id_produktivitas . ');" class="btn btn-sm btn-info"><i class="fa fa-pencil"></i></button>
+            //     <button type="button" onclick="deleteData(`' . route('panen.delete_pajale', ['id' => $produktivitas->id_produktivitas]) . '`)" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></button>
+            //     </div>
+            // ';
+            // return "Ok";
+            // })
+            // ->rawColumns(['aksi', 'select_all'])
             ->make(true);
     }
 

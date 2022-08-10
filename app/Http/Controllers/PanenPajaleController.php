@@ -52,6 +52,7 @@ class PanenPajaleController extends Controller
     {
         // cari tamaman yang jenis tanam sama panen pajale
         $tanaman = Tanaman::where('jenis_panen', 1)->pluck('id_tanaman');
+        // $user =  auth()->user()->id_user;
         // ambil data berdasarkan tanaman id dalam array
         $produktivitas = Produktivitas::with('user','mst_kecamatan', 'mst_desa', 'mst_tanaman')->whereIn('tanaman_id', $tanaman)->orderBy('id_produktivitas', 'desc')->get();
         return datatables()
@@ -92,9 +93,11 @@ class PanenPajaleController extends Controller
             })
             ->addColumn('aksi', function ($produktivitas) {
                 return '
+                <div class="btn-group">
                 <button type="button" onclick="editForm('. $produktivitas->id_produktivitas . ');" class="btn btn-info btn-sm"><i class="fa fa-pencil"></i></button>
                 <button type="button" onclick="deleteData(`' . route('panen.delete_pajale', ['id' => $produktivitas->id_produktivitas]) . '`)" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
-            ';
+                </div>
+                ';
             return "Ok";
             })
             ->rawColumns(['aksi', 'select_all'])
@@ -118,7 +121,7 @@ class PanenPajaleController extends Controller
             'provitas' => $request->provitas,
             'harga' => $request->harga,
             'luas_lahan' => $request->luas_lahan,
-            'created_by' => 1
+            'created_by' => auth()->user()->id_user
            ]);
            return response()->json('Data berhasil disimpan', 200);
     }

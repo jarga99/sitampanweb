@@ -19,7 +19,7 @@ class CreateTbUserTable extends Migration
             $table->string('username',50)->unique();
             $table->string('password');
             $table->string('foto')->nullable();
-            $table->enum('level',[1,2]);
+            $table->enum('level',[1,2,3]);
             $table->timestamps();
         });
     }

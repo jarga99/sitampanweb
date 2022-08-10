@@ -27,34 +27,36 @@ Data Panen Horti
                         Periode</button>
                     <br>
                     <br> --}}
-                    <button onclick="deleteSelected('{{ route('panen.delete_selected') }}')" class="btn btn-danger "> <i
-                            class="fa fa-trash"> Hapus</i></button>
+                    {{-- <button onclick="deleteSelected('{{ route('panen.delete_selected') }}')" class="btn btn-danger "> <i
+                            class="fa fa-trash"> Hapus</i></button> --}}
                     <button onclick="addForm();" class="btn btn-success "> <i class="fa fa-plus"> Tambah</i></button>
                     {{-- <button onclick="#" class="btn btn-success "> <i class="fa fa-upload"> Import</i></button> --}}
                     <form id="form_pdf" action="{{ route('panen.pdf_horti') }}" method="get" style="display: none;">
                         @csrf
-                        <input type="hidden" name="form_awal" id="form_awal" value="{{ $tanggalAwal }}">
-                        <input type="hidden" name="form_akhir" id="form_akhir" value="{{ $tanggalAkhir }}">
+                        <input type="hidden" name="form_awal" id="form_awal" value="{{-- $tanggalAwal --}}">
+                        <input type="hidden" name="form_akhir" id="form_akhir" value="{{-- $tanggalAkhir --}}">
                     </form>
-                    <button target="_blank" class="btn btn-success export_pdf">
-                        <i class="fa fa-file-excel-o"></i> PDF
-                    </button>
+                    <div class="btn-group">
+                        <button target="_blank" class="btn btn-success export_pdf">
+                            <i class="fa fa-file-pdf-o"></i> PDF
+                        </button>
+                        <button class="btn btn-primary export_excel"> <i class="fa fa-file-excel-o"> Excel</i></button>
+                    </div>
                     <form id="form_excel" action="{{ route('panen.excel_horti') }}" method="get" style="display: none;">
                         @csrf
-                        <input type="hidden" name="form_awal" id="form_awal" value="{{ $tanggalAwal }}">
-                        <input type="hidden" name="form_akhir" id="form_akhir" value="{{ $tanggalAkhir }}">
+                        <input type="hidden" name="form_awal" id="form_awal" value="{{-- $tanggalAwal --}}">
+                        <input type="hidden" name="form_akhir" id="form_akhir" value="{{-- $tanggalAkhir --}}">
                     </form>
-                    <button class="btn btn-primary export_excel"> <i class="fa fa-file-excel-o"> Excel</i></button>
                 </div>
                 <div class="box-body table-responsive">
                     <form action="" method="post" class="form-panen-horti">
                         @csrf
                         <table class="table table-stiped table-bordered">
                             <thead>
-                                <th width="5%">
+                                {{-- <th width="5%">
                                     <input type="checkbox" name="select_all" id="select_all">
-                                </th>
-                                <th>No</th>
+                                </th> --}}
+                                <th >No</th>
                                 <th>Tanggal</th>
                                 <th>Kecamatan</th>
                                 <th>Desa</th>
@@ -65,7 +67,7 @@ Data Panen Horti
                                 <th>Provitas</th>
                                 <th>Harga</th>
                                 <th>Nama Penginput</th>
-                                <th><i class="fa fa-cog"></i> Aksi</th>
+                                <th width="8%"><i class="fa fa-cog"></i> Aksi</th>
                             </thead>
                         </table>
                     </form>
@@ -94,11 +96,12 @@ Data Panen Horti
                         ajax: {
                             url: '{{ route('panen_horti.data') }}',
                         },
-                        columns: [{
-                                data: 'select_all',
-                                searchable: false,
-                                sortable: false
-                            },
+                        columns: [
+                            // {
+                            //     data: 'select_all',
+                            //     searchable: false,
+                            //     sortable: false
+                            // },
                             {
                                 data: 'DT_RowIndex',
                                 searchable: false,
