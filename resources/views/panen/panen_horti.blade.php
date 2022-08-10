@@ -33,19 +33,19 @@ Data Panen Horti
                     {{-- <button onclick="#" class="btn btn-success "> <i class="fa fa-upload"> Import</i></button> --}}
                     <form id="form_pdf" action="{{ route('panen.pdf_horti') }}" method="get" style="display: none;">
                         @csrf
-                        <input type="hidden" name="form_awal" id="form_awal" value="{{ $tanggalAwal }}">
-                        <input type="hidden" name="form_akhir" id="form_akhir" value="{{ $tanggalAkhir }}">
+                        <input type="hidden" name="form_awal" id="form_awal" value="{{-- $tanggalAwal --}}">
+                        <input type="hidden" name="form_akhir" id="form_akhir" value="{{-- $tanggalAkhir --}}">
                     </form>
                     <div class="btn-group">
                         <button target="_blank" class="btn btn-success export_pdf">
-                            <i class="fa fa-file-excel-o"></i> PDF
+                            <i class="fa fa-file-pdf-o"></i> PDF
                         </button>
                         <button class="btn btn-primary export_excel"> <i class="fa fa-file-excel-o"> Excel</i></button>
                     </div>
                     <form id="form_excel" action="{{ route('panen.excel_horti') }}" method="get" style="display: none;">
                         @csrf
-                        <input type="hidden" name="form_awal" id="form_awal" value="{{ $tanggalAwal }}">
-                        <input type="hidden" name="form_akhir" id="form_akhir" value="{{ $tanggalAkhir }}">
+                        <input type="hidden" name="form_awal" id="form_awal" value="{{-- $tanggalAwal --}}">
+                        <input type="hidden" name="form_akhir" id="form_akhir" value="{{-- $tanggalAkhir --}}">
                     </form>
                 </div>
                 <div class="box-body table-responsive">

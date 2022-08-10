@@ -25,9 +25,6 @@ class ProduktivitasTanam extends Model
         return $this->belongsTo(Desa::class, 'desa_id', 'id_desa');
     }
 
-    public function tb_user() {
-        return $this->hasOne(User::class, 'user_id', 'id_user');
-    }
     public function user() {
         return $this->belongsTo(User::class, 'created_by', 'id_user');
     }

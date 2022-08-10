@@ -80,9 +80,9 @@
                     </span>
                 </a>
                 <ul class="treeview-menu " style="display: none">
-                    <li><a href="{{route('tanam.index_pajale')}}"><i class="fa fa-th-list"></i>Tanam Pajale</a></li>
-                    <li><a href="{{route('tanam.index_horti')}}"><i class="fa fa-th-list"></i>Tanam Horti</a></li>
-                    <li><a href="{{route('tanam.index_perkebunan')}}"><i class="fa fa-th-list"></i>Tanam Perkebunan</a></li>
+                    <li><a href="{{route('head.tanam.index_pajale')}}"><i class="fa fa-th-list"></i>Tanam Pajale</a></li>
+                    <li><a href="{{route('head.tanam.index_horti')}}"><i class="fa fa-th-list"></i>Tanam Horti</a></li>
+                    <li><a href="{{route('head.tanam.index_perkebunan')}}"><i class="fa fa-th-list"></i>Tanam Perkebunan</a></li>
                 </ul>
             </li>
 
@@ -95,14 +95,56 @@
                     </span>
                 </a>
                 <ul class="treeview-menu " style="display: none">
-                    <li><a href="{{route('panen.index_pajale')}}"><i class="fa fa-th-list"></i>Panen Pajale</a></li>
-                    <li><a href="{{route('panen.index_horti')}}"><i class="fa fa-th-list"></i>Panen Horti</a></li>
-                    <li><a href="{{route('panen.index_perkebunan')}}"><i class="fa fa-th-list"></i>Panen Perkebunan</a></li>
+                    <li><a href="{{route('head.panen.index_pajale')}}"><i class="fa fa-th-list"></i>Panen Pajale</a></li>
+                    <li><a href="{{route('head.panen.index_horti')}}"><i class="fa fa-th-list"></i>Panen Horti</a></li>
+                    <li><a href="{{route('head.panen.index_perkebunan')}}"><i class="fa fa-th-list"></i>Panen Perkebunan</a></li>
+                </ul>
+            </li>
+            <li class="active">
+                <a href="#">
+                    <i class="fa fa-users text-primary"></i> <span>User</span>
+                </a>
+            </li>
+            <li><a href="{{route('user.index')}}"><i class="fa fa-user-plus text-aqua"></i> <span>Manajemen User</span></a></li>
+            @elseif(auth()->user()->level == 3)
+            <li>
+                <a href="{{route('counter')}}">
+                    <i class="fa fa-dashboard text-light"></i> <span>Dashboard</span>
+                </a>
+            </li>
+
+            {{-- Tanam --}}
+            <li class=" treeview">
+                <a href="#">
+                    <i class="fa fa-tree text-success"></i> <span>Tanam</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu " style="display: none">
+                    <li><a href="{{route('admin.tanam.index_pajale')}}"><i class="fa fa-th-list"></i>Tanam Pajale</a></li>
+                    <li><a href="{{route('admin.tanam.index_horti')}}"><i class="fa fa-th-list"></i>Tanam Horti</a></li>
+                    <li><a href="{{route('admin.tanam.index_perkebunan')}}"><i class="fa fa-th-list"></i>Tanam Perkebunan</a></li>
+                </ul>
+            </li>
+
+            {{-- Panen --}}
+            <li class=" treeview">
+                <a href="#">
+                    <i class="fa fa-download text-warning"></i> <span>Panen</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu " style="display: none">
+                    <li><a href="{{route('admin.panen.index_pajale')}}"><i class="fa fa-th-list"></i>Panen Pajale</a></li>
+                    <li><a href="{{route('admin.panen.index_horti')}}"><i class="fa fa-th-list"></i>Panen Horti</a></li>
+                    <li><a href="{{route('admin.panen.index_perkebunan')}}"><i class="fa fa-th-list"></i>Panen Perkebunan</a></li>
                 </ul>
             </li>
             @endif
         </ul>
-
+`
 
         {{-- end Panen --}}
     </section>

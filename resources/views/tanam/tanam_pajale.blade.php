@@ -36,7 +36,7 @@ Data Tanam Pajale
                     </form>
                     <div class="btn-group">
                         <button target="_blank" class="btn btn-success export_pdf">
-                            <i class="fa fa-file-excel-o"></i> PDF
+                            <i class="fa fa-file-pdf-o"></i> PDF
                         </button>
                         <button class="btn btn-primary export_excel"> <i class="fa fa-file-excel-o"> Excel</i></button>
                     </div>

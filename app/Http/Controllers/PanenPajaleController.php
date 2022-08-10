@@ -52,6 +52,7 @@ class PanenPajaleController extends Controller
     {
         // cari tamaman yang jenis tanam sama panen pajale
         $tanaman = Tanaman::where('jenis_panen', 1)->pluck('id_tanaman');
+        // $user =  auth()->user()->id_user;
         // ambil data berdasarkan tanaman id dalam array
         $produktivitas = Produktivitas::with('user','mst_kecamatan', 'mst_desa', 'mst_tanaman')->whereIn('tanaman_id', $tanaman)->orderBy('id_produktivitas', 'desc')->get();
         return datatables()
@@ -120,7 +121,7 @@ class PanenPajaleController extends Controller
             'provitas' => $request->provitas,
             'harga' => $request->harga,
             'luas_lahan' => $request->luas_lahan,
-            'created_by' => 1
+            'created_by' => auth()->user()->id_user
            ]);
            return response()->json('Data berhasil disimpan', 200);
     }

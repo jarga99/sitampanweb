@@ -20,19 +20,19 @@ class PanenHortiController extends Controller
     // Back End Index
     public function index(Request $request)
     {
-        $tanggalAwal = date('Y-m-d', mktime(0, 0, 0, date('m'), 1, date('Y')));
-        $tanggalAkhir = date('Y-m-d');
+        // $tanggalAwal = date('Y-m-d', mktime(0, 0, 0, date('m'), 1, date('Y')));
+        // $tanggalAkhir = date('Y-m-d');
 
-        if ($request->has('tanggal_awal') && $request->tanggal_awal != "" && $request->has('tanggal_akhir') && $request->tanggal_akhir) {
-            $tanggalAwal = $request->tanggal_awal;
-            $tanggalAkhir = $request->tanggal_akhir;
-        }
+        // if ($request->has('tanggal_awal') && $request->tanggal_awal != "" && $request->has('tanggal_akhir') && $request->tanggal_akhir) {
+        //     $tanggalAwal = $request->tanggal_awal;
+        //     $tanggalAkhir = $request->tanggal_akhir;
+        // }
 
         $data['title'] = 'Panen Horti';
         $data['kecamatans'] = Kecamatan::all();
         $data['desas'] = Desa::all();
         $data['tanamans'] = Tanaman::where('jenis_panen', 2)->get();
-        return view('panen/panen_horti', $data, compact('tanggalAwal', 'tanggalAkhir'));
+        return view('panen/panen_horti', $data);
     }
 
     /**
@@ -49,6 +49,7 @@ class PanenHortiController extends Controller
     {
         // cari tamaman yang jenis tanam sama panen horti
         $tanaman = Tanaman::where('jenis_panen', 2)->pluck('id_tanaman');
+        // $user = auth()->user()->id_user;
         // ambil data berdasarkan tanaman id dalam array
         $produktivitas = Produktivitas::with('user','mst_kecamatan', 'mst_desa', 'mst_tanaman')->whereIn('tanaman_id', $tanaman)->orderBy('id_produktivitas', 'desc')->get();
         return datatables()
@@ -113,10 +114,11 @@ class PanenHortiController extends Controller
         'desa_id' => $request->id_desa,
         'tanaman_id' => $request->id_tanaman,
         'kadar' => $request->kadar,
+        'produksi' => $request->produksi,
         'provitas' => $request->provitas,
         'harga' => $request->harga,
         'luas_lahan' => $request->luas_lahan,
-        'created_by' => 1
+        'created_by' => auth()->user()->id_user
        ]);
        return response()->json('Data berhasil disimpan', 200);
     }

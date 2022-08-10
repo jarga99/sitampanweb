@@ -11,12 +11,12 @@ class UserController extends Controller
 {
     public function index()
     {
-        $data['title'] = 'User MAnager';
+        $data['title'] = 'User Manajer';
         return view('user.index', $data);
     }
     public function data()
     {
-        $user = User::isNotAdmin()->orderBy('id_user', 'desc')->get();
+        $user = User::isNotAdmin()->where('level', 3)->orderBy('id_user', 'desc')->get();
 
         return datatables()
             ->of($user)
@@ -45,7 +45,7 @@ class UserController extends Controller
         $user->nama = $request->nama;
         $user->username = $request->username;
         $user->password = bcrypt($request->password);
-        $user->level = 2;
+        $user->level = 3;
         $user->foto = '/img/avatar5.png';
         $user->save();
 

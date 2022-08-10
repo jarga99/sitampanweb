@@ -40,7 +40,7 @@ class UserTanamHortiController extends Controller
                 return '<option value"' . $produktivitas_tanam->mst_tanaman->nama_tanaman . '">';
             })
             ->addColumn('luas_lahan', function ($produktivitas_tanam) {
-                return ($produktivitas_tanam->luas_lahan).' %';
+                return ($produktivitas_tanam->luas_lahan).' ha';
             })
             ->addColumn('created_at', function($produktivitas_tanam) {
                 return \Carbon\Carbon::parse($produktivitas_tanam->created_at)->format('d-m-Y');
