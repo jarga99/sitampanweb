@@ -24,11 +24,16 @@ Route::GET('/data/panen/{id}', function (){
     $total = DB::select(DB::raw("
         SELECT
             id_produktivitas,
-            updated_at,
+            tb_produktivitas.updated_at AS updated_at,
             SUM(luas_lahan) AS luas_lahan,
             ROUND(kadar/100,2) AS kadar,
             produksi,
             harga,
+            nama_kecamatan,
+            nama_desa,
+            nama_tanaman,
+            provitas,
+            tb_user.nama,
             luas_lahan,(
                 SELECT SUM(luas_lahan) FROM tb_produktivitas INNER JOIN mst_tanaman ON tanaman_id = id_tanaman
                 WHERE jenis_panen = $id_panen
@@ -46,8 +51,11 @@ Route::GET('/data/panen/{id}', function (){
                 WHERE jenis_panen = $id_panen
             ) AS total_harga
         FROM tb_produktivitas INNER JOIN mst_tanaman ON tanaman_id = id_tanaman
+        INNER JOIN mst_kecamatan ON id_kecamatan = kecamatan_id
+        INNER JOIN mst_desa ON id_desa = desa_id
+        INNER JOIN tb_user ON tb_user.id_user = created_by
         WHERE jenis_panen = $id_panen
-        AND updated_at >= (now() -interval 5 year)
+        AND tb_produktivitas.updated_at >= (now() -interval 5 year)
         GROUP BY id_produktivitas
     "));
     // $id_panen = request()->route('id');

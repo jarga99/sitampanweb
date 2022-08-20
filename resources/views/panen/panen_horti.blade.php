@@ -54,10 +54,10 @@
                         @csrf
                         <table class="table table-stiped table-bordered">
                             <thead>
-                                {{-- <th width="5%">
+                                <!-- <th width="5%">
                                     <input type="checkbox" name="select_all" id="select_all">
-                                </th> --}}
-                                <th>No</th>
+                                </th> -->
+                                <!-- <th>No</th> -->
                                 <th>Tanggal</th>
                                 <th>Kecamatan</th>
                                 <th>Desa</th>
@@ -70,17 +70,19 @@
                                 <th>Nama Penginput</th>
                                 <th width="8%"><i class="fa fa-cog"></i> Aksi</th>
                             </thead>
+                            <tbody>
+                            
+                           </tbody>
                             <tfoot>
                                 <tr>
-                                    <td style="text-align: center" colspan="5"><b> Total Luas: </b></td>
-                                    <td colspan="7"><b>90 ha</b></td>
+                                    <th style="text-align: center" colspan="5"><b> Total Luas: </b></th>
                                 </tr>
                                 <tr>
-                                    <td style="text-align: center" colspan="6"><b> Rata - rata:</b></td>
-                                    <td><b>81</b></td>
-                                    <td><b>20</b></td>
-                                    <td><b>39</b></td>
-                                    <td colspan="3"><b>Rp. 10.000,00</b></td>
+                                    <th style="text-align: center" colspan="6"><b> Rata - rata:</b></th>
+                                    <th><b>81</b></th>
+                                    <th><b>20</b></th>
+                                    <th><b>39</b></th>
+                                    <th colspan="3"><b>Rp. 10.000,00</b></th>
                                 </tr>
                             </tfoot>
                         </table>
@@ -105,81 +107,102 @@
 
                 $(function() {
                     table = $('.table').DataTable({
-                        processing: true,
-                        serverSide: true,
-                        autoWidth: false,
-                        ajax: {
-                            url: '{{ route('panen_horti.data') }}',
-                            data: function(d) {
-                                d.tanggal_awal = $('#tanggal_awal').val();
-                                d.tanggal_akhir = $('#tanggal_akhir').val();
+                        "processing": true,
+                        "serverSide": true,
+                        "autoWidth": false,
+                        "ajax":{
+                            "url": "http://localhost:8001/api/data/panen/2",
+                            "type": "GET",
+                            "dataSrc":function(d) {
+                                return d.datas
                             }
                         },
-                        columns:
-                            [
-                            // {
-                            //     data: 'select_all',
-                            //     searchable: false,
-                            //     sortable: false
-                            // },
+                        "columns":[
                             {
-                                data: 'DT_RowIndex',
-                                searchable: false,
-                                sortable: false
+                                "data":"updated_at"
                             },
                             {
-                                data: 'created_at'
+                                "data":"nama_kecamatan"
                             },
                             {
-                                data: 'mst_kecamatan.nama_kecamatan'
+                                "data":"nama_desa"
                             },
                             {
-                                data: 'mst_desa.nama_desa'
+                                "data":"nama_tanaman"
                             },
                             {
-                                data: 'mst_tanaman.nama_tanaman'
+                                "data":"luas_lahan"
                             },
                             {
-                                data: 'luas_lahan'
+                                "data":"kadar"
                             },
                             {
-                                data: 'kadar'
+                                "data":"produksi"
                             },
                             {
-                                data: 'produksi'
+                                "data":"provitas"
                             },
                             {
-                                data: 'provitas'
+                                "data":"harga"
                             },
                             {
-                                data: 'harga'
+                                "data":"nama"
                             },
                             {
-                                data: 'created_by'
+                                "data":"id_produktivitas",
+                                "render":function ( data, type, row, meta ) {
+                                    return type == 'display' ? 
+                                    '<div class="btn-group">'+
+                                    '<button type="button" onclick=editForm('+data+') class="btn btn-sm btn-info"><i class="fa fa-pencil"></i></button>'+
+                                    '<button type="button" onclick=deleteData('+data+') class="btn btn-sm btn-info"><i class="fa fa-trash"></i></button>'+
+                                    '</div>'
+                                    : data
+                                }
                             },
-                            {
-                                data: 'aksi',
-                                searchable: false,
-                                sortable: false
-                            },
-                        ]
+                        ],
+                        "footerCallback": function ( row, data, start, end, display ) {
+                            var api = this.api()
+                            $(api.column(4).footer()).html(
+                              'Total Luas : '+data[0].total_luas_lahan +'ha'
+                            );
+                        }
+                    })
+                    // table = $('.table').DataTable({
+                    //     processing: true,
+                    //     serverSide: true,
+                    //     autoWidth: false,
+                    //     ajax: {
+                    //         url: "http://localhost:8000/api/data/panen/1",
+                    //         type:"GET",
+                    //         "dataSrc":function(json) {
+                    //             console.log(json)
+                    //         },
+                    //     },
+                    //     columns:
+                    //         [
+                    //             {
+                    //                 data: 'aksi',
+                    //                 searchable: false,
+                    //                 sortable: false
+                    //             }
+                    //         ]
 
-                    });
+                    // });
 
                     //Pilih Periode
                     $('#btn-search').on('click', function(e) {
                         const months = ["January", "February", "Maret", "April", "Mei", "Juni", "Juli", "Agustus",
                             "September", "Oktober", "November", "Desember"
                         ];
-                        var tanggal_awal = new Date($('#tanggal_awal').val()).getDate() + ' ' + months[new Date($(
+                        var tanggal_awal = new Date($('#tanggal_awal').val()).gethate() + ' ' + months[new Date($(
                                 '#tanggal_awal').val()).getMonth()] + ' ' + new Date($('#tanggal_awal').val())
                             .getFullYear();
-                        var tanggal_akhir = new Date($('#tanggal_akhir').val()).getDate() + ' ' + months[new Date($(
+                        var tanggal_akhir = new Date($('#tanggal_akhir').val()).gethate() + ' ' + months[new Date($(
                                 '#tanggal_akhir').val()).getMonth()] + ' ' + new Date($('#tanggal_akhir').val())
                             .getFullYear();
                         var content_title = `Daftar Data Panen Horti` + tanggal_awal + ` - ` + tanggal_akhir;
                         table.draw();
-                        e.preventDefault();
+                        e.preventhefault();
                         $('#modal-content').modal("hide");
                         $('#form_awal').val($('#tanggal_awal').val());
                         $('#form_akhir').val($('#tanggal_akhir').val());
@@ -187,7 +210,7 @@
                     });
 
                     $('#modal-form').validator().on('submit', function(e) {
-                        if (!e.preventDefault()) {
+                        if (!e.preventhefault()) {
                             $.post($('#modal-form form').attr('action'), $('#modal-form form').serialize(), )
                                 .done((response) => {
                                     $('#modal-form').modal('hide');
@@ -254,8 +277,9 @@
                     });
                 }
 
-                function deleteData(url) {
+                function deleteData(id) {
                     if (confirm('Yakin ingin menghapus data terpilih?')) {
+                        var url = "{{URL::to('/panen/panen_horti/delete/')}}"+ "/" + id
                         $.post(url, {
                                 '_token': $('[name=csrf-token]').attr('content'),
                                 '_method': 'delete'
@@ -308,7 +332,7 @@
                     var html = "";
                     $.ajax({
                         method: "get",
-                        url: "{{ route('getdesa') }}",
+                        url: "{{ route('gethesa') }}",
                         data: {
                             id_kecamatan: id_kecamatan
                         },
