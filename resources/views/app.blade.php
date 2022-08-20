@@ -24,8 +24,7 @@
         <!-- DataTables -->
         <link rel="stylesheet" href="{{ asset('datatables.net-bs/css/dataTables.bootstrap.min.css') }}">
         <!-- Google Font -->
-        <link rel="stylesheet"
-            href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+        <link rel="stylesheet" href="{{ asset('css/gfont.css') }}">
         @stack('css')
     </head>
 
