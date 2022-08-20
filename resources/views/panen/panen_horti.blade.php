@@ -1,7 +1,7 @@
 @extends('app')
 
 @section('title')
-Data Panen Horti
+    Data Panen Horti
 @endsection
 
 @section('breadcrumb')
@@ -10,7 +10,7 @@ Data Panen Horti
 @endsection
 
 @push('css')
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <link href="{{asset('css/select2.min.css')}}" rel="stylesheet" />
     <style>
         .select2-container {
             width: 100% !important;
@@ -23,18 +23,18 @@ Data Panen Horti
         <div class="col-lg-12">
             <div class="box">
                 <div class="box-header with-border">
-                    {{-- <button onclick="updatePeriode()" class="btn btn-info"><i class="fa fa-plus-circle"></i> Filter
+                    <button onclick="updatePeriode()" class="btn btn-info"><i class="fa fa-plus-circle"></i> Filter
                         Periode</button>
                     <br>
-                    <br> --}}
+                    <br>
                     {{-- <button onclick="deleteSelected('{{ route('panen.delete_selected') }}')" class="btn btn-danger "> <i
                             class="fa fa-trash"> Hapus</i></button> --}}
                     <button onclick="addForm();" class="btn btn-success "> <i class="fa fa-plus"> Tambah</i></button>
                     {{-- <button onclick="#" class="btn btn-success "> <i class="fa fa-upload"> Import</i></button> --}}
                     <form id="form_pdf" action="{{ route('panen.pdf_horti') }}" method="get" style="display: none;">
                         @csrf
-                        <input type="hidden" name="form_awal" id="form_awal" value="{{-- $tanggalAwal --}}">
-                        <input type="hidden" name="form_akhir" id="form_akhir" value="{{-- $tanggalAkhir --}}">
+                        <input type="hidden" name="form_awal" id="form_awal" value="{{ $tanggalAwal }}">
+                        <input type="hidden" name="form_akhir" id="form_akhir" value="{{ $tanggalAkhir }}">
                     </form>
                     <div class="btn-group">
                         <button target="_blank" class="btn btn-success export_pdf">
@@ -44,11 +44,12 @@ Data Panen Horti
                     </div>
                     <form id="form_excel" action="{{ route('panen.excel_horti') }}" method="get" style="display: none;">
                         @csrf
-                        <input type="hidden" name="form_awal" id="form_awal" value="{{-- $tanggalAwal --}}">
-                        <input type="hidden" name="form_akhir" id="form_akhir" value="{{-- $tanggalAkhir --}}">
+                        <input type="hidden" name="form_awal" id="form_awal" value="{{ $tanggalAwal }}">
+                        <input type="hidden" name="form_akhir" id="form_akhir" value="{{ $tanggalAkhir }}">
                     </form>
                 </div>
                 <div class="box-body table-responsive">
+
                     <form action="" method="post" class="form-panen-horti">
                         @csrf
                         <table class="table table-stiped table-bordered">
@@ -56,7 +57,7 @@ Data Panen Horti
                                 {{-- <th width="5%">
                                     <input type="checkbox" name="select_all" id="select_all">
                                 </th> --}}
-                                <th >No</th>
+                                <th>No</th>
                                 <th>Tanggal</th>
                                 <th>Kecamatan</th>
                                 <th>Desa</th>
@@ -69,34 +70,53 @@ Data Panen Horti
                                 <th>Nama Penginput</th>
                                 <th width="8%"><i class="fa fa-cog"></i> Aksi</th>
                             </thead>
+                            <tfoot>
+                                <tr>
+                                    <td style="text-align: center" colspan="5"><b> Total Luas: </b></td>
+                                    <td colspan="7"><b>90 ha</b></td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: center" colspan="6"><b> Rata - rata:</b></td>
+                                    <td><b>81</b></td>
+                                    <td><b>20</b></td>
+                                    <td><b>39</b></td>
+                                    <td colspan="3"><b>Rp. 10.000,00</b></td>
+                                </tr>
+                            </tfoot>
                         </table>
                     </form>
                 </div>
             </div>
 
             @includeIf('panen.form_horti')
+            @includeIf('panen.form')
         @endsection
 
         @push('scripts')
-            <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+            <script src="{{asset('js/select2.min.js')}}"></script>
             <script>
                 $(document).ready(function() {
                     $('.select2').select2();
                 });
             </script>
-            <script src="{{ asset('/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js') }}">
-            </script>
+            <script src="{{ asset('/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js') }}"></script>
             <script>
                 let table;
 
                 $(function() {
                     table = $('.table').DataTable({
                         processing: true,
+                        serverSide: true,
                         autoWidth: false,
                         ajax: {
                             url: '{{ route('panen_horti.data') }}',
+                            data: function(d) {
+                                d.tanggal_awal = $('#tanggal_awal').val();
+                                d.tanggal_akhir = $('#tanggal_akhir').val();
+                            }
                         },
-                        columns: [
+                        columns:
+                            [
                             // {
                             //     data: 'select_all',
                             //     searchable: false,
@@ -160,7 +180,7 @@ Data Panen Horti
                         var content_title = `Daftar Data Panen Horti` + tanggal_awal + ` - ` + tanggal_akhir;
                         table.draw();
                         e.preventDefault();
-                        $('#modal-form').modal("hide");
+                        $('#modal-content').modal("hide");
                         $('#form_awal').val($('#tanggal_awal').val());
                         $('#form_akhir').val($('#tanggal_akhir').val());
                         $('#content-title').html(content_title);
@@ -214,9 +234,11 @@ Data Panen Horti
                         },
                         success: function(resp) {
                             $('#id_kecamatan').val(resp.kecamatan_id);
-                            $('#id_kecamatan').select2().trigger('change');
+                            $('#id_kecamatan').attr('disabled', 'disabled');
+                            // $('#id_kecamatan').select2().trigger('change');
                             $('#id_desa').val(resp.desa_id);
-                            $('#id_desa').select2().trigger('change');
+                            $('#id_desa').attr('disabled', 'disabled');
+                            // $('#id_desa').select2().trigger('change');
                             $('#id_tanaman').val(resp.tanaman_id);
                             $('#id_tanaman').select2().trigger('change');
                             $('#modal-form [name=luas_lahan]').val(resp.luas_lahan);
@@ -269,7 +291,7 @@ Data Panen Horti
                 }
 
                 function updatePeriode() {
-                    $('#modal-form').modal('show');
+                    $('#modal-content').modal('show');
                 }
                 $('.export_pdf').click(function() {
                     // var url = "{{ route('panen.pdf_horti') }}";
@@ -292,7 +314,8 @@ Data Panen Horti
                         },
                         success: function(resp) {
                             $.each(resp, function(i, v) {
-                                html += '<option value="' + v.id_desa + '">' + v.nama_desa + '</option>';
+                                html += '<option value="' + v.id_desa + '">' + v.nama_desa +
+                                '</option>';
                                 $('#id_desa').html(html);
                             });
                         },
