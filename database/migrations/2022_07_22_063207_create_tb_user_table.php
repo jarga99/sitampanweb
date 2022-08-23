@@ -18,6 +18,7 @@ class CreateTbUserTable extends Migration
             $table->string('nama',50);
             $table->string('username',50)->unique();
             $table->string('password');
+            $table->unsignedBigInteger('kecamatan_id')->nullable();
             $table->string('foto')->nullable();
             $table->enum('level',[1,2,3]);
             $table->timestamps();

@@ -57,7 +57,7 @@ class DashboardController extends Controller
 
         elseif (auth()->user()->level == 2)
         {
-            return view('dashboard.counter',
+            return view('dashboard.counter2',
             compact(
                 'created_at',
                 'updated_at',
@@ -71,10 +71,10 @@ class DashboardController extends Controller
                 'count_tanam_perkebunan',
                 'count_panen_perkebunan'));
         }
-        elseif (auth()->user()->level == 3)
+        elseif(auth()->user()->level == 3)
         {
             {
-                return view('dashboard.counter',
+                return view('dashboard.counter3',
                 compact(
                     'created_at',
                     'updated_at',

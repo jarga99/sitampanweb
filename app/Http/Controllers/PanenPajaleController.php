@@ -22,19 +22,19 @@ class PanenPajaleController extends Controller
      */
     public function index(Request $request)
     {
-        // $tanggalAwal = date('Y-m-d', mktime(0, 0, 0, date('m'), 1, date('Y')));
-        // $tanggalAkhir = date('Y-m-d');
+        $tanggalAwal = date('Y-m-d', mktime(0, 0, 0, date('m'), 1, date('Y')));
+        $tanggalAkhir = date('Y-m-d');
 
-        // if ($request->has('tanggal_awal') && $request->tanggal_awal != "" && $request->has('tanggal_akhir') && $request->tanggal_akhir) {
-        //     $tanggalAwal = $request->tanggal_awal;
-        //     $tanggalAkhir = $request->tanggal_akhir;
-        // }
+        if ($request->has('tanggal_awal') && $request->tanggal_awal != "" && $request->has('tanggal_akhir') && $request->tanggal_akhir) {
+            $tanggalAwal = $request->tanggal_awal;
+            $tanggalAkhir = $request->tanggal_akhir;
+        }
 
         $data['title'] = 'Panen Pajale';
         $data['kecamatans'] = Kecamatan::all();
         $data['desas'] = Desa::all();
         $data['tanamans'] = Tanaman::where('jenis_panen', 1)->get();
-        return view('panen/panen_pajale', $data);
+        return view('panen/panen_pajale', $data, compact('tanggalAwal', 'tanggalAkhir'));
     }
 
 
@@ -48,13 +48,18 @@ class PanenPajaleController extends Controller
     {
         //
     }
-    public function data()
+    public function data(Request $request)
     {
         // cari tamaman yang jenis tanam sama panen pajale
         $tanaman = Tanaman::where('jenis_panen', 1)->pluck('id_tanaman');
         // $user =  auth()->user()->id_user;
         // ambil data berdasarkan tanaman id dalam array
-        $produktivitas = Produktivitas::with('user','mst_kecamatan', 'mst_desa', 'mst_tanaman')->whereIn('tanaman_id', $tanaman)->orderBy('id_produktivitas', 'desc')->get();
+        $produktivitas = Produktivitas::with('user','mst_kecamatan', 'mst_desa', 'mst_tanaman')->whereIn('tanaman_id', $tanaman)->orderBy('id_produktivitas', 'desc');
+        if($request->tanggal_awal != null && $request->tanggal_akhir != null) {
+            $produktivitas = $produktivitas->whereBetween('created_at', [$request->tanggal_awal, $request->tanggal_akhir]);
+        }
+        $produktivitas = $produktivitas->get();
+
         return datatables()
             ->of($produktivitas)
             ->addIndexColumn()
@@ -159,8 +164,8 @@ class PanenPajaleController extends Controller
     public function update(Request $request, $id_produktivitas)
     {
         Produktivitas::where('id_produktivitas', $id_produktivitas)->update([
-            'kecamatan_id' => $request->id_kecamatan,
-            'desa_id' => $request->id_desa,
+            // 'kecamatan_id' => $request->id_kecamatan,
+            // 'desa_id' => $request->id_desa,
             'tanaman_id' => $request->id_tanaman,
             'kadar' => $request->kadar,
             'produksi' => $request->produksi,
@@ -224,15 +229,15 @@ class PanenPajaleController extends Controller
         return (new PajaleExport)->setDari($request->form_awal)->setSampai($request->form_akhir)->download('panen_pajale.xlsx');
     }
 
-    public function deleteSelected(Request $request)
-    {
-        foreach ($request->id_produktivitas as $id) {
-            $delSelected = Produktivitas::find($id);
+    // public function deleteSelected(Request $request)
+    // {
+    //     foreach ($request->id_produktivitas as $id) {
+    //         $delSelected = Produktivitas::find($id);
 
-            Produktivitas::where('id_produktivitas', $delSelected->id_produktivitas)->delete();
-            Kecamatan::where('id_kecamatan', $delSelected->kecamatan_id)->delete();
-            Desa::where('id_desa', $delSelected->desa_id)->delete();
-            Tanaman::where('id_tanaman', $delSelected->tanaman_id)->delete();
-        }
-    }
+    //         Produktivitas::where('id_produktivitas', $delSelected->id_produktivitas)->delete();
+    //         Kecamatan::where('id_kecamatan', $delSelected->kecamatan_id)->delete();
+    //         Desa::where('id_desa', $delSelected->desa_id)->delete();
+    //         Tanaman::where('id_tanaman', $delSelected->tanaman_id)->delete();
+    //     }
+    // }
 }

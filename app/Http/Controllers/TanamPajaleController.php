@@ -18,19 +18,19 @@ class TanamPajaleController extends Controller
      */
     public function index(Request $request)
     {
-        // $tanggalAwal = date('Y-m-d', mktime(0, 0, 0, date('m'), 1, date('Y')));
-        // $tanggalAkhir = date('Y-m-d');
+        $tanggalAwal = date('Y-m-d', mktime(0, 0, 0, date('m'), 1, date('Y')));
+        $tanggalAkhir = date('Y-m-d');
 
-        // if ($request->has('tanggal_awal') && $request->tanggal_awal != "" && $request->has('tanggal_akhir') && $request->tanggal_akhir) {
-        //     $tanggalAwal = $request->tanggal_awal;
-        //     $tanggalAkhir = $request->tanggal_akhir;
-        // }
+        if ($request->has('tanggal_awal') && $request->tanggal_awal != "" && $request->has('tanggal_akhir') && $request->tanggal_akhir) {
+            $tanggalAwal = $request->tanggal_awal;
+            $tanggalAkhir = $request->tanggal_akhir;
+        }
 
         $data['title'] = 'Tanam Pajale';
         $data['kecamatans'] = Kecamatan::all();
         $data['desas'] = Desa::all();
         $data['tanamans'] = Tanaman::where('jenis_tanam', 1)->get();
-        return view('tanam/tanam_pajale',$data);
+        return view('tanam/tanam_pajale',$data,  compact('tanggalAwal', 'tanggalAkhir'));
     }
 
 
@@ -44,14 +44,18 @@ class TanamPajaleController extends Controller
         //
     }
 
-    public function data()
+    public function data(Request $request)
     {
         // cari tamaman yang jenis tanam sama tanam pajale
         $tanaman = Tanaman::where('jenis_tanam', 1)->pluck('id_tanaman');
         //$tanaman = Tanaman::where('created_by', auth()->user()->id_user)->pluck('id_tanaman');
         // $user   = auth()->user()->id_user;
         // ambil data berdasarkan tanaman id dalam array
-        $produktivitas_tanam = ProduktivitasTanam::with('user','mst_kecamatan', 'mst_desa', 'mst_tanaman')->whereIn('tanaman_id', $tanaman)->orderBy('id_produktivitas_tanam', 'desc')->get();
+        $produktivitas_tanam = ProduktivitasTanam::with('user','mst_kecamatan', 'mst_desa', 'mst_tanaman')->whereIn('tanaman_id', $tanaman)->orderBy('id_produktivitas_tanam', 'desc');
+        if($request->tanggal_awal != null && $request->tanggal_akhir != null) {
+            $produktivitas_tanam = $produktivitas_tanam->whereBetween('created_at', [$request->tanggal_awal, $request->tanggal_akhir]);
+        }
+        $produktivitas_tanam = $produktivitas_tanam->get();
         return datatables()
             ->of($produktivitas_tanam)
             ->addIndexColumn()
@@ -139,8 +143,8 @@ class TanamPajaleController extends Controller
     public function update(Request $request, $id_produktivitas_tanam)
     {
         ProduktivitasTanam::where('id_produktivitas_tanam', $id_produktivitas_tanam)->update([
-            'kecamatan_id' => $request->id_kecamatan,
-            'desa_id' => $request->id_desa,
+            // 'kecamatan_id' => $request->id_kecamatan,
+            // 'desa_id' => $request->id_desa,
             'tanaman_id' => $request->id_tanaman,
             'luas_lahan' => $request->luas_lahan,
             'created_by' => 1

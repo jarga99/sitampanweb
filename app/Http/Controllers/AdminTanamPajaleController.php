@@ -9,24 +9,39 @@ use App\Models\ProduktivitasTanam;
 use App\Models\Tanaman;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AdminTanamPajaleController extends Controller
 {
     public function index(Request $request)
     {
+                // function filter tanggal
+                $tanggalAwal = date('Y-m-d', mktime(0, 0, 0, date('m'), 1, date('Y')));
+                $tanggalAkhir = date('Y-m-d');
+
+                if ($request->has('tanggal_awal') && $request->tanggal_awal != "" && $request->has('tanggal_akhir') && $request->tanggal_akhir) {
+                    $tanggalAwal = $request->tanggal_awal;
+                    $tanggalAkhir = $request->tanggal_akhir;
+                }
+
         $data['title'] = 'Tanam Pajale';
         $data['kecamatans'] = Kecamatan::all();
         $data['desas'] = Desa::all();
         $data['tanamans'] = Tanaman::where('jenis_tanam', 1)->get();
-        return view('admin/tanam/admin_tanam_pajale', $data);
+        $data['is_kecamatan'] = Auth::user()->kecamatan_id ?? "";
+        return view('admin/tanam/admin_tanam_pajale', $data, compact('tanggalAwal', 'tanggalAkhir'));
     }
-    public function data()
+    public function data(Request $request)
     {
         // cari tamaman yang jenis tanam sama tanam Pajale
         $tanaman = Tanaman::where('jenis_tanam', 1)->pluck('id_tanaman');
         // $user = auth()->user()->id_user;
         // ambil data berdasarkan tanaman id dalam array
-        $produktivitas_tanam = ProduktivitasTanam::with('user','mst_kecamatan', 'mst_desa', 'mst_tanaman')->whereIn('tanaman_id', $tanaman)->orderBy('id_produktivitas_tanam', 'desc')->get();
+        $produktivitas_tanam = ProduktivitasTanam::with('user','mst_kecamatan', 'mst_desa', 'mst_tanaman')->whereIn('tanaman_id', $tanaman)->orderBy('id_produktivitas_tanam', 'desc');
+        if ($request->tanggal_awal != null && $request->tanggal_akhir != null) {
+            $produktivitas_tanam = $produktivitas_tanam->whereBetween('created_at', [$request->tanggal_awal, $request->tanggal_akhir]);
+        }
+        $produktivitas_tanam = $produktivitas_tanam->get();
         return datatables()
             ->of($produktivitas_tanam)
             ->addIndexColumn()
@@ -44,18 +59,6 @@ class AdminTanamPajaleController extends Controller
             })
             ->addColumn('luas_lahan', function ($produktivitas_tanam) {
                 return ($produktivitas_tanam->luas_lahan ?? '0'). " ha" ;
-            })
-            ->addColumn('kadar', function ($produktivitas_tanam) {
-                return ($produktivitas_tanam->kadar ?? '0') . " %";
-            })
-            ->addColumn('produksi', function ($produktivitas_tanam) {
-                return ($produktivitas_tanam->produksi ?? '0') . " ton";
-            })
-            ->addColumn('provitas', function ($produktivitas_tanam) {
-                return ($produktivitas_tanam->provitas ?? '0'). " ku/ha";
-            })
-            ->addColumn('harga', function ($produktivitas_tanam) {
-                return "Rp. ". format_uang($produktivitas_tanam->harga). ",00";
             })
             ->addColumn('created_by', function ($produktivitas_tanam) {
                 return $produktivitas_tanam->user->nama ?? '-';
@@ -84,10 +87,6 @@ class AdminTanamPajaleController extends Controller
         'kecamatan_id' => $request->id_kecamatan,
         'desa_id' => $request->id_desa,
         'tanaman_id' => $request->id_tanaman,
-        'kadar' => $request->kadar,
-        'produksi' => $request->produksi,
-        'provitas' => $request->provitas,
-        'harga' => $request->harga,
         'luas_lahan' => $request->luas_lahan,
         'created_by' => auth()->user()->id_user
        ]);

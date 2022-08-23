@@ -19,19 +19,19 @@ class PanenPerkebunanController extends Controller
      */
     public function index(Request $request)
     {
-        // $tanggalAwal = date('Y-m-d', mktime(0, 0, 0, date('m'), 1, date('Y')));
-        // $tanggalAkhir = date('Y-m-d');
+        $tanggalAwal = date('Y-m-d', mktime(0, 0, 0, date('m'), 1, date('Y')));
+        $tanggalAkhir = date('Y-m-d');
 
-        // if ($request->has('tanggal_awal') && $request->tanggal_awal != "" && $request->has('tanggal_akhir') && $request->tanggal_akhir) {
-        //     $tanggalAwal = $request->tanggal_awal;
-        //     $tanggalAkhir = $request->tanggal_akhir;
-        // }
+        if ($request->has('tanggal_awal') && $request->tanggal_awal != "" && $request->has('tanggal_akhir') && $request->tanggal_akhir) {
+            $tanggalAwal = $request->tanggal_awal;
+            $tanggalAkhir = $request->tanggal_akhir;
+        }
 
         $data['title'] = 'Panen Perkebunan';
         $data['kecamatans'] = Kecamatan::all();
         $data['desas'] = Desa::all();
         $data['tanamans'] = Tanaman::where('jenis_panen', 3)->get();
-        return view('panen/panen_perkebunan', $data);
+        return view('panen/panen_perkebunan', $data, compact('tanggalAwal', 'tanggalAkhir'));
     }
 
     /**
@@ -154,8 +154,8 @@ class PanenPerkebunanController extends Controller
     public function update(Request $request, $id_produktivitas)
     {
         Produktivitas::where('id_produktivitas', $id_produktivitas)->update([
-            'kecamatan_id' => $request->id_kecamatan,
-            'desa_id' => $request->id_desa,
+            // 'kecamatan_id' => $request->id_kecamatan,
+            // 'desa_id' => $request->id_desa,
             'tanaman_id' => $request->id_tanaman,
             'kadar' => $request->kadar,
             'produksi' => $request->produksi,

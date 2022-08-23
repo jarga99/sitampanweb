@@ -22,4 +22,8 @@ class User extends Authenticatable
     {
         return $query->where('level', '!=',[1,2]);
     }
+
+    public function mst_kecamatan() {
+        return $this->hasMany(User::class, 'kecamatan_id', 'id_kecamatan');
+    }
 }

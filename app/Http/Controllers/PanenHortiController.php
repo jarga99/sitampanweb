@@ -29,20 +29,20 @@ class PanenHortiController extends Controller
             $tanggalAwal = $request->tanggal_awal;
             $tanggalAkhir = $request->tanggal_akhir;
         }
-        // $total = Produktivitas::query()->select(['updated_at','sum(luas_lahan)'])->where('updated_at','>=','now() -interval 5 year')->groupBy('updated_at');
-        $total = DB::select(DB::raw("SELECT updated_at, SUM(luas_lahan) FROM tb_produktivitas WHERE updated_at >= (now() -interval 5 year) GROUP BY updated_at"));
-        // dump($total);
-        // var_dump($total);
-        $kadar = Produktivitas::query()->select(['updated_at','sum(kadar)'])->where('updated_at','>=','now() -interval 5 year')->groupBy('updated_at');
-        $produksi = Produktivitas::query()->select(['updated_at','sum(produksi)'])->where('updated_at','>=','now() -interval 5 year')->groupBy('updated_at');
-        $provitas = Produktivitas::query()->select(['updated_at','sum(provitas)'])->where('updated_at','>=','now() -interval 5 year')->groupBy('updated_at');
-        $harga = Produktivitas::query()->select(['updated_at','sum(harga)'])->where('updated_at','>=','now() -interval 5 year')->groupBy('updated_at');
+        // // $total = Produktivitas::query()->select(['updated_at','sum(luas_lahan)'])->where('updated_at','>=','now() -interval 5 year')->groupBy('updated_at');
+        // $total = DB::select(DB::raw("SELECT updated_at, SUM(luas_lahan) FROM tb_produktivitas WHERE updated_at >= (now() -interval 5 year) GROUP BY updated_at"));
+        // // dump($total);
+        // // var_dump($total);
+        // $kadar = Produktivitas::query()->select(['updated_at','sum(kadar)'])->where('updated_at','>=','now() -interval 5 year')->groupBy('updated_at');
+        // $produksi = Produktivitas::query()->select(['updated_at','sum(produksi)'])->where('updated_at','>=','now() -interval 5 year')->groupBy('updated_at');
+        // $provitas = Produktivitas::query()->select(['updated_at','sum(provitas)'])->where('updated_at','>=','now() -interval 5 year')->groupBy('updated_at');
+        // $harga = Produktivitas::query()->select(['updated_at','sum(harga)'])->where('updated_at','>=','now() -interval 5 year')->groupBy('updated_at');
 
         $data['title'] = 'Panen Horti';
         $data['kecamatans'] = Kecamatan::all();
         $data['desas'] = Desa::all();
         $data['tanamans'] = Tanaman::where('jenis_panen', 2)->get();
-        return view('panen/panen_horti', $data, compact('tanggalAwal', 'tanggalAkhir','total','kadar','produksi','provitas','harga'));
+        return view('panen/panen_horti', $data, compact('tanggalAwal', 'tanggalAkhir'));
     }
 
     /**
@@ -97,7 +97,7 @@ class PanenHortiController extends Controller
                 return ($produktivitas->provitas) . ' ku/ha';
             })
             ->addColumn('harga', function ($produktivitas) {
-                return 'Rp. '. format_uang($produktivitas->harga).',00';
+                return 'Rp. '. format_uang($produktivitas->harga);
             })
             ->addColumn('created_by', function ($produktivitas) {
                 return ($produktivitas->user->nama);
@@ -173,8 +173,8 @@ class PanenHortiController extends Controller
     public function update(Request $request, $id_produktivitas)
     {
         Produktivitas::where('id_produktivitas', $id_produktivitas)->update([
-            'kecamatan_id' => $request->id_kecamatan,
-            'desa_id' => $request->id_desa,
+            // 'kecamatan_id' => $request->id_kecamatan,
+            // 'desa_id' => $request->id_desa,
             'tanaman_id' => $request->id_tanaman,
             'kadar' => $request->kadar,
             'produksi' => $request->produksi,

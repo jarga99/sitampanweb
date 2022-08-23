@@ -44,13 +44,17 @@ class TanamHortiController extends Controller
         //
     }
 
-    public function data()
+    public function data(Request $request)
     {
         // cari tamaman yang jenis tanam sama tanam horti
         $tanaman = Tanaman::where('jenis_tanam', 2)->pluck('id_tanaman');
         // $user = auth()->user()->id_user;
         // ambil data berdasarkan tanaman id dalam array
-        $produktivitas_tanam = ProduktivitasTanam::with('user','mst_kecamatan', 'mst_desa', 'mst_tanaman')->whereIn('tanaman_id', $tanaman)->orderBy('id_produktivitas_tanam', 'desc')->get();
+        $produktivitas_tanam = ProduktivitasTanam::with('user','mst_kecamatan', 'mst_desa', 'mst_tanaman')->whereIn('tanaman_id', $tanaman)->orderBy('id_produktivitas_tanam', 'desc');
+        if($request->tanggal_awal != null && $request->tanggal_akhir != null) {
+            $produktivitas_tanam = $produktivitas_tanam->whereBetween('created_at', [$request->tanggal_awal, $request->tanggal_akhir]);
+        }
+        $produktivitas_tanam = $produktivitas_tanam->get();
         return datatables()
             ->of($produktivitas_tanam)
             ->addIndexColumn()
@@ -139,8 +143,8 @@ class TanamHortiController extends Controller
     public function update(Request $request, $id_produktivitas_tanam)
     {
         ProduktivitasTanam::where('id_produktivitas_tanam', $id_produktivitas_tanam)->update([
-            'kecamatan_id' => $request->id_kecamatan,
-            'desa_id' => $request->id_desa,
+            // 'kecamatan_id' => $request->id_kecamatan,
+            // 'desa_id' => $request->id_desa,
             'tanaman_id' => $request->id_tanaman,
             'luas_lahan' => $request->luas_lahan,
             'created_by' => 1
@@ -179,15 +183,15 @@ class TanamHortiController extends Controller
         return (new Horti_Export)->setDari($request->form_awal)->setSampai($request->form_akhir)->download('tanam_horti.xlsx');
     }
 
-    public function deleteSelected(Request $request)
-    {
-        foreach ($request->id_produktivitas_tanam as $id) {
-            $delSelected = ProduktivitasTanam::find($id);
+    // public function deleteSelected(Request $request)
+    // {
+    //     foreach ($request->id_produktivitas_tanam as $id) {
+    //         $delSelected = ProduktivitasTanam::find($id);
 
-            ProduktivitasTanam::where('id_produktivitas_tanam', $delSelected->id_produktivitas_tanam)->delete();
-            Kecamatan::where('id_kecamatan', $delSelected->kecamatan_id)->delete();
-            Desa::where('id_desa', $delSelected->desa_id)->delete();
-            Tanaman::where('id_tanaman', $delSelected->tanaman_id)->delete();
-        }
-    }
+    //         ProduktivitasTanam::where('id_produktivitas_tanam', $delSelected->id_produktivitas_tanam)->delete();
+    //         Kecamatan::where('id_kecamatan', $delSelected->kecamatan_id)->delete();
+    //         Desa::where('id_desa', $delSelected->desa_id)->delete();
+    //         Tanaman::where('id_tanaman', $delSelected->tanaman_id)->delete();
+    //     }
+    // }
 }

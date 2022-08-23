@@ -11,7 +11,7 @@
                     <h4 class="modal-title"></h4>
                 </div>
                 <div class="modal-body">
-                    <div class="form-group row">
+                    <div class="form-group row" id="panel-kecamatan">
                         <label for="id_kecamatan" class="col-lg-2 col-lg-offset-1 control-label">Kecamatan</label>
                         <div class="col-lg-6">
                             <select name="id_kecamatan" id="id_kecamatan" class="form-control select2" required>
@@ -49,7 +49,7 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="luas_lahan" class="col-lg-2 col-lg-offset-1 control-label">Luas Tanam</label>
+                        <label for="luas_lahan" class="col-lg-2 col-lg-offset-1 control-label">Luas Panen</label>
                         <div class="col-lg-6">
                             <input type="number" name="luas_lahan" id="luas_lahan" class="form-control" required>
                             <span class="help-block with-errors"></span>
