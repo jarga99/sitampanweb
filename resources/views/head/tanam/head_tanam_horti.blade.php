@@ -110,7 +110,7 @@
                             const $elm_luas = parseInt(json.data[index].luas_lahan);
                             $luas           += $elm_luas;
                             }
-                            $("th#luas").html($luas.toFixed(2)+ " ha");
+                            $("th#luas").html($luas+ " ha");
                         }
                     });
 
@@ -150,7 +150,7 @@
 
                             }
 
-                            $("th#luas").html($luas.toFixed(2)+ " ha");
+                            $("th#luas").html($luas+ " ha");
                         },false);
                         $('#modal-content').modal("hide");
                         $('#form_awal').val($('#tanggal_awal').val());

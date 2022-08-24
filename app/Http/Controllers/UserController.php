@@ -14,6 +14,11 @@ class UserController extends Controller
         $data['title'] = 'User Manajer';
         return view('user.index', $data);
     }
+    public function head_index()
+    {
+        $data['title'] = 'User Manajer';
+        return view('head_user.index', $data);
+    }
     public function data()
     {
         $user = User::isNotAdmin()->where('level', 3)->orderBy('id_user', 'desc')->get();

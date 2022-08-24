@@ -177,11 +177,11 @@ Data Panen Perkebunan
                             var $avg_kadar = parseFloat($kadar);
                             var $avg_prod = parseFloat($prov);
                             var $avg_prov= parseFloat($prov);
-                            $("th#luas").html($luas.toFixed(2)+ " ha");
+                            $("th#luas").html($luas+ " ha");
                             $("th#kadar").html($avg_kadar.toFixed(2)+ " %");
                             $("th#prod").html($avg_prod.toFixed(2)+" ton");
                             $("th#prov").html($avg_prov.toFixed(2)+" ku/ha");
-                            $("th#harga").html("Rp. "+$harga+ ",00");
+                            $("th#harga").html("Rp. "+$harga);
                         }
 
                     });
@@ -240,11 +240,11 @@ Data Panen Perkebunan
                             var $avg_kadar = parseFloat($kadar);
                             var $avg_prod = parseFloat($prov);
                             var $avg_prov= parseFloat($prov);
-                            $("th#luas").html($luas.toFixed(2)+ " ha");
+                            $("th#luas").html($luas+ " ha");
                             $("th#kadar").html($avg_kadar.toFixed(2)+ " %");
                             $("th#prod").html($avg_prod.toFixed(2)+" ton");
                             $("th#prov").html($avg_prov.toFixed(2)+" ku/ha");
-                            $("th#harga").html("Rp. "+$harga.toFixed(2));
+                            $("th#harga").html("Rp. "+$harga);
                         },false);
                         $('#modal-content').modal("hide");
                         $('#form_awal').val($('#tanggal_awal').val());
@@ -301,6 +301,7 @@ Data Panen Perkebunan
                             id_produktivitas: id_produktivitas
                         },
                         success: function(resp) {
+                            $('#modal-form [name=tanggal]').val(resp.created_at);
                             $('#id_kecamatan').val(resp.kecamatan_id);
                             $('#id_kecamatan').select2().trigger('change').attr("disabled",true);
                             $('#id_desa').val(resp.desa_id);

@@ -97,7 +97,7 @@ class PanenHortiController extends Controller
                 return ($produktivitas->provitas) . ' ku/ha';
             })
             ->addColumn('harga', function ($produktivitas) {
-                return 'Rp. '. format_uang($produktivitas->harga);
+                return 'Rp. '. ($produktivitas->harga);
             })
             ->addColumn('created_by', function ($produktivitas) {
                 return ($produktivitas->user->nama);
@@ -135,7 +135,8 @@ class PanenHortiController extends Controller
         'provitas' => $request->provitas,
         'harga' => $request->harga,
         'luas_lahan' => $request->luas_lahan,
-        'created_by' => auth()->user()->id_user
+        'created_by' => auth()->user()->id_user,
+        'created_at' => $request->tanggal
        ]);
        return response()->json('Data berhasil disimpan', 200);
     }
@@ -181,7 +182,8 @@ class PanenHortiController extends Controller
             'provitas' => $request->provitas,
             'harga' => $request->harga,
             'luas_lahan' => $request->luas_lahan,
-            'created_by' => 1
+            'created_by' => 1,
+            'created_at'  => $request->tanggal
         ]);
 
         return response()->json('Data berhasil update', 200);

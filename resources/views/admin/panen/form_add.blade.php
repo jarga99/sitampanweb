@@ -11,7 +11,14 @@
                     <h4 class="modal-title"></h4>
                 </div>
                 <div class="modal-body">
-                    <div class="form-group row" id="panel-kecamatan">
+                    <div class="form-group row">
+                        <label for="tanggal" class="col-lg-2 col-lg-offset-1 control-label">Tanggal</label>
+                        <div class="col-lg-6">
+                            <input type="date" name="tanggal" id="tanggal" class="form-control datepicker" value="{{old('tanggal')}}" required>
+                        <span class="help-block with-errors"></span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
                         <label for="id_kecamatan" class="col-lg-2 col-lg-offset-1 control-label">Kecamatan</label>
                         <div class="col-lg-6">
                             <select name="id_kecamatan" id="id_kecamatan" class="form-control select2" required>

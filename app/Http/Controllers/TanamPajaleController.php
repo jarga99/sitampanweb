@@ -105,7 +105,8 @@ class TanamPajaleController extends Controller
             'desa_id' => $request->id_desa,
             'tanaman_id' => $request->id_tanaman,
             'luas_lahan' => $request->luas_lahan,
-            'created_by' => auth()->user()->id_user
+            'created_by' => auth()->user()->id_user,
+            'created_at' => $request->tanggal
            ]);
            return response()->json('Data berhasil disimpan', 200);
     }
@@ -147,7 +148,8 @@ class TanamPajaleController extends Controller
             // 'desa_id' => $request->id_desa,
             'tanaman_id' => $request->id_tanaman,
             'luas_lahan' => $request->luas_lahan,
-            'created_by' => 1
+            'created_by' => 1,
+            'created_at' => $request->tanggal
         ]);
 
         return response()->json('Data berhasil update', 200);

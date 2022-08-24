@@ -143,7 +143,7 @@
                             const $elm_luas = parseInt(json.data[index].luas_lahan);
                             $luas           += $elm_luas;
                             }
-                            $("th#luas").html($luas.toFixed(2)+ " ha");
+                            $("th#luas").html($luas+ " ha");
                         }
 
                     });
@@ -184,7 +184,7 @@
 
                             }
 
-                            $("th#luas").html($luas.toFixed(2)+ " ha");
+                            $("th#luas").html($luas+ " ha");
                         },false);
                         $('#modal-content').modal("hide");
                         $('#form_awal').val($('#tanggal_awal').val());
@@ -238,6 +238,7 @@
                             id_produktivitas: id_produktivitas
                         },
                         success: function(resp) {
+                            $('#modal-form [name=tanggal]').val(resp.created_at);
                             $('#id_kecamatan').val(resp.kecamatan_id);
                             $('#id_kecamatan').select2().trigger('change').attr("disabled",true);
                             $('#id_desa').val(resp.desa_id);
