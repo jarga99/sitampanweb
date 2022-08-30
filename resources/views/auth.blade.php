@@ -2,17 +2,6 @@
 <html>
 
 <head>
-    <meta name="Description" content="aku tampan" />
-    <!-- Mendeklarasikan warna yang muncul pada address bar Chrome versi seluler -->
-    <meta name="theme-color" content="#414f57" />
-    <!-- Mendeklarasikan ikon untuk iOS -->
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-    <meta name="apple-mobile-web-app-title" content="Sistem Informasi Tanam Dan Panen" />
-    <link rel="apple-touch-icon" href="path/to/icons/128x128.png" />
-    <!-- Mendeklarasikan ikon untuk Windows -->
-    <meta name="msapplication-TileImage" content="path/to/icons/128x128.png" />
-    <meta name="msapplication-TileColor" content="#000000" />
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>{{ config('app.name') }} | Log in</title>
@@ -31,9 +20,7 @@
 
     <!-- Google Font -->
     <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
-
-    <link rel="manifest" href="{{('/manifest.json')}}">
+        href="{{asset('css/gfont.css')}}">
 </head>
 
 <body class="hold-transition login-page ">
@@ -58,13 +45,6 @@
         });
         $('.form-login').validator();
     </script>
-    <script>
-        if ('serviceWorker' in navigator) {
-          window.addEventListener('load', () => {
-            navigator.serviceWorker.register('/sw.js');
-          });
-        }
-      </script>
 </body>
 
 </html>

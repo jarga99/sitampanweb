@@ -11,7 +11,7 @@
     </section>
 
     @push('css')
-        <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <link href="{{asset('css/select2.min.css')}}" rel="stylesheet" />
     @endpush
     <div class="row">
         <div class="col-lg-12">
@@ -60,7 +60,7 @@
         @endsection
 
         @push('scripts')
-            <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+        <script src="{{asset('js/select2.min.js')}}"></script>
             <script>
                 $(document).ready(function() {
                     $('.select2').select2();
@@ -114,26 +114,6 @@
                         ]
 
                     });
-
-                    //Pilih Periode
-                    $('#btn-search').on('click', function(e) {
-                        const months = ["January", "February", "Maret", "April", "Mei", "Juni", "Juli", "Agustus",
-                            "September", "Oktober", "November", "Desember"
-                        ];
-                        var tanggal_awal = new Date($('#tanggal_awal').val()).getDate() + ' ' + months[new Date($(
-                                '#tanggal_awal').val()).getMonth()] + ' ' + new Date($('#tanggal_awal').val())
-                            .getFullYear();
-                        var tanggal_akhir = new Date($('#tanggal_akhir').val()).getDate() + ' ' + months[new Date($(
-                                '#tanggal_akhir').val()).getMonth()] + ' ' + new Date($('#tanggal_akhir').val())
-                            .getFullYear();
-                        var content_title = `Daftar Data panen Horti` + tanggal_awal + ` - ` + tanggal_akhir;
-                        table.draw();
-                        e.preventDefault();
-                        $('#modal-form').modal("hide");
-                        $('#form_awal').val($('#tanggal_awal').val());
-                        $('#form_akhir').val($('#tanggal_akhir').val());
-                        $('#content-title').html(content_title);
-                    });
                 });
 
                 $('.export_pdf').click(function() {
@@ -145,5 +125,6 @@
                 $('.export_excel').click(function() {
                     $('#form_excel').submit();
                 });
+
             </script>
         @endpush

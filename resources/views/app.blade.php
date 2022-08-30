@@ -1,6 +1,4 @@
 @auth
-
-
     <!-- master dari dashboard -->
     <!DOCTYPE html>
     <html lang="en">

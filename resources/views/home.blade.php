@@ -8,6 +8,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>SITAMPAN</title>
+    @laravelPWA
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <link rel="icon" href="{{ asset('/img/logo.png') }}" type="image/png">
     <!-- Bootstrap 3.3.7 -->
@@ -18,7 +19,7 @@
     <link rel="stylesheet" href="{{ asset('datatables.net-bs/css/dataTables.bootstrap.min.css') }}">
     <!-- Google Font -->
     <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+        href="{{asset('css/gfont.css')}}">
     @stack('css')
 </head>
 

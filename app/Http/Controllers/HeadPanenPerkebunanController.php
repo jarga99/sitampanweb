@@ -64,7 +64,7 @@ class HeadPanenPerkebunanController extends Controller
                 return ($produktivitas->provitas) . ' ku/ha';
             })
             ->addColumn('harga', function ($produktivitas) {
-                return 'Rp. ' . format_uang($produktivitas->harga) . ',00';
+                return 'Rp. ' .($produktivitas->harga);
             })
             ->addColumn('created_at', function ($produktivitas) {
                 return \Carbon\Carbon::parse($produktivitas->created_at)->format('d-m-Y');

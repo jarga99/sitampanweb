@@ -72,16 +72,18 @@ Data Panen Horti
                             </tbody>
                             <tfoot>
                                 <tr>
-                                    <th colspan="5">Total Luas :</th>
+                                    <th colspan="5">Total :</th>
                                     <th id="luas"></th>
-                                    <th colspan="6"></th>
+                                    <th colspan="3"></th>
+                                    <th id="harga"></th>
+                                    <th colspan="2"></th>
                                 </tr>
                                 <tr>
                                     <th colspan="6">Rata-Rata :</th>
                                     <th id="kadar"></th>
                                     <th id="prod"></th>
                                     <th id="prov"></th>
-                                    <th id="harga" colspan="3"></th>
+                                    <th colspan="3"></th>
                                 </tr>
                             </tfoot>
                             </table>
@@ -180,7 +182,7 @@ Data Panen Horti
                             $prod    = parseFloat($prod)/parseFloat(json.data.length)
                             $prov    = parseFloat($prov)/parseFloat(json.data.length)
                             var $avg_kadar = parseFloat($kadar);
-                            var $avg_prod = parseFloat($prov);
+                            var $avg_prod = parseFloat($prod);
                             var $avg_prov= parseFloat($prov);
                             $("th#luas").html($luas+ " ha");
                             $("th#kadar").html($avg_kadar.toFixed(2)+ " %");
@@ -232,7 +234,7 @@ Data Panen Horti
                             const $elm_kadar = parseFloat(json.data[index].kadar);
                             const $elm_prod = parseFloat(json.data[index].produksi);
                             const $elm_prov = parseFloat(json.data[index].provitas);
-                            const $elm_harga = parseFloat(json.data[index].harga.replace("Rp. ",""));
+                            const $elm_harga = parseInt(json.data[index].harga.replace("Rp. "));
                             $luas           += $elm_luas;
                             $kadar          += $elm_kadar;
                             $prod          += $elm_prod;
@@ -243,7 +245,7 @@ Data Panen Horti
                             $prod    = parseFloat($prod)/parseFloat(json.data.length)
                             $prov    = parseFloat($prov)/parseFloat(json.data.length)
                             var $avg_kadar = parseFloat($kadar);
-                            var $avg_prod = parseFloat($prov);
+                            var $avg_prod = parseFloat($prod);
                             var $avg_prov= parseFloat($prov);
                             $("th#luas").html($luas+ " ha");
                             $("th#kadar").html($avg_kadar.toFixed(2)+ " %");
