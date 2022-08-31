@@ -64,7 +64,7 @@ class HeadTanamHortiController extends Controller
             })
             ->make(true);
     }
-    public function pdf_horti(Request $request)
+    public function pdf_tanam(Request $request)
     {
         $tanaman = Tanaman::where('jenis_panen', 2)->pluck('id_tanaman');
         if ($request->form_awal && $request->form_akhir) {
@@ -73,7 +73,7 @@ class HeadTanamHortiController extends Controller
             $produktivitas_tanam = ProduktivitasTanam::whereIn('tanaman_id', $tanaman)->get();
         }
 
-        $pdf = Pdf::loadView('tanam.pdf_horti', compact('produktivitas_tanam'))->setPaper('a4', 'landscape');
+        $pdf = Pdf::loadView('tanam.pdf_tanam', compact('produktivitas_tanam'))->setPaper('a4', 'landscape');
 
         return $pdf->stream();
     }

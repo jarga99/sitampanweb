@@ -168,7 +168,7 @@ class TanamPerkebunanController extends Controller
         return response()->json('Data berhasil hapus', 200);
     }
 
-    public function pdf_perkebunan(Request $request)
+    public function pdf_tanam(Request $request)
     {
         $tanaman = Tanaman::where('jenis_tanam', 3)->pluck('id_tanaman');
         if($request->form_awal && $request->form_akhir) {
@@ -177,7 +177,7 @@ class TanamPerkebunanController extends Controller
             $produktivitas_tanam = ProduktivitasTanam::whereIn('tanaman_id', $tanaman)->get();
         }
 
-        $pdf = Pdf::loadView('tanam.pdf_perkebunan', compact('produktivitas_tanam'))->setPaper('a4', 'landscape');
+        $pdf = Pdf::loadView('tanam.pdf_tanam', compact('produktivitas_tanam'))->setPaper('a4', 'landscape');
 
         return $pdf->stream();
     }

@@ -19,7 +19,6 @@
             <th>Produksi</th>
             <th>Provitas</th>
             <th>Harga</th>
-            {{-- <th>Nama Penginput</th> --}}
         </thead>
         <tbody>
             @foreach ($produktivitas as $item)
@@ -34,7 +33,6 @@
                     <td>{{ $item->produksi }} ton</td>
                     <td>{{ $item->provitas }} ku/ha</td>
                     <td>Rp. {{ format_uang($item->harga) }},00</td>
-                    {{-- <td>{{ $item->user->nama }}</td> --}}
                 </tr>
             @endforeach
         </tbody>

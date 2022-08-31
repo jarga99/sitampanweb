@@ -18,7 +18,7 @@
                         Periode</button>
                     <br>
                     <br>
-                    <form id="form_pdf" action="{{ route('tanam.pdf_perkebunan') }}" method="get" style="display: none;">
+                    <form id="form_pdf" action="{{ route('head.tanam.pdf_tanam') }}" method="get" style="display: none;">
                         @csrf
                         <input type="hidden" name="form_awal" id="form_awal" value="{{-- $tanggalAwal --}}">
                         <input type="hidden" name="form_akhir" id="form_akhir" value="{{-- $tanggalAkhir --}}">
@@ -163,7 +163,7 @@
                     $('#modal-content').modal('show');
                 }
                 $('.export_pdf').click(function() {
-                    // var url = "{{ route('tanam.pdf_perkebunan') }}";
+                    // var url = "{{ route('tanam.pdf_tanam') }}";
                     // $('#export-penjualan-form form').attr('action', url);
 
                     $('#form_pdf').submit();

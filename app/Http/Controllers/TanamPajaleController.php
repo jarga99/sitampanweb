@@ -166,7 +166,7 @@ class TanamPajaleController extends Controller
         ProduktivitasTanam::where('id_produktivitas_tanam', $id_produktivitas_tanam)->delete();
         return response()->json('Data berhasil hapus', 200);
     }
-    public function pdf_pajale(Request $request)
+    public function pdf_tanam(Request $request)
     {
         $tanaman = Tanaman::where('jenis_tanam', 1)->pluck('id_tanaman');
         if($request->form_awal && $request->form_akhir) {
@@ -175,7 +175,7 @@ class TanamPajaleController extends Controller
             $produktivitas_tanam = ProduktivitasTanam::whereIn('tanaman_id', $tanaman)->get();
         }
 
-        $pdf = Pdf::loadView('tanam.pdf_pajale', compact('produktivitas_tanam'))->setPaper('a4', 'landscape');
+        $pdf = Pdf::loadView('tanam.pdf_tanam', compact('produktivitas_tanam'))->setPaper('a4', 'landscape');
 
         return $pdf->stream();
     }

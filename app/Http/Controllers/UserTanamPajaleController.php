@@ -54,7 +54,7 @@ class UserTanamPajaleController extends Controller
             // ->rawColumns(['aksi', 'select_all'])
             ->make(true);
     }
-    public function pdf_pajale(Request $request)
+    public function pdf_tanam(Request $request)
     {
         $tanaman = Tanaman::where('jenis_panen', 1)->pluck('id_tanaman');
         if($request->form_awal && $request->form_akhir) {
@@ -63,7 +63,7 @@ class UserTanamPajaleController extends Controller
             $produktivitas_tanam = ProduktivitasTanam::whereIn('tanaman_id', $tanaman)->get();
         }
 
-        $pdf = Pdf::loadView('tanam.pdf_pajale', compact('produktivitas_tanam'))->setPaper('a4', 'landscape');
+        $pdf = Pdf::loadView('tanam.pdf_tanam', compact('produktivitas_tanam'))->setPaper('a4', 'landscape');
 
         return $pdf->stream();
     }

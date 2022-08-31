@@ -14,8 +14,6 @@
             <th>Kecamatan</th>
             <th>Desa</th>
             <th>Tanaman </th>
-            <th>Luas Tanam</th>
-            {{-- <th>Nama Penginput</th> --}}
         </thead>
         <tbody>
             @foreach ($produktivitas_tanam as $item)
@@ -26,7 +24,6 @@
                     <td>{{ $item->mst_desa->nama_desa }}</td>
                     <td>{{ $item->mst_tanaman->nama_tanaman }}</td>
                     <td>{{ $item->luas_lahan }} ha</td>
-                    {{-- <td>{{ $item->user->nama }}</td> --}}
                 </tr>
             @endforeach
         </tbody>
