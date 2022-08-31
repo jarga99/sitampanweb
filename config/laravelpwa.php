@@ -7,10 +7,10 @@ return [
         'short_name' => 'STMPN',
         'start_url' => '/',
         'background_color' => '#ffffff',
-        'theme_color' => '#000000',
+        'theme_color' => '#F6FFF8',
         'display' => 'standalone',
         'orientation'=> 'any',
-        'status_bar'=> 'black',
+        'status_bar'=> '#F6FFF8',
         'icons' => [
             '72x72' => [
                 'path' => '/images/icons/icon-72x72.png',
