@@ -20,7 +20,7 @@
                 <div class="box-header with-border">
                     {{-- <button class="btn btn-info" style="margin-bottom: 1%"><i class="fa fa-plus-circle"></i> Filter Periode</button>
                     <br> --}}
-                    <form id="form_pdf" action="{{ route('user.panen.pdf_panen') }}" method="get" style="display: none;">
+                    <form id="form_pdf" action="{{ route('user.panen.pdf_panen_perkebunan') }}" method="get" style="display: none;">
                         @csrf
                         <input type="hidden" name="form_awal" id="form_awal" value="{{-- $tanggalAwal --}}">
                         <input type="hidden" name="form_akhir" id="form_akhir" value="{{-- $tanggalAkhir --}}">
@@ -117,7 +117,7 @@
                 });
 
                 $('.export_pdf').click(function() {
-                    // var url = "{{ route('panen.pdf_panen') }}";
+                    // var url = "{{ route('user.panen.pdf_panen_perkebunan') }}";
                     // $('#export-penjualan-form form').attr('action', url);
 
                     $('#form_pdf').submit();

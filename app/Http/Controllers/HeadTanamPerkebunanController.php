@@ -62,7 +62,7 @@ class HeadTanamPerkebunanController extends Controller
 
             ->make(true);
     }
-    public function pdf_tanam(Request $request)
+    public function pdf_tanam_perkebunan(Request $request)
     {
         $tanaman = Tanaman::where('jenis_panen', 3)->pluck('id_tanaman');
         if ($request->form_awal && $request->form_akhir) {
@@ -71,7 +71,7 @@ class HeadTanamPerkebunanController extends Controller
             $produktivitas_tanam = ProduktivitasTanam::whereIn('tanaman_id', $tanaman)->get();
         }
 
-        $pdf = Pdf::loadView('tanam.pdf_tanam', compact('produktivitas_tanam'))->setPaper('a4', 'landscape');
+        $pdf = Pdf::loadView('head.tanam.pdf_tanam_perkebunan', compact('produktivitas_tanam'))->setPaper('a4', 'landscape');
 
         return $pdf->stream();
     }

@@ -65,7 +65,7 @@ class UserPanenPerkebunanController extends Controller
             // ->rawColumns(['aksi', 'select_all'])
             ->make(true);
     }
-    public function pdf_panen(Request $request)
+    public function pdf_panen_perkebunan(Request $request)
     {
         $tanaman = Tanaman::where('jenis_panen', 3)->pluck('id_tanaman');
         if($request->form_awal && $request->form_akhir) {
@@ -74,7 +74,7 @@ class UserPanenPerkebunanController extends Controller
             $produktivitas = Produktivitas::whereIn('tanaman_id', $tanaman)->get();
         }
 
-        $pdf = Pdf::loadView('panen.pdf_panen', compact('produktivitas'))->setPaper('a4', 'landscape');
+        $pdf = Pdf::loadView('user.panen.pdf_panen_perkebunan', compact('produktivitas'))->setPaper('a4', 'landscape');
 
         return $pdf->stream();
     }

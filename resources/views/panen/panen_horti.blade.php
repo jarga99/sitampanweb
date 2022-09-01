@@ -29,7 +29,7 @@ Data Panen Horti
                     {{-- <button onclick="#" class="btn btn-danger "> <i class="fa fa-trash"> Hapus</i></button> --}}
                     <button onclick="addForm();" class="btn btn-success "> <i class="fa fa-plus"> Tambah</i></button>
                     {{-- <button onclick="#" class="btn btn-success "> <i class="fa fa-upload"> Import</i></button> --}}
-                    <form id="form_pdf" action="{{ route('admin.panen.pdf_panen') }}" method="get" style="display: none;">
+                    <form id="form_pdf" action="{{ route('panen.pdf_panen') }}" method="get" style="display: none;">
                         @csrf
                         <input type="hidden" name="form_awal" id="form_awal" value="{{ $tanggalAwal }}">
                         <input type="hidden" name="form_akhir" id="form_akhir" value="{{ $tanggalAkhir }}">
