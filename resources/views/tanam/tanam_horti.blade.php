@@ -31,10 +31,10 @@
                             class="fa fa-trash"> Hapus</i></button> --}}
                     <button onclick="addForm();" class="btn btn-success "> <i class="fa fa-plus"> Tambah</i></button>
                     {{-- <button onclick="#" class="btn btn-success "> <i class="fa fa-upload"> Import</i></button> --}}
-                    <form id="form_pdf" action="{{ route('tanam.pdf_tanam') }}" method="get" style="display: none;">
+                    <form id="form_pdf" action="{{ route('tanam.pdf_tanam_horti') }}" method="get" style="display: none;">
                         @csrf
-                        <input type="hidden" name="form_awal" id="form_awal" value="{{ $tanggalAwal }}">
-                        <input type="hidden" name="form_akhir" id="form_akhir" value="{{ $tanggalAkhir }}">
+                        <input type="hidden" name="form_awal" id="form_awal" >
+                        <input type="hidden" name="form_akhir" id="form_akhir" ">
                     </form>
                     <div class="btn-group">
                         <button target="_blank" class="btn btn-success export_pdf">
@@ -44,8 +44,8 @@
                     </div>
                     <form id="form_excel" action="{{ route('tanam.excel_horti') }}" method="get" style="display: none;">
                         @csrf
-                        <input type="hidden" name="form_awal" id="form_awal" value="{{ $tanggalAwal }}">
-                        <input type="hidden" name="form_akhir" id="form_akhir" value="{{ $tanggalAkhir }}">
+                        <input type="hidden" name="form_awal" id="form_awal" >
+                        <input type="hidden" name="form_akhir" id="form_akhir" ">
                     </form>
                 </div>
                 <div class="box-body table-responsive">
@@ -254,9 +254,8 @@
                     });
                 }
 
-                function deleteData(id) {
+                function deleteData(url) {
                     if (confirm('Yakin ingin menghapus data terpilih?')) {
-                        // var url = "{{URL::to('/tanam/tanam_horti/delete/')}}"+ "/" + id
                         $.post(url, {
                                 '_token': $('[name=csrf-token]').attr('content'),
                                 '_method': 'delete'
@@ -273,30 +272,28 @@
                     }
                 }
 
-                function deleteSelected(url) {
-                    if ($('input:checked').length > 1) {
-                        if (confirm('Yakin ingin menghapus data terpilih?')) {
-                            $.post(url, $('.form-tanam-horti').serialize())
-                                .done((response) => {
-                                    table.ajax.reload();
-                                })
-                                .fail((errors) => {
-                                    alert('Tidak dapat menghapus data');
-                                    return;
-                                });
-                        }
-                    } else {
-                        alert('Pilih data yang akan dihapus');
-                        return;
-                    }
-                }
+                // function deleteSelected(url) {
+                //     if ($('input:checked').length > 1) {
+                //         if (confirm('Yakin ingin menghapus data terpilih?')) {
+                //             $.post(url, $('.form-tanam-horti').serialize())
+                //                 .done((response) => {
+                //                     table.ajax.reload();
+                //                 })
+                //                 .fail((errors) => {
+                //                     alert('Tidak dapat menghapus data');
+                //                     return;
+                //                 });
+                //         }
+                //     } else {
+                //         alert('Pilih data yang akan dihapus');
+                //         return;
+                //     }
+                // }
 
                 function updatePeriode() {
                     $('#modal-content').modal('show');
                 }
                 $('.export_pdf').click(function() {
-                    // var url = "{{ route('tanam.pdf_tanam') }}";
-                    // $('#export-penjualan-form form').attr('action', url);
 
                     $('#form_pdf').submit();
                 });

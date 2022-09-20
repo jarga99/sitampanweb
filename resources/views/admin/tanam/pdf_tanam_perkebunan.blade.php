@@ -4,16 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>tanam perkebunan pdf</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 </head>
 <body>
-    <table class="table table-bordered">
+    <h2 style="text-align: center" >Data Tanam Perkebunan</h2>
+    <table class="table table-striped ">
         <thead>
             <th>No</th>
             <th>Tanggal</th>
             <th>Kecamatan</th>
             <th>Desa</th>
             <th>Tanaman </th>
+            <th>Luas Tanam</th>
         </thead>
         <tbody>
             @foreach ($produktivitas_tanam as $item)

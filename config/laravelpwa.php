@@ -1,10 +1,10 @@
 <?php
 
 return [
-    'name' => 'SITAMPAN',
+    'name' => 'Sitampan',
     'manifest' => [
         'name' => env('APP_NAME', 'Sistem Informasi Tanam dan Panen'),
-        'short_name' => 'STMPN',
+        'short_name' => 'Sitampan',
         'start_url' => '/',
         'background_color' => '#ffffff',
         'theme_color' => '#F6FFF8',

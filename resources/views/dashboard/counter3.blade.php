@@ -15,7 +15,7 @@
             <!-- small box -->
             <div class="small-box bg-green">
                 <div class="inner">
-                    <h3 >{{$count_tanam_pajale}}</h3>
+                    <h3 >{{$count_admin_tanam_pajale}}</h3>
 
                     <p >Total Data Tanam Pajale</p>
                 </div>
@@ -31,7 +31,7 @@
             <!-- small box -->
             <div class="small-box bg-green">
                 <div class="inner">
-                    <h3>{{$count_tanam_horti}}</h3>
+                    <h3>{{$count_admin_tanam_horti}}</h3>
 
                     <p>Total Data Tanam Horti</p>
                 </div>
@@ -46,7 +46,7 @@
             <!-- small box -->
             <div class="small-box bg-green">
                 <div class="inner">
-                    <h3>{{$count_tanam_perkebunan}}</h3>
+                    <h3>{{$count_admin_tanam_perkebunan}}</h3>
 
                     <p>Total Data Tanam Perkebunan</p>
                 </div>
@@ -60,7 +60,7 @@
             <!-- small box -->
             <div class="small-box bg-orange">
                 <div class="inner">
-                    <h3>{{$count_panen_pajale}}</h3>
+                    <h3>{{$count_admin_panen_pajale}}</h3>
 
                     <p>Total Data Panen Pajale</p>
                 </div>
@@ -76,7 +76,7 @@
             <!-- small box -->
             <div class="small-box bg-orange">
                 <div class="inner">
-                    <h3>{{$count_panen_horti}}</h3>
+                    <h3>{{$count_admin_panen_horti}}</h3>
 
                     <p>Total Data Panen Horti</p>
                 </div>
@@ -91,7 +91,7 @@
             <!-- small box -->
             <div class="small-box bg-orange">
                 <div class="inner">
-                    <h3>{{$count_panen_perkebunan}}</h3>
+                    <h3>{{$count_admin_panen_perkebunan}}</h3>
 
                     <p>Total Data Panen Perkebunan</p>
                 </div>

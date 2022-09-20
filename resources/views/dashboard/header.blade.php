@@ -34,10 +34,10 @@
                         <!-- Menu Footer-->
                         <li class="user-footer">
                             <div class="pull-left">
-                                <a href="{{ route('user.profil') }}" class="btn btn-info">profil</a>
+                                <a href="{{ route('user.profil') }}" class="btn btn-default ">profil</a>
                             </div>
                             <div class="pull-right">
-                                <a href="#" onclick="$('#logout-form').submit()" class="btn btn-danger">Logout</a>
+                                <a href="#" class="btn btn-default " onclick="$('#logout-form').submit()" >Logout</a>
                             </div>
                         </li>
                     </ul>

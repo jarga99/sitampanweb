@@ -29,10 +29,10 @@ Data Panen Horti
                     {{-- <button onclick="#" class="btn btn-danger "> <i class="fa fa-trash"> Hapus</i></button> --}}
                     <button onclick="addForm();" class="btn btn-success "> <i class="fa fa-plus"> Tambah</i></button>
                     {{-- <button onclick="#" class="btn btn-success "> <i class="fa fa-upload"> Import</i></button> --}}
-                    <form id="form_pdf" action="{{ route('panen.pdf_panen') }}" method="get" style="display: none;">
+                    <form id="form_pdf" action="{{ route('panen.pdf_panen_horti') }}" method="get" style="display: none;">
                         @csrf
-                        <input type="hidden" name="form_awal" id="form_awal" value="{{ $tanggalAwal }}">
-                        <input type="hidden" name="form_akhir" id="form_akhir" value="{{ $tanggalAkhir }}">
+                        <input type="hidden" name="form_awal" id="form_awal" >
+                        <input type="hidden" name="form_akhir" id="form_akhir" >
                     </form>
                     <div class="btn-group">
                         <button target="_blank" class="btn btn-success export_pdf">
@@ -42,8 +42,8 @@ Data Panen Horti
                     </div>
                     <form id="form_excel" action="{{ route('panen.excel_horti') }}" method="get" style="display: none;">
                         @csrf
-                        <input type="hidden" name="form_awal" id="form_awal" value="{{ $tanggalAwal }}">
-                        <input type="hidden" name="form_akhir" id="form_akhir" value="{{ $tanggalAkhir }}">
+                        <input type="hidden" name="form_awal" id="form_awal" >
+                        <input type="hidden" name="form_akhir" id="form_akhir" ">
                     </form>
                 </div>
                 <div class="box-body table-responsive">
@@ -74,16 +74,15 @@ Data Panen Horti
                                 <tr>
                                     <th colspan="5">Total :</th>
                                     <th id="luas"></th>
-                                    <th colspan="3"></th>
-                                    <th id="harga"></th>
-                                    <th colspan="2"></th>
+                                    <th colspan="6"></th>
                                 </tr>
                                 <tr>
                                     <th colspan="6">Rata-Rata :</th>
                                     <th id="kadar"></th>
                                     <th id="prod"></th>
                                     <th id="prov"></th>
-                                    <th colspan="3"></th>
+                                    <th id="harga"></th>
+                                    <th colspan="2"></th>
                                 </tr>
                             </tfoot>
                             </table>
@@ -181,14 +180,16 @@ Data Panen Horti
                             $kadar   = parseFloat($kadar)/parseFloat(json.data.length)
                             $prod    = parseFloat($prod)/parseFloat(json.data.length)
                             $prov    = parseFloat($prov)/parseFloat(json.data.length)
+                            $harga    = parseFloat($harga)/parseFloat(json.data.length)
                             var $avg_kadar = parseFloat($kadar);
                             var $avg_prod = parseFloat($prod);
                             var $avg_prov= parseFloat($prov);
+                            var $avg_harga= parseFloat($harga);
                             $("th#luas").html($luas+ " ha");
                             $("th#kadar").html($avg_kadar.toFixed(2)+ " %");
                             $("th#prod").html($avg_prod.toFixed(2)+" ton");
                             $("th#prov").html($avg_prov.toFixed(2)+" ku/ha");
-                            $("th#harga").html("Rp. "+$harga);
+                            $("th#harga").html("Rp. "+$avg_harga.toFixed(2));
                         }
 
                     });
@@ -234,7 +235,7 @@ Data Panen Horti
                             const $elm_kadar = parseFloat(json.data[index].kadar);
                             const $elm_prod = parseFloat(json.data[index].produksi);
                             const $elm_prov = parseFloat(json.data[index].provitas);
-                            const $elm_harga = parseInt(json.data[index].harga.replace("Rp. "));
+                            const $elm_harga = parseFloat(json.data[index].harga.replace("Rp.",""));
                             $luas           += $elm_luas;
                             $kadar          += $elm_kadar;
                             $prod          += $elm_prod;
@@ -244,14 +245,16 @@ Data Panen Horti
                             $kadar   = parseFloat($kadar)/parseFloat(json.data.length)
                             $prod    = parseFloat($prod)/parseFloat(json.data.length)
                             $prov    = parseFloat($prov)/parseFloat(json.data.length)
+                            $harga    = parseFloat($harga)/parseFloat(json.data.length)
                             var $avg_kadar = parseFloat($kadar);
                             var $avg_prod = parseFloat($prod);
                             var $avg_prov= parseFloat($prov);
+                            var $avg_harga= parseFloat($harga);
                             $("th#luas").html($luas+ " ha");
                             $("th#kadar").html($avg_kadar.toFixed(2)+ " %");
                             $("th#prod").html($avg_prod.toFixed(2)+" ton");
                             $("th#prov").html($avg_prov.toFixed(2)+" ku/ha");
-                            $("th#harga").html("Rp. "+$harga);
+                            $("th#harga").html("Rp. "+$avg_harga.toFixed(2));
                         },false);
                         $('#modal-content').modal("hide");
                         $('#form_awal').val($('#tanggal_awal').val());
@@ -345,30 +348,10 @@ Data Panen Horti
                             });
                     }
                 }
-
-                function deleteSelected(url) {
-                    if ($('input:checked').length > 1) {
-                        if (confirm('Yakin ingin menghapus data terpilih?')) {
-                            $.post(url, $('.form-panen-horti').serialize())
-                                .done((response) => {
-                                    table.ajax.reload();
-                                })
-                                .fail((errors) => {
-                                    alert('Tidak dapat menghapus data');
-                                    return;
-                                });
-                        }
-                    } else {
-                        alert('Pilih data yang akan dihapus');
-                        return;
-                    }
-                }
                 function updatePeriode() {
                     $('#modal-content').modal('show');
                 }
                 $('.export_pdf').click(function() {
-                    // var url = "{{ route('panen.pdf_panen') }}";
-                    // $('#export-penjualan-form form').attr('action', url);
 
                     $('#form_pdf').submit();
                 });

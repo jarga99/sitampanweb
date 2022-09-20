@@ -35,9 +35,9 @@ class AdminPanenPajaleController extends Controller
     {
         // cari tamaman yang jenis tanam sama panen Pajale
         $tanaman = Tanaman::where('jenis_panen', 1)->pluck('id_tanaman');
-        // $user = auth()->user()->id_user;
+        $user = auth()->user()->id_user;
         // ambil data berdasarkan tanaman id dalam array
-        $produktivitas = Produktivitas::with('user', 'mst_kecamatan', 'mst_desa', 'mst_tanaman')->whereIn('tanaman_id', $tanaman)->orderBy('id_produktivitas', 'desc');
+        $produktivitas = Produktivitas::with('user', 'mst_kecamatan', 'mst_desa', 'mst_tanaman')->where('created_by',$user)->whereIn('tanaman_id', $tanaman)->orderBy('id_produktivitas', 'desc');
         if ($request->tanggal_awal != null && $request->tanggal_akhir != null) {
             $produktivitas = $produktivitas->whereBetween('created_at', [$request->tanggal_awal, $request->tanggal_akhir]);
         }
@@ -112,10 +112,11 @@ class AdminPanenPajaleController extends Controller
     public function pdf_panen_pajale(Request $request)
     {
         $tanaman = Tanaman::where('jenis_panen', 1)->pluck('id_tanaman');
+        $user = auth()->user()->id_user;
         if ($request->form_awal && $request->form_akhir) {
-            $produktivitas = Produktivitas::whereIn('tanaman_id', $tanaman)->whereBetween('created_at', [$request->form_awal, $request->form_akhir])->get();
+            $produktivitas = Produktivitas::where('created_by', $user)->whereIn('tanaman_id', $tanaman)->whereBetween('created_at', [$request->form_awal, $request->form_akhir])->get();
         } else {
-            $produktivitas = Produktivitas::whereIn('tanaman_id', $tanaman)->get();
+            $produktivitas = Produktivitas::where('created_by', $user)->whereIn('tanaman_id', $tanaman)->get();
         }
 
         $pdf = Pdf::loadView('admin.panen.pdf_panen_pajale', compact('produktivitas'))->setPaper('a4', 'landscape');

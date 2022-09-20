@@ -35,9 +35,9 @@ class AdminTanamHortiController extends Controller
     {
         // cari tamaman yang jenis tanam sama tanam Pajale
         $tanaman = Tanaman::where('jenis_tanam', 2)->pluck('id_tanaman');
-        // $user = auth()->user()->id_user;
+        $user = auth()->user()->id_user;
         // ambil data berdasarkan tanaman id dalam array
-        $produktivitas_tanam = ProduktivitasTanam::with('user', 'mst_kecamatan', 'mst_desa', 'mst_tanaman')->whereIn('tanaman_id', $tanaman)->orderBy('id_produktivitas_tanam', 'desc');
+        $produktivitas_tanam = ProduktivitasTanam::with('user', 'mst_kecamatan', 'mst_desa', 'mst_tanaman')->where('created_by',$user)->whereIn('tanaman_id', $tanaman)->orderBy('id_produktivitas_tanam', 'desc');
         if ($request->tanggal_awal != null && $request->tanggal_akhir != null) {
             $produktivitas_tanam = $produktivitas_tanam->whereBetween('created_at', [$request->tanggal_awal, $request->tanggal_akhir]);
         }
@@ -97,10 +97,11 @@ class AdminTanamHortiController extends Controller
     public function pdf_tanam_horti(Request $request)
     {
         $tanaman = Tanaman::where('jenis_tanam', 2)->pluck('id_tanaman');
+        $user = auth()->user()->id_user;
         if ($request->form_awal && $request->form_akhir) {
-            $produktivitas_tanam = ProduktivitasTanam::whereIn('tanaman_id', $tanaman)->whereBetween('created_at', [$request->form_awal, $request->form_akhir])->get();
+            $produktivitas_tanam = ProduktivitasTanam::where('created_by', $user)->whereIn('tanaman_id', $tanaman)->whereBetween('created_at', [$request->form_awal, $request->form_akhir])->get();
         } else {
-            $produktivitas_tanam = ProduktivitasTanam::whereIn('tanaman_id', $tanaman)->get();
+            $produktivitas_tanam = ProduktivitasTanam::where('created_by', $user)->whereIn('tanaman_id', $tanaman)->get();
         }
 
         $pdf = Pdf::loadView('admin.tanam.pdf_tanam_horti', compact('produktivitas_tanam'))->setPaper('a4', 'landscape');

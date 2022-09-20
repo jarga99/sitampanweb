@@ -47,7 +47,7 @@ class Horti_Export implements FromCollection, WithHeadings, ShouldAutoSize, With
         return [
             AfterSheet::class    => function(AfterSheet $event) {
                 $cellRange = 'A1:I9';
-                $event->sheet->getDelegate()->getStyle($cellRange)->getFont()->setSize(14)->setBold(false);
+                $event->sheet->getDelegate()->getStyle($cellRange)->getFont()->setSize(12);
             },
         ];
     }
@@ -55,7 +55,7 @@ class Horti_Export implements FromCollection, WithHeadings, ShouldAutoSize, With
     public function map($item): array
     {
         return [
-            \Carbon\Carbon::parse($item->tanggal)->format('d-m-Y'),
+            \Carbon\Carbon::parse($item->created_at)->format('d-m-Y'),
             $item->mst_kecamatan->nama_kecamatan,
             $item->mst_desa->nama_desa,
             $item->mst_tanaman->nama_tanaman,

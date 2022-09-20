@@ -55,34 +55,6 @@
                             <span class="help-block with-errors"></span>
                         </div>
                     </div>
-                    <div class="form-group row">
-                        <label for="kadar" class="col-lg-2 col-lg-offset-1 control-label">Kadar</label>
-                        <div class="col-lg-6">
-                            <input type="number" name="kadar" id="kadar" class="form-control" required>
-                            <span class="help-block with-errors"></span>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="produksi" class="col-lg-2 col-lg-offset-1 control-label">Produksi</label>
-                        <div class="col-lg-6">
-                            <input type="number" name="produksi" id="produksi" class="form-control" required>
-                            <span class="help-block with-errors"></span>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="provitas" class="col-lg-2 col-lg-offset-1 control-label">Provitas</label>
-                        <div class="col-lg-6">
-                            <input type="number" name="provitas" id="provitas" class="form-control" required>
-                            <span class="help-block with-errors"></span>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="harga" class="col-lg-2 col-lg-offset-1 control-label">Harga</label>
-                        <div class="col-lg-6">
-                            <input type="number" name="harga" id="harga" class="form-control" required>
-                            <span class="help-block with-errors"></span>
-                        </div>
-                    </div>
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-primary"><i class="fa fa-save"></i> Simpan</button>

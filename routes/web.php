@@ -76,7 +76,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::put('/tanam/tanam_pajale/update/{id}', [TanamPajaleController::class, 'update'])->name('tanam.update_pajale');
         Route::delete('/tanam/tanam_pajale/delete/{id}', [TanamPajaleController::class, 'destroy'])->name('tanam.delete_pajale');
         Route::post('/tanam/tanam_pajale/delete-selected', [TanamPajaleController::class, 'deleteSelected'])->name('tanam.delete_selected');
-        Route::get('/tanam/tanam_pajale/pdf', [TanamPajaleController::class, 'pdf_tanam'])->name('tanam.pdf_tanam');
+        Route::get('/tanam/tanam_pajale/pdf', [TanamPajaleController::class, 'pdf_tanam_pajale'])->name('tanam.pdf_tanam_pajale');
         Route::get('/tanam/tanam_pajale/excel', [TanamPajaleController::class, 'excel_pajale'])->name('tanam.excel_pajale');
         // Tanam Horti
         Route::get('/tanam/tanam_horti/data', [TanamHortiController::class, 'data'])->name('tanam_horti.data');
@@ -86,7 +86,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::put('/tanam/tanam_horti/update/{id}', [TanamHortiController::class, 'update'])->name('tanam.update_horti');
         Route::delete('/tanam/tanam_horti/delete/{id}', [TanamHortiController::class, 'destroy'])->name('tanam.delete_horti');
         Route::post('/tanam/tanam_horti/delete-selected', [TanamHortiController::class, 'deleteSelected'])->name('tanam.delete_selected');
-        Route::get('/tanam/tanam_horti/pdf', [TanamHortiController::class, 'pdf_tanam'])->name('tanam.pdf_tanam');
+        Route::get('/tanam/tanam_horti/pdf', [TanamHortiController::class, 'pdf_tanam_horti'])->name('tanam.pdf_tanam_horti');
         Route::get('/tanam/tanam_horti/excel', [TanamHortiController::class, 'excel_horti'])->name('tanam.excel_horti');
         // Tanam Perkebunan
         Route::get('/tanam/tanam_perkebunan/data', [TanamPerkebunanController::class, 'data'])->name('tanam_perkebunan.data');
@@ -96,7 +96,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/tanam/tanam_perkebunan/edit', [TanamPerkebunanController::class, 'edit'])->name('tanam.edit_perkebunan');
         Route::delete('/tanam/tanam_perkebunan/delete/{id}', [TanamPerkebunanController::class, 'destroy'])->name('tanam.delete_perkebunan');
         Route::post('/tanam/tanam_perkebunan/delete-selected', [TanamPerkebunanController::class, 'deleteSelected'])->name('tanam.delete_selected');
-        Route::get('/tanam/tanam_perkebunan/pdf', [TanamPerkebunanController::class, 'pdf_tanam'])->name('tanam.pdf_tanam');
+        Route::get('/tanam/tanam_perkebunan/pdf', [TanamPerkebunanController::class, 'pdf_tanam_perkebunan'])->name('tanam.pdf_tanam_perkebunan');
         Route::get('/tanam/tanam_perkebunan/excel', [TanamPerkebunanController::class, 'excel_perkebunan'])->name('tanam.excel_perkebunan');
 
         // Panen Pajale
@@ -107,7 +107,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::put('/panen/panen_pajale/update/{id}', [PanenPajaleController::class, 'update'])->name('panen.update_pajale');
         Route::delete('/panen/panen_pajale/delete/{id}', [PanenPajaleController::class, 'destroy'])->name('panen.delete_pajale');
         Route::post('/panen/panen_pajale/delete-selected', [PanenPajaleController::class, 'deleteSelected'])->name('panen.delete_selected');
-        Route::get('/panen/panen_pajale/pdf', [PanenPajaleController::class, 'pdf_panen'])->name('panen.pdf_panen');
+        Route::get('/panen/panen_pajale/pdf', [PanenPajaleController::class, 'pdf_panen_pajale'])->name('panen.pdf_panen_pajale');
         Route::get('/panen/panen_pajale/excel', [PanenPajaleController::class, 'excel_pajale'])->name('panen.excel_pajale');
         // Panen Horti
         Route::get('/panen/panen_horti/data', [PanenHortiController::class, 'data'])->name('panen_horti.data');
@@ -117,7 +117,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::put('/panen/panen_horti/update/{id}', [PanenHortiController::class, 'update'])->name('panen.update_horti');
         Route::delete('/panen/panen_horti/delete/{id}', [PanenHortiController::class, 'destroy'])->name('panen.delete_horti');
         Route::post('/panen/panen_horti/delete-selected', [PanenHortiController::class, 'deleteSelected'])->name('panen.delete_selected');
-        Route::get('/panen/panen_horti/pdf', [PanenHortiController::class, 'pdf_panen'])->name('panen.pdf_panen');
+        Route::get('/panen/panen_horti/pdf', [PanenHortiController::class, 'pdf_panen_horti'])->name('panen.pdf_panen_horti');
         Route::get('/panen/panen_horti/excel', [PanenHortiController::class, 'excel_horti'])->name('panen.excel_horti');
         // Panen Perkebunan
         Route::get('/panen/panen_perkebunan/data', [PanenPerkebunanController::class, 'data'])->name('panen_perkebunan.data');
@@ -127,7 +127,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::put('/panen/panen_perkebunan/update/{id}', [PanenPerkebunanController::class, 'update'])->name('panen.update_perkebunan');
         Route::delete('/panen/panen_perkebunan/delete/{id}', [PanenPerkebunanController::class, 'destroy'])->name('panen.delete_perkebunan');
         Route::post('/panen/panen_perkebunan/delete-selected', [PanenPerkebunanController::class, 'deleteSelected'])->name('panen.delete_selected');
-        Route::get('/panen/panen_perkebunan/pdf', [PanenPerkebunanController::class, 'pdf_panen'])->name('panen.pdf_panen');
+        Route::get('/panen/panen_perkebunan/pdf', [PanenPerkebunanController::class, 'pdf_panen_perkebunan'])->name('panen.pdf_panen_perkebunan');
         Route::get('/panen/panen_perkebunan/excel', [PanenPerkebunanController::class, 'excel_perkebunan'])->name('panen.excel_perkebunan');
     });
 
@@ -161,7 +161,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/admin/tanam/admin_tanam_horti/data', [AdminTanamHortiController::class, 'data'])->name('admin.admin_tanam_horti.data');
         Route::get('/admin/tanam/admin_tanam_horti', [AdminTanamHortiController::class, 'index'])->name('admin.tanam.index_horti');
         Route::post('/admin/tanam/admin_tanam_horti/create', [AdminTanamHortiController::class, 'store'])->name('admin.tanam.create_horti');
-        Route::get('/admin/tanam/admin_tanam_horti/pdf', [AdminTanamHortiController::class, 'pdf_tanam_horti'])->name('admintanam.pdf_tanam_horti');
+        Route::get('/admin/tanam/admin_tanam_horti/pdf', [AdminTanamHortiController::class, 'pdf_tanam_horti'])->name('admin.tanam.pdf_tanam_horti');
         Route::get('/admin/tanam/admin_tanam_horti/excel', [AdminTanamHortiController::class, 'excel_horti'])->name('tanam.excel_horti');
         // panen Perkebunan
         Route::get('/admin/tanam/admin_tanam_perkebunan/data', [AdminTanamPerkebunanController::class, 'data'])->name('admin.admin_tanam_perkebunan.data');

@@ -74,16 +74,15 @@
                                 <tr>
                                     <th colspan="5">Total :</th>
                                     <th id="luas"></th>
-                                    <th colspan="3"></th>
-                                    <th id="harga"></th>
-                                    <th colspan="1"></th>
+                                    <th colspan="5"></th>
                                 </tr>
                                 <tr>
                                     <th colspan="6">Rata-Rata :</th>
                                     <th id="kadar"></th>
                                     <th id="prod"></th>
                                     <th id="prov"></th>
-                                    <th colspan="2"></th>
+                                    <th id="harga"></th>
+                                    <th colspan="1"></th>
                                 </tr>
                             </tfoot>
                         </table>
@@ -171,14 +170,16 @@
                             $kadar = parseFloat($kadar) / parseFloat(json.data.length)
                             $prod = parseFloat($prod) / parseFloat(json.data.length)
                             $prov = parseFloat($prov) / parseFloat(json.data.length)
+                            $harga = parseFloat($harga) / parseFloat(json.data.length)
                             var $avg_kadar = parseFloat($kadar);
                             var $avg_prod = parseFloat($prod);
                             var $avg_prov = parseFloat($prov);
+                            var $avg_harga = parseFloat($harga);
                             $("th#luas").html($luas+ " ha");
                             $("th#kadar").html($avg_kadar.toFixed(2) + " %");
                             $("th#prod").html($avg_prod.toFixed(2) + " ton");
                             $("th#prov").html($avg_prov.toFixed(2) + " ku/ha");
-                            $("th#harga").html("Rp. " + $harga);
+                            $("th#harga").html("Rp. " + $avg_harga.toFixed(2));
                         }
 
                     });
@@ -236,14 +237,16 @@
                                 $kadar = parseFloat($kadar) / parseFloat(json.data.length)
                                 $prod = parseFloat($prod) / parseFloat(json.data.length)
                                 $prov = parseFloat($prov) / parseFloat(json.data.length)
+                                $harga = parseFloat($harga) / parseFloat(json.data.length)
                                 var $avg_kadar = parseFloat($kadar);
                                 var $avg_prod = parseFloat($prov);
                                 var $avg_prov = parseFloat($prov);
+                                var $avg_harga = parseFloat($harga);
                                 $("th#luas").html($luas+ " ha");
                                 $("th#kadar").html($avg_kadar.toFixed(2) + " %");
                                 $("th#prod").html($avg_prod.toFixed(2) + " ton");
                                 $("th#prov").html($avg_prov.toFixed(2) + " ku/ha");
-                                $("th#harga").html("Rp. " + $harga);
+                                $("th#harga").html("Rp. " + $avg_harga.toFixed(2));
                             }, false);
                             $('#modal-content').modal("hide");
                             $('#form_awal').val($('#tanggal_awal').val());
