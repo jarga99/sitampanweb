@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Exports\PajaleExport;
+use App\Exports\PajaleAdminExport;
 use App\Models\Desa;
 use App\Models\Kecamatan;
 use App\Models\Produktivitas;
@@ -126,6 +126,6 @@ class AdminPanenPajaleController extends Controller
 
     public function excel_pajale(Request $request)
     {
-        return (new PajaleExport)->setDari($request->form_awal)->setSampai($request->form_akhir)->download('panen_pajale.xlsx');
+        return (new PajaleAdminExport)->setDari($request->form_awal)->setSampai($request->form_akhir)->download('panen_pajale.xlsx');
     }
 }

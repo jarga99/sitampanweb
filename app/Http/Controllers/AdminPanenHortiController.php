@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Exports\HortiExport;
+use App\Exports\HortiAdminExport;
 use App\Models\Desa;
 use App\Models\Kecamatan;
 use App\Models\Produktivitas;
@@ -130,6 +130,6 @@ class AdminPanenHortiController extends Controller
 
     public function excel_horti(Request $request)
     {
-        return (new HortiExport)->setDari($request->form_awal)->setSampai($request->form_akhir)->download('panen_horti.xlsx');
+        return (new HortiAdminExport)->setDari($request->form_awal)->setSampai($request->form_akhir)->download('panen_horti.xlsx');
     }
 }

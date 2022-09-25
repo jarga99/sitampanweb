@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Exports\Perkebunan_Export;
+use App\Exports\Perkebunan_Admin_Export;
 use App\Models\Desa;
 use App\Models\Kecamatan;
 use App\Models\ProduktivitasTanam;
@@ -110,6 +110,6 @@ class AdminTanamPerkebunanController extends Controller
 
     public function excel_perkebunan(Request $request)
     {
-        return (new Perkebunan_Export)->setDari($request->form_awal)->setSampai($request->form_akhir)->download('tanam_perkebunan.xlsx');
+        return (new Perkebunan_Admin_Export)->setDari($request->form_awal)->setSampai($request->form_akhir)->download('tanam_perkebunan.xlsx');
     }
 }

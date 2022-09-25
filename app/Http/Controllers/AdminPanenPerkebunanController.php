@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Exports\PerkebunanExport;
+use App\Exports\PerkebunanAdminExport;
 use App\Models\Desa;
 use App\Models\Kecamatan;
 use App\Models\Produktivitas;
@@ -126,6 +126,6 @@ class AdminPanenPerkebunanController extends Controller
 
     public function excel_perkebunan(Request $request)
     {
-        return (new PerkebunanExport)->setDari($request->form_awal)->setSampai($request->form_akhir)->download('panen_perkebunan.xlsx');
+        return (new PerkebunanAdminExport)->setDari($request->form_awal)->setSampai($request->form_akhir)->download('panen_perkebunan.xlsx');
     }
 }
