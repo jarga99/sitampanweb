@@ -32,7 +32,7 @@ Data Panen Pajale
                     <form id="form_pdf" action="{{ route('panen.pdf_panen_pajale') }}" method="get" style="display: none;">
                         @csrf
                         <input type="hidden" name="form_awal" id="form_awal" >
-                        <input type="hidden" name="form_akhir" id="form_akhir" ">
+                        <input type="hidden" name="form_akhir" id="form_akhir">
                     </form>
                     <div class="btn-group">
                         <button target="_blank" class="btn btn-success export_pdf">
@@ -43,43 +43,47 @@ Data Panen Pajale
                     <form id="form_excel" action="{{ route('panen.excel_pajale') }}" method="get" style="display: none;">
                         @csrf
                         <input type="hidden" name="form_awal" id="form_awal" >
-                        <input type="hidden" name="form_akhir" id="form_akhir" ">
+                        <input type="hidden" name="form_akhir" id="form_akhir">
                     </form>
                 </div>
                 <div class="box-body table-responsive">
                     <form action="" method="post" class="form-panen-pajale">
                         @csrf
-                        <table class="table table-stiped table-bordered">
+                        <table class="table table-striped">
                             <thead>
                                 {{-- <th >
                                     <input type="checkbox" name="select_all" id="select_all">
                                 </th> --}}
-                                <th>No</th>
-                                <th>Tanggal</th>
-                                <th>Kecamatan</th>
-                                <th>Desa</th>
-                                <th>Tanaman </th>
-                                <th>Luas Panen</th>
-                                <th>Kadar</th>
-                                <th>Produksi</th>
-                                <th>Provitas</th>
-                                <th>Harga</th>
-                                <th>Penginput</th>
-                                <th width="8%"><i class="fa fa-cog"></i> Aksi</th>
+                                <tr class="warning">
+                                    <th>No</th>
+                                    <th>Tanggal</th>
+                                    <th>Kecamatan</th>
+                                    <th>Desa</th>
+                                    <th>Tanaman </th>
+                                    <th>Luas Panen</th>
+                                    <th>Kadar</th>
+                                    <th>Produksi</th>
+                                    <th>Provitas</th>
+                                    <th>Harga</th>
+                                    <th>Penginput</th>
+                                    <th width="8%"><i class="fa fa-cog"></i> Aksi</th>
+                                </tr>
                             </thead>
                             <tbody>
 
                             </tbody>
                             <tfoot>
-                                <tr>
+                                <tr >
                                     <th colspan="5">Total :</th>
                                     <th id="luas"></th>
-                                    <th colspan="6"></th>
+                                    <th colspan="1"></th>
+                                    <th id="prod"></th>
+                                    <th colspan="4"></th>
                                 </tr>
-                                <tr>
+                                <tr >
                                     <th colspan="6">Rata-Rata :</th>
                                     <th id="kadar"></th>
-                                    <th id="prod"></th>
+                                    <th colspan="1"></th>
                                     <th id="prov"></th>
                                     <th id="harga"></th>
                                     <th colspan="2"></th>
@@ -124,7 +128,7 @@ Data Panen Pajale
                                 sortable: false
                             },
                             {
-                                data: 'created_at'
+                                data: 'updated_at'
                             },
                             {
                                 data: 'mst_kecamatan.nama_kecamatan'
@@ -166,7 +170,7 @@ Data Panen Pajale
                             var $prov = 0;
                             var $harga = 0;
                             for (let index = 0; index < json.data.length; index++) {
-                            const $elm_luas = parseInt(json.data[index].luas_lahan);
+                            const $elm_luas = parseFloat(json.data[index].luas_lahan);
                             const $elm_kadar = parseFloat(json.data[index].kadar);
                             const $elm_prod = parseFloat(json.data[index].produksi);
                             const $elm_prov = parseFloat(json.data[index].provitas);
@@ -178,16 +182,14 @@ Data Panen Pajale
                             $harga         += $elm_harga;
                             }
                             $kadar   = parseFloat($kadar)/parseFloat(json.data.length)
-                            $prod    = parseFloat($prod)/parseFloat(json.data.length)
                             $prov    = parseFloat($prov)/parseFloat(json.data.length)
                             $harga    = parseFloat($harga)/parseFloat(json.data.length)
                             var $avg_kadar = parseFloat($kadar);
-                            var $avg_prod = parseFloat($prod);
                             var $avg_prov= parseFloat($prov);
                             var $avg_harga= parseFloat($harga);
-                            $("th#luas").html($luas+ " ha");
+                            $("th#luas").html($luas.toFixed(2)+ " ha");
                             $("th#kadar").html($avg_kadar.toFixed(2)+ " %");
-                            $("th#prod").html($avg_prod.toFixed(2)+" ton");
+                            $("th#prod").html($prod.toFixed(2)+" ton");
                             $("th#prov").html($avg_prov.toFixed(2)+" ku/ha");
                             $("th#harga").html("Rp. "+$avg_harga.toFixed(2));
                         }
@@ -231,7 +233,7 @@ Data Panen Pajale
                             var $prov = 0;
                             var $harga = 0;
                             for (let index = 0; index < json.data.length; index++) {
-                            const $elm_luas = parseInt(json.data[index].luas_lahan);
+                            const $elm_luas = parseFloat(json.data[index].luas_lahan);
                             const $elm_kadar = parseFloat(json.data[index].kadar);
                             const $elm_prod = parseFloat(json.data[index].produksi);
                             const $elm_prov = parseFloat(json.data[index].provitas);
@@ -243,16 +245,14 @@ Data Panen Pajale
                             $harga         += $elm_harga;
                             }
                             $kadar   = parseFloat($kadar)/parseFloat(json.data.length)
-                            $prod    = parseFloat($prod)/parseFloat(json.data.length)
                             $prov    = parseFloat($prov)/parseFloat(json.data.length)
                             $harga    = parseFloat($harga)/parseFloat(json.data.length)
                             var $avg_kadar = parseFloat($kadar);
-                            var $avg_prod = parseFloat($prod);
                             var $avg_prov= parseFloat($prov);
                             var $avg_harga= parseFloat($harga);
-                            $("th#luas").html($luas+ " ha");
+                            $("th#luas").html($luas.toFixed(2)+ " ha");
                             $("th#kadar").html($avg_kadar.toFixed(2)+ " %");
-                            $("th#prod").html($avg_prod.toFixed(2)+" ton");
+                            $("th#prod").html($prod.toFixed(2)+" ton");
                             $("th#prov").html($avg_prov.toFixed(2)+" ku/ha");
                             $("th#harga").html("Rp. "+$avg_harga.toFixed(2));
                         },false);
@@ -285,7 +285,7 @@ Data Panen Pajale
                 function addForm() {
                     var url = "{{ route('panen.create_pajale') }}";
                     $('#modal-form').modal('show');
-                    $('#modal-form .modal-title').text('Tambah Data Panen Horti');
+                    $('#modal-form .modal-title').text('Tambah Data Panen Pajale');
 
                     $('#modal-form form')[0].reset();
                     $('#modal-form form').attr('action', url);

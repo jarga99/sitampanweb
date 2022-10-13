@@ -20,6 +20,7 @@ class CreateTbProduktivitasTanamTable extends Migration
             $table->unsignedBigInteger('desa_id');
             $table->float('luas_lahan')->nullable()->default();
             $table->unsignedBigInteger('created_by');
+            $table->unsignedBigInteger('updated_by')->nullable();
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent();
         });

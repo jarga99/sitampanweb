@@ -12,16 +12,18 @@
     <h2 style="text-align: center" >Data Panen Pajale</h2>
     <table class="table table-striped ">
         <thead>
-            <th>No</th>
-            <th>Tanggal</th>
-            <th>Kecamatan</th>
-            <th>Desa</th>
-            <th>Tanaman </th>
-            <th>Luas Panen</th>
-            <th>Kadar</th>
-            <th>Produksi</th>
-            <th>Provitas</th>
-            <th>Harga</th>
+            <tr class="warning">
+                <th>No</th>
+                <th>Tanggal</th>
+                <th>Kecamatan</th>
+                <th>Desa</th>
+                <th>Tanaman </th>
+                <th>Luas Panen</th>
+                <th>Kadar</th>
+                <th>Produksi</th>
+                <th>Provitas</th>
+                <th>Harga</th>
+            </tr>
         </thead>
         <tbody>
             @foreach ($produktivitas as $item)
@@ -39,6 +41,22 @@
                 </tr>
             @endforeach
         </tbody>
+        <tfoot>
+            <tr>
+                <th colspan="5">Total :</th>
+                <th >{{$total[0]->total_luas_lahan}} ha</th>
+                <th colspan="1"></th>
+                <th >{{$total[0]->total_produksi}} ton</th>
+                <th colspan="2"></th>
+            </tr>
+            <tr>
+                <th colspan="6">Rata-Rata :</th>
+                <th >{{$total[0]->avg_kadar}} %</th>
+                <th colspan="1"></th>
+                <th >{{$total[0]->avg_provitas}} ku/ha</th>
+                <th >Rp. {{$total[0]->avg_harga}}</th>
+            </tr>
+        </tfoot>
     </table>
 </body>
 </html>

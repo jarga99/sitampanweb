@@ -12,16 +12,24 @@
     <h2 style="text-align: center" >Data Panen Horti</h2>
     <table class="table table-striped ">
         <thead>
-            <th>No</th>
-            <th>Tanggal</th>
-            <th>Kecamatan</th>
-            <th>Desa</th>
-            <th>Tanaman </th>
-            <th>Luas Panen</th>
-            <th>Kadar</th>
-            <th>Produksi</th>
-            <th>Provitas</th>
-            <th>Harga</th>
+            <tr class="warning">
+                <th rowspan="2">No</th>
+                <th rowspan="2">Tanggal</th>
+                <th rowspan="2">Kecamatan</th>
+                <th rowspan="2">Desa</th>
+                <th rowspan="2">Tanaman </th>
+                <th colspan="2" style="text-align: center">Luas Panen</th>
+                <th rowspan="2">Kadar</th>
+                <th colspan="2" style="text-align: center">Produksi</th>
+                <th rowspan="2">Provitas</th>
+                <th rowspan="2">Harga</th>
+            </tr>
+            <tr class="warning">
+                <th>Habis</th>
+                <th>Blm Habis</th>
+                <th>Habis</th>
+                <th>Blm Habis</th>
+            </tr>
         </thead>
         <tbody>
             @foreach ($produktivitas as $item)
@@ -31,14 +39,34 @@
                     <td>{{ $item->mst_kecamatan->nama_kecamatan }}</td>
                     <td>{{ $item->mst_desa->nama_desa }}</td>
                     <td>{{ $item->mst_tanaman->nama_tanaman }}</td>
-                    <td>{{ $item->luas_lahan }} ha</td>
+                    <td>{{ $item->lh_habis }} ha</td>
+                    <td>{{ $item->lh_blm_habis }} ha</td>
                     <td>{{ $item->kadar }} %</td>
-                    <td>{{ $item->produksi }} ton</td>
+                    <td>{{ $item->habis }} ton</td>
+                    <td>{{ $item->blm_habis }} ton</td>
                     <td>{{ $item->provitas }} ku/ha</td>
                     <td>Rp. {{ format_uang($item->harga) }},00</td>
                 </tr>
             @endforeach
         </tbody>
+        <tfoot>
+            <tr>
+                <th colspan="5">Total :</th>
+                <th >{{$total[0]->total_lh_habis}} ha</th>
+                <th >{{$total[0]->total_lh_blm_habis}} ha</th>
+                <th colspan="1"></th>
+                <th >{{$total[0]->total_habis}} ha</th>
+                <th >{{$total[0]->total_blm_habis}} ha</th>
+                <th colspan="2"></th>
+            </tr>
+            <tr>
+                <th colspan="7">Rata-Rata :</th>
+                <th >{{$total[0]->avg_kadar}} %</th>
+                <th colspan="2"></th>
+                <th >{{$total[0]->avg_provitas}} ku/ha</th>
+                <th >Rp. {{$total[0]->avg_harga}}</th>
+            </tr>
+        </tfoot>
     </table>
 </body>
 </html>

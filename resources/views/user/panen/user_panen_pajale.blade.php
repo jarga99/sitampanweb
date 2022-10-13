@@ -2,17 +2,14 @@
 @section('content')
     <section class="content-header">
         <h1>
-            LAPORAN PANEN HORTI
+            LAPORAN PANEN PAJALE
         </h1>
         <ol class="breadcrumb">
             <li><a href="{{'/'}}"><i class="fa fa-dashboard"></i> Home</a></li>
-            <li class="active">Panen Horti</li>
+            <li class="active">Panen Pajale</li>
         </ol>
     </section>
 
-    @push('css')
-    <link href="{{asset('css/select2.min.css')}}" rel="stylesheet" />
-    @endpush
     <div class="row">
         <div class="col-lg-12">
             <div class="box">
@@ -38,20 +35,22 @@
                 </div>
                 <br>
                 <div class="box-body table-responsive">
-                    <form action="" method="post" class="form-panen-horti">
+                    <form action="" method="post" class="form-panen-pajale">
                         @csrf
-                        <table class="table table-stiped table-bordered">
+                        <table class="table table-striped">
                             <thead>
-                                <th width="2%">No</th>
-                                <th>Tanggal</th>
-                                <th>Kecamatan</th>
-                                <th>Desa</th>
-                                <th>Tanaman </th>
-                                <th>Luas panen</th>
-                                <th>Kadar</th>
-                                <th>Produksi</th>
-                                <th>Provitas</th>
-                                <th>Harga</th>
+                                <tr class="warning">
+                                    <th>No</th>
+                                    <th>Tanggal</th>
+                                    <th>Kecamatan</th>
+                                    <th>Desa</th>
+                                    <th>Tanaman </th>
+                                    <th>Luas Panen</th>
+                                    <th>Kadar</th>
+                                    <th>Produksi</th>
+                                    <th>Provitas</th>
+                                    <th>Harga</th>
+                                </tr>
                             </thead>
                         </table>
                     </form>
@@ -60,12 +59,6 @@
         @endsection
 
         @push('scripts')
-        <script src="{{asset('js/select2.min.js')}}"></script>
-            <script>
-                $(document).ready(function() {
-                    $('.select2').select2();
-                });
-            </script>
             <script src="{{ asset('/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js') }}">
             </script>
             <script>
@@ -84,7 +77,7 @@
                                 sortable: false
                             },
                             {
-                                data: 'created_at'
+                                data: 'updated_at'
                             },
                             {
                                 data: 'mst_kecamatan.nama_kecamatan'

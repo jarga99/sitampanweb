@@ -32,7 +32,8 @@
                             class="fa fa-trash"> Hapus</i></button> --}}
                     <button onClick="addForm();" class="btn btn-success "> <i class="fa fa-plus"> Tambah</i></button>
                     {{-- <button onclick="#" class="btn btn-success "> <i class="fa fa-upload"> Import</i></button> --}}
-                    <form id="form_pdf" action="{{ route('admin.panen.pdf_panen_horti') }}" method="get" style="display: none;">
+                    <form id="form_pdf" action="{{ route('admin.panen.pdf_panen_horti') }}" method="get"
+                        style="display: none;">
                         @csrf
                         <input type="hidden" name="form_awal" id="form_awal" value="{{-- $tanggalAwal --}}">
                         <input type="hidden" name="form_akhir" id="form_akhir" value="{{-- $tanggalAkhir --}}">
@@ -52,20 +53,27 @@
                 <div class="box-body table-responsive">
                     <form action="" method="post" class="form-panen-horti">
                         @csrf
-                        <table class="table table-stiped table-bordered">
+                        <table class="table table-striped">
                             <thead>
-
-                                <th>No</th>
-                                <th>Tanggal</th>
-                                <th>Kecamatan</th>
-                                <th>Desa</th>
-                                <th>Tanaman </th>
-                                <th>Luas Panen</th>
-                                <th>Kadar</th>
-                                <th>Produksi</th>
-                                <th>Provitas</th>
-                                <th>Harga</th>
-                                <th>Nama Penginput</th>
+                                <tr class="warning">
+                                    <th rowspan="2">No</th>
+                                    <th rowspan="2">Tanggal</th>
+                                    <th rowspan="2">Kecamatan</th>
+                                    <th rowspan="2">Desa</th>
+                                    <th rowspan="2">Tanaman </th>
+                                    <th colspan="2" style="text-align: center;">Luas Panen</th>
+                                    <th rowspan="2">Kadar</th>
+                                    <th colspan="2" style="text-align: center;">Produksi</th>
+                                    <th rowspan="2">Provitas</th>
+                                    <th rowspan="2">Harga</th>
+                                    <th rowspan="2">Penginput</th>
+                                <tr class="warning">
+                                    <th>Hbs</th>
+                                    <th>Blm Hbs</th>
+                                    <th>Hbs</th>
+                                    <th>Blm Hbs</th>
+                                </tr>
+                                </tr>
                             </thead>
                             <tbody>
 
@@ -73,13 +81,17 @@
                             <tfoot>
                                 <tr>
                                     <th colspan="5">Total :</th>
-                                    <th id="luas"></th>
-                                    <th colspan="5"></th>
+                                    <th id="lh_hbs"></th>
+                                    <th id="lh_blm_hbs"></th>
+                                    <th colspan="1"></th>
+                                    <th id="hbs"></th>
+                                    <th id="blm_hbs"></th>
+                                    <th colspan="3"></th>
                                 </tr>
                                 <tr>
-                                    <th colspan="6">Rata-Rata :</th>
+                                    <th colspan="7">Rata-Rata :</th>
                                     <th id="kadar"></th>
-                                    <th id="prod"></th>
+                                    <th colspan="2"></th>
                                     <th id="prov"></th>
                                     <th id="harga"></th>
                                     <th colspan="1"></th>
@@ -89,7 +101,7 @@
                     </form>
                 </div>
             </div>
-            @includeIf('admin.panen.form_add')
+            @includeIf('admin.panen.form_add_horti')
             @includeIf('admin.panen.form')
         @endsection
         @push('scripts')
@@ -117,7 +129,7 @@
                                 sortable: false
                             },
                             {
-                                data: 'created_at'
+                                data: 'updated_at'
                             },
                             {
                                 data: 'mst_kecamatan.nama_kecamatan'
@@ -129,13 +141,19 @@
                                 data: 'mst_tanaman.nama_tanaman'
                             },
                             {
-                                data: 'luas_lahan'
+                                data: 'lh_habis'
+                            },
+                            {
+                                data: 'lh_blm_habis'
                             },
                             {
                                 data: 'kadar'
                             },
                             {
-                                data: 'produksi'
+                                data: 'habis'
+                            },
+                            {
+                                data: 'blm_habis'
                             },
                             {
                                 data: 'provitas'
@@ -149,34 +167,40 @@
 
                         ],
                         "initComplete": function(settings, json) {
-                            var $luas = 0;
+                            var $lh_hbs = 0;
+                            var $lh_blm_hbs = 0;
                             var $kadar = 0;
-                            var $prod = 0;
+                            var $hbs = 0;
+                            var $blm_hbs = 0;
                             var $prov = 0;
                             var $harga = 0;
                             for (let index = 0; index < json.data.length; index++) {
-                                const $elm_luas = parseInt(json.data[index].luas_lahan);
+                                const $elm_lh_hbs = parseFloat(json.data[index].lh_habis);
+                                const $elm_lh_blm_hbs = parseFloat(json.data[index].lh_blm_habis);
                                 const $elm_kadar = parseFloat(json.data[index].kadar);
-                                const $elm_prod = parseFloat(json.data[index].produksi);
+                                const $elm_hbs = parseFloat(json.data[index].habis);
+                                const $elm_blm_hbs = parseFloat(json.data[index].blm_habis);
                                 const $elm_prov = parseFloat(json.data[index].provitas);
                                 const $elm_harga = parseFloat(json.data[index].harga.replace("Rp.", ""));
-                                $luas += $elm_luas;
+                                $lh_hbs += $elm_lh_hbs;
+                                $lh_blm_hbs += $elm_lh_blm_hbs;
                                 $kadar += $elm_kadar;
-                                $prod += $elm_prod;
+                                $hbs += $elm_hbs;
+                                $blm_hbs += $elm_blm_hbs;
                                 $prov += $elm_prov;
                                 $harga += $elm_harga;
                             }
                             $kadar = parseFloat($kadar) / parseFloat(json.data.length)
-                            $prod = parseFloat($prod) / parseFloat(json.data.length)
                             $prov = parseFloat($prov) / parseFloat(json.data.length)
                             $harga = parseFloat($harga) / parseFloat(json.data.length)
                             var $avg_kadar = parseFloat($kadar);
-                            var $avg_prod = parseFloat($prod);
                             var $avg_prov = parseFloat($prov);
                             var $avg_harga = parseFloat($harga);
-                            $("th#luas").html($luas+ " ha");
+                            $("th#lh_hbs").html($lh_hbs.toFixed(2) + " ha");
+                            $("th#lh_blm_hbs").html($lh_blm_hbs.toFixed(2) + " ha");
                             $("th#kadar").html($avg_kadar.toFixed(2) + " %");
-                            $("th#prod").html($avg_prod.toFixed(2) + " ton");
+                            $("th#hbs").html($hbs.toFixed(2) + " ton");
+                            $("th#blm_hbs").html($blm_hbs.toFixed(2) + " ton");
                             $("th#prov").html($avg_prov.toFixed(2) + " ku/ha");
                             $("th#harga").html("Rp. " + $avg_harga.toFixed(2));
                         }
@@ -209,44 +233,54 @@
                             var p_tanggal_akhir = new Date($('#tanggal_akhir').val()).getFullYear() + '-' + $_e_bln +
                                 '-' + $_e_tgl;
                             var content_title = `Daftar Data Panen Horti ` + tanggal_awal + ` - ` + tanggal_akhir;
-                            $("th#luas").html(null);
+                            $("th#lh_hbs").html(null);
+                            $("th#lh_blm_hbs").html(null);
                             $("th#kadar").html(null);
-                            $("th#prod").html(null);
+                            $("th#hbs").html(null);
+                            $("th#blm_hbs").html(null);
                             $("th#prov").html(null);
                             $("th#harga").html(null);
-                            table.ajax.url("{{ route('admin.admin_panen_horti.data') }}?tanggal_awal=" + p_tanggal_awal +
+                            table.ajax.url("{{ route('admin.admin_panen_horti.data') }}?tanggal_awal=" +
+                                p_tanggal_awal +
                                 "&tanggal_akhir=" + p_tanggal_akhir).load();
                             table.ajax.reload((json) => {
-                                var $luas = 0;
+                                var $lh_hbs = 0;
+                                var $lh_blm_hbs = 0;
                                 var $kadar = 0;
-                                var $prod = 0;
+                                var $hbs = 0;
+                                var $blm_hbs = 0;
                                 var $prov = 0;
                                 var $harga = 0;
                                 for (let index = 0; index < json.data.length; index++) {
-                                    const $elm_luas = parseInt(json.data[index].luas_lahan);
+                                    const $elm_lh_hbs = parseFloat(json.data[index].lh_habis);
+                                    const $elm_lh_blm_hbs = parseFloat(json.data[index].lh_blm_habis);
                                     const $elm_kadar = parseFloat(json.data[index].kadar);
-                                    const $elm_prod = parseFloat(json.data[index].produksi);
+                                    const $elm_hbs = parseFloat(json.data[index].habis);
+                                    const $elm_blm_hbs = parseFloat(json.data[index].blm_habis);
                                     const $elm_prov = parseFloat(json.data[index].provitas);
-                                    const $elm_harga = parseFloat(json.data[index].harga.replace("Rp. ", ""));
-                                    $luas += $elm_luas;
+                                    const $elm_harga = parseFloat(json.data[index].harga.replace("Rp.", ""));
+                                    $lh_hbs += $elm_lh_hbs;
+                                    $lh_blm_hbs += $elm_lh_blm_hbs;
                                     $kadar += $elm_kadar;
-                                    $prod += $elm_prod;
+                                    $hbs += $elm_hbs;
+                                    $blm_hbs += $elm_blm_hbs;
                                     $prov += $elm_prov;
                                     $harga += $elm_harga;
                                 }
                                 $kadar = parseFloat($kadar) / parseFloat(json.data.length)
-                                $prod = parseFloat($prod) / parseFloat(json.data.length)
                                 $prov = parseFloat($prov) / parseFloat(json.data.length)
                                 $harga = parseFloat($harga) / parseFloat(json.data.length)
                                 var $avg_kadar = parseFloat($kadar);
-                                var $avg_prod = parseFloat($prod);
                                 var $avg_prov = parseFloat($prov);
                                 var $avg_harga = parseFloat($harga);
-                                $("th#luas").html($luas+ " ha");
+                                $("th#lh_hbs").html($lh_hbs.toFixed(2) + " ha");
+                                $("th#lh_blm_hbs").html($lh_blm_hbs.toFixed(2) + " ha");
                                 $("th#kadar").html($avg_kadar.toFixed(2) + " %");
-                                $("th#prod").html($avg_prod.toFixed(2) + " ton");
+                                $("th#hbs").html($hbs.toFixed(2) + " ton");
+                                $("th#blm_hbs").html($blm_hbs.toFixed(2) + " ton");
                                 $("th#prov").html($avg_prov.toFixed(2) + " ku/ha");
                                 $("th#harga").html("Rp. " + $avg_harga.toFixed(2));
+
                             }, false);
                             $('#modal-content').modal("hide");
                             $('#form_awal').val($('#tanggal_awal').val());

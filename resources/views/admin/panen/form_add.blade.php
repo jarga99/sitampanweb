@@ -51,28 +51,30 @@
                     <div class="form-group row">
                         <label for="luas_lahan" class="col-lg-2 col-lg-offset-1 control-label">Luas Panen</label>
                         <div class="col-lg-6">
-                            <input type="number" name="luas_lahan" id="luas_lahan" class="form-control" required>
+                            <p class="text-danger"><b>Harap baca!!!</b> <br> khusus tanaman <u><i>Padi Sawah, Jagung Sawah, Kedelai Sawah</i></u> <br> luas panen perlu dikonversi dengan cara nilai luas panen * 0,9683</p>
+                            <input type="number" step="0.01" name="luas_lahan" id="luas_lahan" class="form-control" required>
                             <span class="help-block with-errors"></span>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="kadar" class="col-lg-2 col-lg-offset-1 control-label">Kadar</label>
                         <div class="col-lg-6">
-                            <input type="number" name="kadar" id="kadar" class="form-control" required>
+                            <input type="number" step="0.01" name="kadar" id="kadar" class="form-control" required>
                             <span class="help-block with-errors"></span>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="produksi" class="col-lg-2 col-lg-offset-1 control-label">Produksi</label>
                         <div class="col-lg-6">
-                            <input type="number" name="produksi" id="produksi" class="form-control" required>
+                            <p class="text-danger"><b>Harap baca!!!</b> <br> khusus tanaman <u><i>Padi Sawah, Jagung Sawah, Kedelai Sawah</i></u><br> nilai produksi perlu di hitung dengan rumus yaitu : <br> Produksi = LP * Provitas (LP = luas panen yang sudah dikonversi) <br> produksi = hasil/10 <br> produksi = nilai produksi yang akan diinputkan </p>
+                            <input type="number" step="0.01" name="produksi" id="produksi" class="form-control" required>
                             <span class="help-block with-errors"></span>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="provitas" class="col-lg-2 col-lg-offset-1 control-label">Provitas</label>
                         <div class="col-lg-6">
-                            <input type="number" name="provitas" id="provitas" class="form-control" required>
+                            <input type="number" step="0.01" name="provitas" id="provitas" class="form-control" required>
                             <span class="help-block with-errors"></span>
                         </div>
                     </div>

@@ -8,6 +8,7 @@ use App\Models\ProduktivitasTanam;
 use App\Models\Tanaman;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class TanamPajaleController extends Controller
 {
@@ -77,14 +78,14 @@ class TanamPajaleController extends Controller
             ->addColumn('created_by', function ($produktivitas_tanam) {
                 return ($produktivitas_tanam->user->nama);
             })
-            ->addColumn('created_at', function($produktivitas_tanam) {
-                return \Carbon\Carbon::parse($produktivitas_tanam->created_at)->format('d-m-Y');
+            ->addColumn('updated_at', function($produktivitas_tanam) {
+                return \Carbon\Carbon::parse($produktivitas_tanam->updated_at)->format('d-m-Y');
             })
             ->addColumn('aksi', function ($produktivitas_tanam) {
                 return '
                 <div class="btn-group">
-                <button type="button" onclick="editForm('. $produktivitas_tanam->id_produktivitas_tanam . ');" class="btn btn-info btn-sm"><i class="fa fa-pencil"></i></button>
-                <button type="button" onclick="deleteData(`' . route('tanam.delete_pajale', ['id' => $produktivitas_tanam->id_produktivitas_tanam]) . '`)" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
+                <button type="button" onclick="editForm('. $produktivitas_tanam->id_produktivitas_tanam . ');" class="btn btn-warning btn-xs"><i class="fa fa-pencil"></i></button>
+                <button type="button" onclick="deleteData(`' . route('tanam.delete_pajale', ['id' => $produktivitas_tanam->id_produktivitas_tanam]) . '`)" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i></button>
                 </div>
             ';
             return "Ok";
@@ -148,8 +149,8 @@ class TanamPajaleController extends Controller
             // 'desa_id' => $request->id_desa,
             'tanaman_id' => $request->id_tanaman,
             'luas_lahan' => $request->luas_lahan,
-            'created_by' => 1,
-            'created_at' => $request->tanggal
+            'updated_by' => auth()->user()->id_user,
+            'updated_at' => $request->tanggal
         ]);
 
         return response()->json('Data berhasil update', 200);
@@ -174,8 +175,30 @@ class TanamPajaleController extends Controller
         } else {
             $produktivitas_tanam = ProduktivitasTanam::whereIn('tanaman_id', $tanaman)->get();
         }
+        $total = DB::select(DB::raw("
+        SELECT
+            id_produktivitas_tanam,
+            tb_produktivitas_tanam.updated_at AS updated_at,
+            SUM(luas_lahan) AS luas_lahan,
+            nama_kecamatan,
+            nama_desa,
+            nama_tanaman,
+            tb_user.nama,
+            luas_lahan,
+            (
+                SELECT ROUND(SUM(luas_lahan) , 2) FROM tb_produktivitas_tanam INNER JOIN mst_tanaman ON tanaman_id = id_tanaman
+                WHERE jenis_panen = 1
+            ) as total_luas_lahan
+        FROM tb_produktivitas_tanam INNER JOIN mst_tanaman ON tanaman_id = id_tanaman
+        INNER JOIN mst_kecamatan ON id_kecamatan = kecamatan_id
+        INNER JOIN mst_desa ON id_desa = desa_id
+        INNER JOIN tb_user ON tb_user.id_user = created_by
+        WHERE jenis_panen = 1
+        AND tb_produktivitas_tanam.updated_at >= (now() -interval 5 year)
+        GROUP BY id_produktivitas_tanam
+    "));
 
-        $pdf = Pdf::loadView('tanam.pdf_tanam_pajale', compact('produktivitas_tanam'))->setPaper('a4', 'landscape');
+        $pdf = Pdf::loadView('tanam.pdf_tanam_pajale', compact('produktivitas_tanam','total'))->setPaper('a4', 'landscape');
 
         return $pdf->stream();
     }

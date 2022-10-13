@@ -11,9 +11,6 @@
         </ol>
     </section>
 
-    @push('css')
-        <link href="{{ asset('css/select2.min.css') }}" rel="stylesheet" />
-    @endpush
     <div class="row">
         <div class="col-lg-12">
             <div class="box">
@@ -42,18 +39,23 @@
                 <div class="box-body table-responsive">
                     <form action="" method="post" class="form-panen-perkebunan">
                         @csrf
-                        <table class="table table-stiped table-bordered">
+                        <table class="table table-striped">
                             <thead>
-                                <th width="2%">No</th>
-                                <th>Tanggal</th>
-                                <th>Kecamatan</th>
-                                <th>Desa</th>
-                                <th>Tanaman </th>
-                                <th>Luas panen</th>
-                                <th>Kadar</th>
-                                <th>Produksi</th>
-                                <th>Provitas</th>
-                                <th>Harga</th>
+                                <tr class="warning">
+                                    <th>No</th>
+                                    <th>Tanggal</th>
+                                    <th>Kecamatan</th>
+                                    <th>Desa</th>
+                                    <th>Tanaman </th>
+                                    <th>TM</th>
+                                    <th>TBM</th>
+                                    <th>TTM</th>
+                                    <th>Luas Panen</th>
+                                    <th>Kadar</th>
+                                    <th>Produksi</th>
+                                    <th>Provitas</th>
+                                    <th>Harga</th>
+                                </tr>
                             </thead>
                         </table>
                     </form>
@@ -62,12 +64,6 @@
         @endsection
 
         @push('scripts')
-            <script src="{{ asset('js/select2.min.js') }}"></script>
-            <script>
-                $(document).ready(function() {
-                    $('.select2').select2();
-                });
-            </script>
             <script src="{{ asset('/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js') }}"></script>
             <script>
                 let table;
@@ -85,7 +81,7 @@
                                 sortable: false
                             },
                             {
-                                data: 'created_at'
+                                data: 'updated_at'
                             },
                             {
                                 data: 'mst_kecamatan.nama_kecamatan'
@@ -95,6 +91,15 @@
                             },
                             {
                                 data: 'mst_tanaman.nama_tanaman'
+                            },
+                            {
+                                data: 'tm'
+                            },
+                            {
+                                data: 'tbm'
+                            },
+                            {
+                                data: 'ttm'
                             },
                             {
                                 data: 'luas_lahan'

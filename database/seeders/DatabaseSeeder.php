@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
             DesaTableSeeder::class,
             TanamTableSeeder::class,
             PanenTableSeeder::class,
+            PusoTableSeeder::class,
             TanamanTableSeeder::class,
         ]);
     }

@@ -32,7 +32,8 @@
                             class="fa fa-trash"> Hapus</i></button> --}}
                     <button onClick="addForm();" class="btn btn-success "> <i class="fa fa-plus"> Tambah</i></button>
                     {{-- <button onclick="#" class="btn btn-success "> <i class="fa fa-upload"> Import</i></button> --}}
-                    <form id="form_pdf" action="{{ route('admin.tanam.pdf_tanam_pajale') }}" method="get" style="display: none;">
+                    <form id="form_pdf" action="{{ route('admin.tanam.pdf_tanam_pajale') }}" method="get"
+                        style="display: none;">
                         @csrf
                         <input type="hidden" name="form_awal" id="form_awal" value="{{-- $tanggalAwal --}}">
                         <input type="hidden" name="form_akhir" id="form_akhir" value="{{-- $tanggalAkhir --}}">
@@ -52,15 +53,17 @@
                 <div class="box-body table-responsive">
                     <form action="" method="post" class="form-panen-pajale">
                         @csrf
-                        <table class="table table-stiped table-bordered">
+                        <table class="table table-striped">
                             <thead>
-                                <th>No</th>
-                                <th>Tanggal</th>
-                                <th>Kecamatan</th>
-                                <th>Desa</th>
-                                <th>Tanaman </th>
-                                <th>Luas Tanam</th>
-                                <th>Nama Penginput</th>
+                                <tr class="success">
+                                    <th>No</th>
+                                    <th>Tanggal</th>
+                                    <th>Kecamatan</th>
+                                    <th>Desa</th>
+                                    <th>Tanaman </th>
+                                    <th>Luas Tanam</th>
+                                    <th>Nama Penginput</th>
+                                </tr>
                             </thead>
                             <tbody>
 
@@ -105,7 +108,7 @@
                                 sortable: false
                             },
                             {
-                                data: 'created_at'
+                                data: 'updated_at'
                             },
                             {
                                 data: 'mst_kecamatan.nama_kecamatan'
@@ -127,10 +130,10 @@
                         "initComplete": function(settings, json) {
                             var $luas = 0;
                             for (let index = 0; index < json.data.length; index++) {
-                                const $elm_luas = parseInt(json.data[index].luas_lahan);
+                                const $elm_luas = parseFloat(json.data[index].luas_lahan);
                                 $luas += $elm_luas;
                             }
-                            $("th#luas").html($luas+ " ha");
+                            $("th#luas").html($luas.toFixed(2) + " ha");
                         }
                     });
                     //Pilih Periode
@@ -165,15 +168,11 @@
                                 "&tanggal_akhir=" + p_tanggal_akhir).load();
                             table.ajax.reload((json) => {
                                 var $luas = 0;
-
                                 for (let index = 0; index < json.data.length; index++) {
-                                    const $elm_luas = parseInt(json.data[index].luas_lahan);
-
+                                    const $elm_luas = parseFloat(json.data[index].luas_lahan);
                                     $luas += $elm_luas;
-
                                 }
-
-                                $("th#luas").html($luas+ " ha");
+                                $("th#luas").html($luas.toFixed(2) + " ha");
                             }, false);
                             $('#modal-content').modal("hide");
                             $('#form_awal').val($('#tanggal_awal').val());

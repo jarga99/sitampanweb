@@ -11,12 +11,14 @@
     <h2 style="text-align: center" >Data Tanam Perkebunan</h2>
     <table class="table table-striped ">
         <thead>
-            <th>No</th>
-            <th>Tanggal</th>
-            <th>Kecamatan</th>
-            <th>Desa</th>
-            <th>Tanaman </th>
-            <th>Luas Tanam</th>
+            <tr class="success">
+                <th>No</th>
+                <th>Tanggal</th>
+                <th>Kecamatan</th>
+                <th>Desa</th>
+                <th>Tanaman </th>
+                <th>Luas Tanam</th>
+            </tr>
         </thead>
         <tbody>
             @foreach ($produktivitas_tanam as $item)
@@ -30,6 +32,12 @@
                 </tr>
             @endforeach
         </tbody>
+        <tfoot>
+            <tr>
+                <th colspan="5">Total :</th>
+                <th >{{$total[0]->total_luas_lahan}} ha</th>
+            </tr>
+        </tfoot>
     </table>
 </body>
 </html>

@@ -16,6 +16,7 @@ class CreateRealationTanamOrPanenToTanamanTable extends Migration
         Schema::table('mst_tanaman', function (Blueprint $table) {
             $table->foreign('jenis_tanam')->references('id_tanam')->on('mst_tanam')->onUpdate('cascade');
             $table->foreign('jenis_panen')->references('id_panen')->on('mst_panen')->onUpdate('cascade');
+            $table->foreign('jenis_puso')->references('id_puso')->on('mst_puso')->onUpdate('cascade');
         });
     }
 
@@ -29,6 +30,7 @@ class CreateRealationTanamOrPanenToTanamanTable extends Migration
         Schema::table('mst_tanaman', function (Blueprint $table) {
             $table->dropForeign('mst_tanaman_jenis_tanam_foreign');
             $table->dropForeign('mst_tanaman_jenis_panen_foreign');
+            $table->dropForeign('mst_tanaman_jenis_puso_foreign');
             });
     }
 }

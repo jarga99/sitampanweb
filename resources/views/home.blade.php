@@ -73,6 +73,19 @@
                                 </ul>
                             </li>
                         </ul>
+                        <ul class="nav navbar-nav">
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                                    aria-haspopup="true" aria-expanded="false">PUSO <span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="{{ route('user.puso.index_pajale') }}">Puso Pajale</a></li>
+                                    <li role="separator" class="divider"></li>
+                                    <li><a href="{{ route('user.puso.index_horti') }}">Puso Horti</a></li>
+                                    <li role="separator" class="divider"></li>
+                                    <li><a href="{{ route('user.puso.index_perkebunan') }}">Puso Perkebunan</a></li>
+                                </ul>
+                            </li>
+                        </ul>
                         <ul class="nav navbar-nav navbar-right">
                             <li><a href="{{route('login')}}"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
                           </ul>

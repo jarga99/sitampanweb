@@ -16,9 +16,25 @@ class UserTableSeeder extends Seeder
     {
         $user = array (
             [
-                'nama' => 'Operator Pemkab',
+                'nama' => 'Operator Pajale',
                 'username' => '0perator01',
-                'password' => bcrypt('4Dministrat0r'),
+                'password' => bcrypt('bagian pajale'),
+                'kecamatan_id' => null,
+                'foto' => '/img/avatar.png',
+                'level' => 1
+            ],
+            [
+                'nama' => 'Operator Horti',
+                'username' => '0perator02',
+                'password' => bcrypt('bagian horti'),
+                'kecamatan_id' => null,
+                'foto' => '/img/avatar.png',
+                'level' => 1
+            ],
+            [
+                'nama' => 'Operator Perkebunan',
+                'username' => '0perator03',
+                'password' => bcrypt('bagian perkebunan'),
                 'kecamatan_id' => null,
                 'foto' => '/img/avatar.png',
                 'level' => 1
@@ -26,7 +42,7 @@ class UserTableSeeder extends Seeder
             [
                 'nama' => 'Kepala Dinas',
                 'username' => 'Pengamat',
-                'password' => bcrypt('secreetUser'),
+                'password' => bcrypt('pengawas'),
                 'kecamatan_id' => null,
                 'foto' => '/img/avatar3.png',
                 'level' => 2

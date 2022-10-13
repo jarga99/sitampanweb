@@ -10,9 +10,6 @@
         </ol>
     </section>
 
-    @push('css')
-    <link href="{{asset('css/select2.min.css')}}" rel="stylesheet" />
-    @endpush
     <div class="row">
         <div class="col-lg-12">
             <div class="box">
@@ -40,18 +37,26 @@
                 <div class="box-body table-responsive">
                     <form action="" method="post" class="form-panen-horti">
                         @csrf
-                        <table class="table table-stiped table-bordered">
+                        <table class="table table-striped">
                             <thead>
-                                <th width="2%" >No</th>
-                                <th>Tanggal</th>
-                                <th>Kecamatan</th>
-                                <th>Desa</th>
-                                <th>Tanaman </th>
-                                <th>Luas panen</th>
-                                <th>Kadar</th>
-                                <th>Produksi</th>
-                                <th>Provitas</th>
-                                <th>Harga</th>
+                                <tr class="warning">
+                                    <th rowspan="2">No</th>
+                                    <th rowspan="2">Tanggal</th>
+                                    <th rowspan="2">Kecamatan</th>
+                                    <th rowspan="2">Desa</th>
+                                    <th rowspan="2">Tanaman </th>
+                                    <th colspan="2" style="text-align: center;">Luas Panen</th>
+                                    <th rowspan="2">Kadar</th>
+                                    <th colspan="2" style="text-align: center;">Produksi</th>
+                                    <th rowspan="2">Provitas</th>
+                                    <th rowspan="2">Harga</th>
+                                <tr class="warning">
+                                    <th>Hbs</th>
+                                    <th>Blm Hbs</th>
+                                    <th>Hbs</th>
+                                    <th>Blm Hbs</th>
+                                </tr>
+                                </tr>
                             </thead>
                         </table>
                     </form>
@@ -60,12 +65,6 @@
         @endsection
 
         @push('scripts')
-        <script src="{{asset('js/select2.min.js')}}"></script>
-            <script>
-                $(document).ready(function() {
-                    $('.select2').select2();
-                });
-            </script>
             <script src="{{ asset('/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js') }}">
             </script>
             <script>
@@ -84,7 +83,7 @@
                                 sortable: false
                             },
                             {
-                                data: 'created_at'
+                                data: 'updated_at'
                             },
                             {
                                 data: 'mst_kecamatan.nama_kecamatan'
@@ -96,13 +95,19 @@
                                 data: 'mst_tanaman.nama_tanaman'
                             },
                             {
-                                data: 'luas_lahan'
+                                data: 'lh_habis'
+                            },
+                            {
+                                data: 'lh_blm_habis'
                             },
                             {
                                 data: 'kadar'
                             },
                             {
-                                data: 'produksi'
+                                data: 'habis'
+                            },
+                            {
+                                data: 'blm_habis'
                             },
                             {
                                 data: 'provitas'

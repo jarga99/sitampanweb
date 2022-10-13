@@ -14,7 +14,7 @@ class Tanam extends Model
     protected $fillable = ['nama_tanam'];
     protected $guarded = [];
 
-    public function tb_produktivitas() {
-        return $this->hasMany(Produktivitas::class, 'tanam_id', 'id_tanam');
+    public function tb_produktivitas_tanam() {
+        return $this->hasMany(ProduktivitasTanam::class, 'tanam_id', 'id_tanam');
     }
 }

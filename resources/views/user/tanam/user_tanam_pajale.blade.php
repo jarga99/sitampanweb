@@ -40,14 +40,16 @@
                 <div class="box-body table-responsive">
                     <form action="" method="post" class="form-tanam-pajale">
                         @csrf
-                        <table class="table table-stiped table-bordered">
+                        <table class="table table-striped">
                             <thead>
-                                <th width="2%">No</th>
-                                <th>Tanggal</th>
-                                <th>Kecamatan</th>
-                                <th>Desa</th>
-                                <th>Tanaman </th>
-                                <th>Luas Tanam</th>
+                                <tr class="success">
+                                    <th>No</th>
+                                    <th>Tanggal</th>
+                                    <th>Kecamatan</th>
+                                    <th>Desa</th>
+                                    <th>Tanaman </th>
+                                    <th>Luas Tanam</th>
+                                </tr>
                             </thead>
                         </table>
                     </form>
@@ -80,7 +82,7 @@
                                 sortable: false
                             },
                             {
-                                data: 'created_at'
+                                data: 'updated_at'
                             },
                             {
                                 data: 'mst_kecamatan.nama_kecamatan'

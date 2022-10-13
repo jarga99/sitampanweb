@@ -37,12 +37,14 @@ class PerkebunanAdminExport implements FromCollection, WithHeadings, ShouldAutoS
             'Kecamatan',
             'Desa',
             'Tanaman',
+            'Tanaman Menghasilkan',
+            'Tanaman Belum Menghasilkan',
+            'Tanaman Tidak Menghasilkan',
             'Luas Panen',
             'Kadar',
             'Produksi',
             'Provitas',
             'Harga',
-
         ];
     }
 
@@ -63,6 +65,9 @@ class PerkebunanAdminExport implements FromCollection, WithHeadings, ShouldAutoS
             $item->mst_kecamatan->nama_kecamatan,
             $item->mst_desa->nama_desa,
             $item->mst_tanaman->nama_tanaman,
+            $item->tm. ' ha',
+            $item->tbm. ' ha',
+            $item->ttm. ' ha',
             $item->luas_lahan. ' ha',
             $item->kadar.' %',
             $item->produksi.' ton',

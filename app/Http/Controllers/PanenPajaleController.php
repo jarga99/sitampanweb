@@ -3,15 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Exports\PajaleExport;
-use App\Imports\Import_Pajale;
 use App\Models\Desa;
 use App\Models\Kecamatan;
 use App\Models\Produktivitas;
 use App\Models\Tanaman;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Session;
-use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\DB;
 
 class PanenPajaleController extends Controller
 {
@@ -93,14 +91,14 @@ class PanenPajaleController extends Controller
             ->addColumn('created_by', function ($produktivitas) {
                 return ($produktivitas->user->nama);
             })
-            ->addColumn('created_at', function($produktivitas) {
-                return \Carbon\Carbon::parse($produktivitas->created_at)->format('d-m-Y');
+            ->addColumn('updated_at', function($produktivitas) {
+                return \Carbon\Carbon::parse($produktivitas->updated_at)->format('d-m-Y');
             })
             ->addColumn('aksi', function ($produktivitas) {
                 return '
                 <div class="btn-group">
-                <button type="button" onclick="editForm('. $produktivitas->id_produktivitas . ');" class="btn btn-info btn-sm"><i class="fa fa-pencil"></i></button>
-                <button type="button" onclick="deleteData(`' . route('panen.delete_pajale', ['id' => $produktivitas->id_produktivitas]) . '`)" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
+                <button type="button" onclick="editForm('. $produktivitas->id_produktivitas . ');" class="btn btn-warning btn-xs"><i class="fa fa-pencil"></i></button>
+                <button type="button" onclick="deleteData(`' . route('panen.delete_pajale', ['id' => $produktivitas->id_produktivitas]) . '`)" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i></button>
                 </div>
                 ';
             return "Ok";
@@ -127,7 +125,7 @@ class PanenPajaleController extends Controller
             'harga' => $request->harga,
             'luas_lahan' => $request->luas_lahan,
             'created_by' => auth()->user()->id_user,
-            'created_at'  => $request->tanggal
+            'created_at' => $request->tanggal
            ]);
            return response()->json('Data berhasil disimpan', 200);
     }
@@ -173,8 +171,8 @@ class PanenPajaleController extends Controller
             'provitas' => $request->provitas,
             'harga' => $request->harga,
             'luas_lahan' => $request->luas_lahan,
-            'created_by' => 1,
-            'created_at'  => $request->tanggal
+            'updated_by' => auth()->user()->id_user,
+            'updated_at'  => $request->tanggal
         ]);
 
         return response()->json('Data berhasil update', 200);
@@ -220,8 +218,46 @@ class PanenPajaleController extends Controller
         } else {
             $produktivitas = Produktivitas::whereIn('tanaman_id', $tanaman)->get();
         }
+        $total = DB::select(DB::raw("
+        SELECT
+            id_produktivitas,
+            tb_produktivitas.updated_at AS updated_at,
+            SUM(luas_lahan) AS luas_lahan,
+            ROUND(kadar) AS kadar,
+            produksi,
+            harga,
+            nama_kecamatan,
+            nama_desa,
+            nama_tanaman,
+            provitas,
+            tb_user.nama,
+            luas_lahan,(
+                SELECT ROUND(SUM(luas_lahan) , 2) FROM tb_produktivitas INNER JOIN mst_tanaman ON tanaman_id = id_tanaman
+                WHERE jenis_puso = 1
+            ) as total_luas_lahan,(
+                SELECT ROUND(AVG(kadar) , 2) FROM tb_produktivitas INNER JOIN mst_tanaman ON tanaman_id = id_tanaman
+                WHERE jenis_puso = 1
+            ) as avg_kadar,(
+                SELECT ROUND(SUM(produksi) , 2) FROM tb_produktivitas INNER JOIN mst_tanaman ON tanaman_id = id_tanaman
+                WHERE jenis_puso = 1
+            ) AS total_produksi,(
+                SELECT ROUND(AVG(provitas) , 2) FROM tb_produktivitas INNER JOIN mst_tanaman ON tanaman_id = id_tanaman
+                WHERE jenis_puso = 1
+            ) AS avg_provitas,(
+                SELECT ROUND (AVG(harga) , 2) FROM tb_produktivitas INNER JOIN mst_tanaman ON tanaman_id = id_tanaman
+                WHERE jenis_puso = 1
+            ) AS avg_harga
+        FROM tb_produktivitas INNER JOIN mst_tanaman ON tanaman_id = id_tanaman
+        INNER JOIN mst_kecamatan ON id_kecamatan = kecamatan_id
+        INNER JOIN mst_desa ON id_desa = desa_id
+        INNER JOIN tb_user ON tb_user.id_user = created_by
+        WHERE jenis_puso = 2
+        AND tb_produktivitas.updated_at >= (now() -interval 5 year)
+        GROUP BY id_produktivitas
+    "));
 
-        $pdf = Pdf::loadView('panen.pdf_panen_pajale', compact('produktivitas'))->setPaper('a4', 'landscape');
+        $pdf = Pdf::loadView('panen.pdf_panen_pajale', compact('produktivitas','total'))->setPaper('a4', 'landscape');
+
 
         return $pdf->stream();
     }

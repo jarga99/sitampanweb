@@ -49,9 +49,9 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="luas_lahan" class="col-lg-2 col-lg-offset-1 control-label">Luas Panen</label>
+                        <label for="luas_lahan" class="col-lg-2 col-lg-offset-1 control-label">Luas Tanam</label>
                         <div class="col-lg-6">
-                            <input type="number" name="luas_lahan" id="luas_lahan" class="form-control" required>
+                            <input type="number" step="0.01" name="luas_lahan" id="luas_lahan" class="form-control" required>
                             <span class="help-block with-errors"></span>
                         </div>
                     </div>

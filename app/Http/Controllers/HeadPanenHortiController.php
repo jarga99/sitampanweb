@@ -6,6 +6,7 @@ use App\Models\Produktivitas;
 use App\Models\Tanaman;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class HeadPanenHortiController extends Controller
 {
@@ -49,14 +50,20 @@ class HeadPanenHortiController extends Controller
             ->addColumn('id_tanaman', function ($produktivitas) {
                 return '<option value"' . $produktivitas->mst_tanaman->nama_tanaman . '">';
             })
-            ->addColumn('luas_lahan', function ($produktivitas) {
-                return ($produktivitas->luas_lahan).' ha';
+            ->addColumn('lh_habis', function ($produktivitas) {
+                return ($produktivitas->lh_habis) . ' ha';
+            })
+            ->addColumn('lh_blm_habis', function ($produktivitas) {
+                return ($produktivitas->lh_blm_habis) . ' ha';
             })
             ->addColumn('kadar', function ($produktivitas) {
                 return ($produktivitas->kadar).' %';
             })
-            ->addColumn('produksi', function ($produktivitas) {
-                return ($produktivitas->produksi).' ton';
+            ->addColumn('habis', function ($produktivitas) {
+                return ($produktivitas->habis) . ' ton';
+            })
+            ->addColumn('blm_habis', function ($produktivitas) {
+                return ($produktivitas->blm_habis) . ' ton';
             })
             ->addColumn('provitas', function ($produktivitas) {
                 return ($produktivitas->provitas). ' ku/ha';
@@ -64,8 +71,8 @@ class HeadPanenHortiController extends Controller
             ->addColumn('harga', function ($produktivitas) {
                 return 'Rp. '.($produktivitas->harga);
             })
-            ->addColumn('created_at', function($produktivitas) {
-                return \Carbon\Carbon::parse($produktivitas->created_at)->format('d-m-Y');
+            ->addColumn('updated_at', function($produktivitas) {
+                return \Carbon\Carbon::parse($produktivitas->updated_at)->format('d-m-Y');
             })
             ->addColumn('created_by', function ($produktivitas) {
                 return ($produktivitas->user->nama);
@@ -81,8 +88,54 @@ class HeadPanenHortiController extends Controller
         } else {
             $produktivitas = Produktivitas::whereIn('tanaman_id', $tanaman)->get();
         }
+        $total = DB::select(DB::raw("
+        SELECT
+            id_produktivitas,
+            tb_produktivitas.updated_at AS updated_at,
+            SUM(lh_habis) AS lh_habis,
+            lh_blm_habis,
+            ROUND(kadar , 2) AS kadar,
+            habis,
+            blm_habis,
+            harga,
+            nama_kecamatan,
+            nama_desa,
+            nama_tanaman,
+            provitas,
+            tb_user.nama,
+            lh_habis,
+            (
+                SELECT ROUND(SUM(lh_habis) , 2) FROM tb_produktivitas INNER JOIN mst_tanaman ON tanaman_id = id_tanaman
+                WHERE jenis_panen = 2
+            ) as total_lh_habis,(
+                SELECT ROUND(SUM(lh_blm_habis) , 2) FROM tb_produktivitas INNER JOIN mst_tanaman ON tanaman_id = id_tanaman
+                WHERE jenis_panen = 2
+            ) as total_lh_blm_habis,(
+                SELECT ROUND(AVG(kadar) , 2) FROM tb_produktivitas INNER JOIN mst_tanaman ON tanaman_id = id_tanaman
+                WHERE jenis_panen = 2
+            ) as avg_kadar,(
+                SELECT ROUND(SUM(habis) , 2) FROM tb_produktivitas INNER JOIN mst_tanaman ON tanaman_id = id_tanaman
+                WHERE jenis_panen = 2
+            ) AS total_habis,(
+                SELECT ROUND(SUM(blm_habis) , 2) FROM tb_produktivitas INNER JOIN mst_tanaman ON tanaman_id = id_tanaman
+                WHERE jenis_panen = 2
+            ) AS total_blm_habis,(
+                SELECT ROUND(AVG(provitas) , 2) FROM tb_produktivitas INNER JOIN mst_tanaman ON tanaman_id = id_tanaman
+                WHERE jenis_panen = 2
+            ) AS avg_provitas,(
+                SELECT ROUND(AVG(harga) , 2) FROM tb_produktivitas INNER JOIN mst_tanaman ON tanaman_id = id_tanaman
+                WHERE jenis_panen = 2
+            ) AS avg_harga
+        FROM tb_produktivitas INNER JOIN mst_tanaman ON tanaman_id = id_tanaman
+        INNER JOIN mst_kecamatan ON id_kecamatan = kecamatan_id
+        INNER JOIN mst_desa ON id_desa = desa_id
+        INNER JOIN tb_user ON tb_user.id_user = created_by
+        WHERE jenis_panen = 2
+        AND tb_produktivitas.updated_at >= (now() -interval 5 year)
+        GROUP BY id_produktivitas
+    "));
 
-        $pdf = Pdf::loadView('head.panen.pdf_panen_horti', compact('produktivitas'))->setPaper('a4', 'landscape');
+        $pdf = Pdf::loadView('head.panen.pdf_panen_horti', compact('produktivitas','total'))->setPaper('a4', 'landscape');
 
         return $pdf->stream();
     }

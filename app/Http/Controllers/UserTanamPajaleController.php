@@ -6,6 +6,7 @@ use App\Models\ProduktivitasTanam;
 use App\Models\Tanaman;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class UserTanamPajaleController extends Controller
 {
@@ -39,19 +40,9 @@ class UserTanamPajaleController extends Controller
             ->addColumn('luas_lahan', function ($produktivitas_tanam) {
                 return ($produktivitas_tanam->luas_lahan). ' ha';
             })
-            ->addColumn('created_at', function($produktivitas_tanam) {
-                return \Carbon\Carbon::parse($produktivitas_tanam->created_at)->format('d-m-Y');
+            ->addColumn('updated_at', function($produktivitas_tanam) {
+                return \Carbon\Carbon::parse($produktivitas_tanam->updated_at)->format('d-m-Y');
             })
-            // ->addColumn('aksi', function ($produktivitas_tanam) {
-            //     return '
-            //     <div class="btn-group">
-            //     <button type="button" onclick="editForm('. $produktivitas_tanam->id_produktivitas_tanam . ');" class="btn btn-sm btn-info"><i class="fa fa-pencil"></i></button>
-            //     <button type="button" onclick="deleteData(`' . route('tanam.delete_pajale', ['id' => $produktivitas_tanam->id_produktivitas_tanam]) . '`)" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></button>
-            //     </div>
-            // ';
-            // return "Ok";
-            // })
-            // ->rawColumns(['aksi', 'select_all'])
             ->make(true);
     }
     public function pdf_tanam_pajale(Request $request)
@@ -62,8 +53,30 @@ class UserTanamPajaleController extends Controller
         } else {
             $produktivitas_tanam = ProduktivitasTanam::whereIn('tanaman_id', $tanaman)->get();
         }
+        $total = DB::select(DB::raw("
+        SELECT
+            id_produktivitas_tanam,
+            tb_produktivitas_tanam.updated_at AS updated_at,
+            SUM(luas_lahan) AS luas_lahan,
+            nama_kecamatan,
+            nama_desa,
+            nama_tanaman,
+            tb_user.nama,
+            luas_lahan,
+            (
+                SELECT ROUND(SUM(luas_lahan) , 2) FROM tb_produktivitas_tanam INNER JOIN mst_tanaman ON tanaman_id = id_tanaman
+                WHERE jenis_panen = 1
+            ) as total_luas_lahan
+        FROM tb_produktivitas_tanam INNER JOIN mst_tanaman ON tanaman_id = id_tanaman
+        INNER JOIN mst_kecamatan ON id_kecamatan = kecamatan_id
+        INNER JOIN mst_desa ON id_desa = desa_id
+        INNER JOIN tb_user ON tb_user.id_user = created_by
+        WHERE jenis_panen = 1
+        AND tb_produktivitas_tanam.updated_at >= (now() -interval 5 year)
+        GROUP BY id_produktivitas_tanam
+    "));
 
-        $pdf = Pdf::loadView('user.tanam.pdf_tanam_pajale', compact('produktivitas_tanam'))->setPaper('a4', 'landscape');
+        $pdf = Pdf::loadView('user.tanam.pdf_tanam_pajale', compact('produktivitas_tanam','total'))->setPaper('a4', 'landscape');
 
         return $pdf->stream();
     }

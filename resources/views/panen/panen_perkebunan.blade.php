@@ -32,7 +32,7 @@ Data Panen Perkebunan
                     <form id="form_pdf" action="{{ route('panen.pdf_panen_perkebunan') }}" method="get" style="display: none;">
                         @csrf
                         <input type="hidden" name="form_awal" id="form_awal" >
-                        <input type="hidden" name="form_akhir" id="form_akhir" ">
+                        <input type="hidden" name="form_akhir" id="form_akhir">
                     </form>
                     <div class="btn-group">
                         <button target="_blank" class="btn btn-success export_pdf">
@@ -43,29 +43,34 @@ Data Panen Perkebunan
                     <form id="form_excel" action="{{ route('panen.excel_perkebunan') }}" method="get" style="display: none;">
                         @csrf
                         <input type="hidden" name="form_awal" id="form_awal" >
-                        <input type="hidden" name="form_akhir" id="form_akhir" ">
+                        <input type="hidden" name="form_akhir" id="form_akhir">
                     </form>
                 </div>
                 <div class="box-body table-responsive">
                     <form action="" method="post" class="form-panen-perkebunan">
                         @csrf
-                        <table class="table table-stiped table-bordered">
+                        <table class="table table-striped">
                             <thead>
                                 {{-- <th >
                                     <input type="checkbox" name="select_all" id="select_all">
                                 </th> --}}
-                                <th>No</th>
-                                <th>Tanggal</th>
-                                <th>Kecamatan</th>
-                                <th>Desa</th>
-                                <th>Tanaman </th>
-                                <th>Luas Panen</th>
-                                <th>Kadar</th>
-                                <th>Produksi</th>
-                                <th>Provitas</th>
-                                <th>Harga</th>
-                                <th>Penginput</th>
-                                <th width="8%"><i class="fa fa-cog"></i> Aksi</th>
+                                <tr class="warning">
+                                    <th>No</th>
+                                    <th>Tanggal</th>
+                                    <th>Kecamatan</th>
+                                    <th>Desa</th>
+                                    <th>Tanaman </th>
+                                    <th>TM</th>
+                                    <th>TBM</th>
+                                    <th>TTM</th>
+                                    <th>Luas Panen</th>
+                                    <th>Kadar</th>
+                                    <th>Produksi</th>
+                                    <th>Provitas</th>
+                                    <th>Harga</th>
+                                    <th>Penginput</th>
+                                    <th width="8%"><i class="fa fa-cog"></i> Aksi</th>
+                                </tr>
                             </thead>
                             <tbody>
 
@@ -73,13 +78,18 @@ Data Panen Perkebunan
                             <tfoot>
                                 <tr>
                                     <th colspan="5">Total :</th>
+                                    <th id="_tm"></th>
+                                    <th id="_tbm"></th>
+                                    <th id="_ttm"></th>
                                     <th id="luas"></th>
-                                    <th colspan="6"></th>
-                                </tr>
-                                <tr>
-                                    <th colspan="6">Rata-Rata :</th>
-                                    <th id="kadar"></th>
+                                    <th colspan="1"></th>
                                     <th id="prod"></th>
+                                    <th colspan="4"></th>
+                                </tr>
+                                <tr >
+                                    <th colspan="9">Rata-Rata :</th>
+                                    <th id="kadar"></th>
+                                    <th colspan="1"></th>
                                     <th id="prov"></th>
                                     <th id="harga"></th>
                                     <th colspan="2"></th>
@@ -90,7 +100,7 @@ Data Panen Perkebunan
                 </div>
             </div>
 
-            @includeIf('panen.form_add')
+            @includeIf('panen.form_add_perkebunan')
             @includeIf('panen.form')
         @endsection
 
@@ -119,7 +129,7 @@ Data Panen Perkebunan
                                 sortable: false
                             },
                             {
-                                data: 'created_at'
+                                data: 'updated_at'
                             },
                             {
                                 data: 'mst_kecamatan.nama_kecamatan'
@@ -129,6 +139,15 @@ Data Panen Perkebunan
                             },
                             {
                                 data: 'mst_tanaman.nama_tanaman'
+                            },
+                            {
+                                data: 'tm'
+                            },
+                            {
+                                data: 'tbm'
+                            },
+                            {
+                                data: 'ttm'
                             },
                             {
                                 data: 'luas_lahan'
@@ -155,17 +174,26 @@ Data Panen Perkebunan
                             },
                         ],
                         "initComplete": function(settings, json) {
+                            var $_tm = 0;
+                            var $_tbm = 0;
+                            var $_ttm = 0;
                             var $luas = 0;
                             var $kadar = 0;
                             var $prod = 0;
                             var $prov = 0;
                             var $harga = 0;
                             for (let index = 0; index < json.data.length; index++) {
-                            const $elm_luas = parseInt(json.data[index].luas_lahan);
-                            const $elm_kadar = parseFloat(json.data[index].kadar);
-                            const $elm_prod = parseFloat(json.data[index].produksi);
-                            const $elm_prov = parseFloat(json.data[index].provitas);
-                            const $elm_harga = parseFloat(json.data[index].harga.replace("Rp.",""));
+                                const $elm_tm = parseFloat(json.data[index].tm);
+                                const $elm_tbm = parseFloat(json.data[index].tbm);
+                                const $elm_ttm = parseFloat(json.data[index].ttm);
+                                const $elm_luas = parseFloat(json.data[index].luas_lahan);
+                                const $elm_kadar = parseFloat(json.data[index].kadar);
+                                const $elm_prod = parseFloat(json.data[index].produksi);
+                                const $elm_prov = parseFloat(json.data[index].provitas);
+                                const $elm_harga = parseFloat(json.data[index].harga.replace("Rp.",""));
+                            $_tm           += $elm_tm;
+                            $_tbm           += $elm_tbm;
+                            $_ttm           += $elm_ttm;
                             $luas           += $elm_luas;
                             $kadar          += $elm_kadar;
                             $prod          += $elm_prod;
@@ -173,16 +201,17 @@ Data Panen Perkebunan
                             $harga         += $elm_harga;
                             }
                             $kadar   = parseFloat($kadar)/parseFloat(json.data.length)
-                            $prod    = parseFloat($prod)/parseFloat(json.data.length)
                             $prov    = parseFloat($prov)/parseFloat(json.data.length)
                             $harga    = parseFloat($harga)/parseFloat(json.data.length)
                             var $avg_kadar = parseFloat($kadar);
-                            var $avg_prod = parseFloat($prod);
                             var $avg_prov= parseFloat($prov);
                             var $avg_harga= parseFloat($harga);
-                            $("th#luas").html($luas+ " ha");
+                            $("th#_tm").html($_tm.toFixed(2)+ " ha");
+                            $("th#_tbm").html($_tbm.toFixed(2)+ " ha");
+                            $("th#_ttm").html($_ttm.toFixed(2)+ " ha");
+                            $("th#luas").html($luas.toFixed(2)+ " ha");
                             $("th#kadar").html($avg_kadar.toFixed(2)+ " %");
-                            $("th#prod").html($avg_prod.toFixed(2)+" ton");
+                            $("th#prod").html($prod.toFixed(2)+" ton");
                             $("th#prov").html($avg_prov.toFixed(2)+" ku/ha");
                             $("th#harga").html("Rp. "+$avg_harga.toFixed(2));
                         }
@@ -213,6 +242,9 @@ Data Panen Perkebunan
                         var p_tanggal_awal = new Date($('#tanggal_awal').val()).getFullYear() +'-'+ $_s_bln + '-'+$_s_tgl;
                         var p_tanggal_akhir = new Date($('#tanggal_akhir').val()).getFullYear() +'-'+$_e_bln+ '-' + $_e_tgl;
                         var content_title = `Daftar Data Panen Perkebunan ` + tanggal_awal + ` - ` + tanggal_akhir;
+                        $("th#_tm").html(null);
+                        $("th#_tbm").html(null);
+                        $("th#_ttm").html(null);
                         $("th#luas").html(null);
                         $("th#kadar").html(null);
                         $("th#prod").html(null);
@@ -220,17 +252,26 @@ Data Panen Perkebunan
                         $("th#harga").html(null);
                         table.ajax.url( "{{ route('panen_perkebunan.data') }}?tanggal_awal="+p_tanggal_awal+"&tanggal_akhir="+p_tanggal_akhir ).load();
                         table.ajax.reload((json)=>{
+                            var $_tm = 0;
+                            var $_tbm = 0;
+                            var $_ttm = 0;
                             var $luas = 0;
                             var $kadar = 0;
                             var $prod = 0;
                             var $prov = 0;
                             var $harga = 0;
                             for (let index = 0; index < json.data.length; index++) {
-                            const $elm_luas = parseInt(json.data[index].luas_lahan);
-                            const $elm_kadar = parseFloat(json.data[index].kadar);
-                            const $elm_prod = parseFloat(json.data[index].produksi);
-                            const $elm_prov = parseFloat(json.data[index].provitas);
-                            const $elm_harga = parseFloat(json.data[index].harga.replace("Rp. ",""));
+                                const $elm_tm = parseFloat(json.data[index].tm);
+                                const $elm_tbm = parseFloat(json.data[index].tbm);
+                                const $elm_ttm = parseFloat(json.data[index].ttm);
+                                const $elm_luas = parseFloat(json.data[index].luas_lahan);
+                                const $elm_kadar = parseFloat(json.data[index].kadar);
+                                const $elm_prod = parseFloat(json.data[index].produksi);
+                                const $elm_prov = parseFloat(json.data[index].provitas);
+                                const $elm_harga = parseFloat(json.data[index].harga.replace("Rp. ",""));
+                            $_tm           += $elm_tm;
+                            $_tbm           += $elm_tbm;
+                            $_ttm           += $elm_ttm;
                             $luas           += $elm_luas;
                             $kadar          += $elm_kadar;
                             $prod          += $elm_prod;
@@ -238,16 +279,18 @@ Data Panen Perkebunan
                             $harga         += $elm_harga;
                             }
                             $kadar   = parseFloat($kadar)/parseFloat(json.data.length)
-                            $prod    = parseFloat($prod)/parseFloat(json.data.length)
                             $prov    = parseFloat($prov)/parseFloat(json.data.length)
                             $harga    = parseFloat($harga)/parseFloat(json.data.length)
                             var $avg_kadar = parseFloat($kadar);
-                            var $avg_prod = parseFloat($prod);
                             var $avg_prov= parseFloat($prov);
                             var $avg_harga= parseFloat($harga);
-                            $("th#luas").html($luas+ " ha");
+                            $("th#_tm").html($_tm.toFixed(2)+ " ha");
+                            $("th#_tbm").html($_tbm.toFixed(2)+ " ha");
+                            $("th#_ttm").html($_ttm.toFixed(2)+ " ha");
+                            $("th#luas").html($luas.toFixed(2)+ " ha");
+                            $("th#luas").html($luas.toFixed(2)+ " ha");
                             $("th#kadar").html($avg_kadar.toFixed(2)+ " %");
-                            $("th#prod").html($avg_prod.toFixed(2)+" ton");
+                            $("th#prod").html($prod.toFixed(2)+" ton");
                             $("th#prov").html($avg_prov.toFixed(2)+" ku/ha");
                             $("th#harga").html("Rp. "+$avg_harga.toFixed(2));
                         },false);
@@ -280,7 +323,7 @@ Data Panen Perkebunan
                 function addForm() {
                     var url = "{{ route('panen.create_perkebunan') }}";
                     $('#modal-form').modal('show');
-                    $('#modal-form .modal-title').text('Tambah Data Panen Horti');
+                    $('#modal-form .modal-title').text('Tambah Data Panen Perkebunan');
 
                     $('#modal-form form')[0].reset();
                     $('#modal-form form').attr('action', url);
@@ -313,6 +356,9 @@ Data Panen Perkebunan
                             $('#id_desa').select2().trigger('change').attr("disabled",true);
                             $('#id_tanaman').val(resp.tanaman_id);
                             $('#id_tanaman').select2().trigger('change');
+                            $('#modal-form [name=tm]').val(resp.tm);
+                            $('#modal-form [name=tbm]').val(resp.tbm);
+                            $('#modal-form [name=ttm]').val(resp.ttm);
                             $('#modal-form [name=luas_lahan]').val(resp.luas_lahan);
                             $('#modal-form [name=kadar]').val(resp.kadar);
                             $('#modal-form [name=produksi]').val(resp.produksi);

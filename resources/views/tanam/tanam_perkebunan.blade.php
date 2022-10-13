@@ -52,19 +52,21 @@
 
                     <form action="" method="post" class="form-tanam-perkebunan">
                         @csrf
-                        <table class="table table-stiped table-bordered">
+                        <table class="table table-striped">
                             <thead>
                                 <!-- <th width="5%">
                                     <input type="checkbox" name="select_all" id="select_all">
                                 </th> -->
-                                <th>No</th>
-                                <th>Tanggal</th>
-                                <th>Kecamatan</th>
-                                <th>Desa</th>
-                                <th>Tanaman </th>
-                                <th>Luas Tanam</th>
-                                <th>Nama Penginput</th>
-                                <th width="8%"><i class="fa fa-cog"></i> Aksi</th>
+                                <tr class="success">
+                                    <th>No</th>
+                                    <th>Tanggal</th>
+                                    <th>Kecamatan</th>
+                                    <th>Desa</th>
+                                    <th>Tanaman </th>
+                                    <th>Luas Tanam</th>
+                                    <th>Nama Penginput</th>
+                                    <th width="8%"><i class="fa fa-cog"></i> Aksi</th>
+                                </tr>
                             </thead>
                             <tbody>
 
@@ -114,7 +116,7 @@
                                 sortable: false
                             },
                             {
-                                data: 'created_at'
+                                data: 'updated_at'
                             },
                             {
                                 data: 'mst_kecamatan.nama_kecamatan'
@@ -140,10 +142,10 @@
                         "initComplete": function(settings, json) {
                             var $luas = 0;
                             for (let index = 0; index < json.data.length; index++) {
-                            const $elm_luas = parseInt(json.data[index].luas_lahan);
+                            const $elm_luas = parseFloat(json.data[index].luas_lahan);
                             $luas           += $elm_luas;
                             }
-                            $("th#luas").html($luas+ " ha");
+                            $("th#luas").html($luas.toFixed(2)+ " ha");
                         }
 
                     });
@@ -178,13 +180,13 @@
                             var $luas = 0;
 
                             for (let index = 0; index < json.data.length; index++) {
-                            const $elm_luas = parseInt(json.data[index].luas_lahan);
+                            const $elm_luas = parseFloat(json.data[index].luas_lahan);
 
                             $luas           += $elm_luas;
 
                             }
 
-                            $("th#luas").html($luas+ " ha");
+                            $("th#luas").html($luas.toFixed(2)+ " ha");
                         },false);
                         $('#modal-content').modal("hide");
                         $('#form_awal').val($('#tanggal_awal').val());

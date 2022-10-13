@@ -29,14 +29,6 @@ class PanenHortiController extends Controller
             $tanggalAwal = $request->tanggal_awal;
             $tanggalAkhir = $request->tanggal_akhir;
         }
-        // // $total = Produktivitas::query()->select(['updated_at','sum(luas_lahan)'])->where('updated_at','>=','now() -interval 5 year')->groupBy('updated_at');
-        // $total = DB::select(DB::raw("SELECT updated_at, SUM(luas_lahan) FROM tb_produktivitas WHERE updated_at >= (now() -interval 5 year) GROUP BY updated_at"));
-        // // dump($total);
-        // // var_dump($total);
-        // $kadar = Produktivitas::query()->select(['updated_at','sum(kadar)'])->where('updated_at','>=','now() -interval 5 year')->groupBy('updated_at');
-        // $produksi = Produktivitas::query()->select(['updated_at','sum(produksi)'])->where('updated_at','>=','now() -interval 5 year')->groupBy('updated_at');
-        // $provitas = Produktivitas::query()->select(['updated_at','sum(provitas)'])->where('updated_at','>=','now() -interval 5 year')->groupBy('updated_at');
-        // $harga = Produktivitas::query()->select(['updated_at','sum(harga)'])->where('updated_at','>=','now() -interval 5 year')->groupBy('updated_at');
 
         $data['title'] = 'Panen Horti';
         $data['kecamatans'] = Kecamatan::all();
@@ -45,20 +37,8 @@ class PanenHortiController extends Controller
         return view('panen/panen_horti', $data, compact('tanggalAwal', 'tanggalAkhir'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
     public function data(Request $request)
     {
-
-
         // cari tamaman yang jenis tanam sama panen horti
         $tanaman = Tanaman::where('jenis_panen', 2)->pluck('id_tanaman');
         // $user = auth()->user()->id_user;
@@ -84,14 +64,20 @@ class PanenHortiController extends Controller
             ->addColumn('id_tanaman', function ($produktivitas) {
                 return '<option value"' . $produktivitas->mst_tanaman->nama_tanaman . '">';
             })
-            ->addColumn('luas_lahan', function ($produktivitas) {
-                return ($produktivitas->luas_lahan). ' ha' ;
+            ->addColumn('lh_habis', function ($produktivitas) {
+                return ($produktivitas->lh_habis) . ' ha';
+            })
+            ->addColumn('lh_blm_habis', function ($produktivitas) {
+                return ($produktivitas->lh_blm_habis) . ' ha';
             })
             ->addColumn('kadar', function ($produktivitas) {
                 return ($produktivitas->kadar) . ' %';
             })
-            ->addColumn('produksi', function ($produktivitas) {
-                return ($produktivitas->produksi) . ' ton';
+            ->addColumn('habis', function ($produktivitas) {
+                return ($produktivitas->habis) . ' ton';
+            })
+            ->addColumn('blm_habis', function ($produktivitas) {
+                return ($produktivitas->blm_habis) . ' ton';
             })
             ->addColumn('provitas', function ($produktivitas) {
                 return ($produktivitas->provitas) . ' ku/ha';
@@ -102,14 +88,15 @@ class PanenHortiController extends Controller
             ->addColumn('created_by', function ($produktivitas) {
                 return ($produktivitas->user->nama);
             })
-            ->addColumn('created_at', function($produktivitas) {
-                return \Carbon\Carbon::parse($produktivitas->created_at)->format('d-m-Y');
+            ->addColumn('updated_at', function($produktivitas) {
+                return \Carbon\Carbon::parse($produktivitas->updated_at)->format('d-m-Y');
             })
             ->addColumn('aksi', function ($produktivitas) {
+                // <button type="button" onclick="showDetail(`'. route('panen.detail_horti',['id' => $produktivitas->id_produktivitas]) .'`)" class="btn btn-xs btn-info "><i class="fa fa-eye"></i></button>
                 return '
                 <div class="btn-group">
-                <button type="button" onclick="editForm('. $produktivitas->id_produktivitas . ');" class="btn btn-sm btn-info"><i class="fa fa-pencil"></i></button>
-                <button type="button" onclick="deleteData(`' . route('panen.delete_horti', ['id' => $produktivitas->id_produktivitas]) . '`)" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></button>
+                <button type="button" onclick="editForm('. $produktivitas->id_produktivitas . ');" class="btn btn-xs btn-warning"><i class="fa fa-pencil"></i></button>
+                <button type="button" onclick="deleteData(`' . route('panen.delete_horti', ['id' => $produktivitas->id_produktivitas]) . '`)" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i></button>
                 </div>
             ';
             return "Ok";
@@ -130,27 +117,88 @@ class PanenHortiController extends Controller
         'kecamatan_id' => $request->id_kecamatan,
         'desa_id' => $request->id_desa,
         'tanaman_id' => $request->id_tanaman,
+        'lh_habis' => $request->lh_habis,
+        'lh_blm_habis' => $request->lh_blm_habis,
         'kadar' => $request->kadar,
-        'produksi' => $request->produksi,
+        'habis' => $request->habis,
+        'blm_habis' => $request->blm_habis,
         'provitas' => $request->provitas,
         'harga' => $request->harga,
-        'luas_lahan' => $request->luas_lahan,
         'created_by' => auth()->user()->id_user,
         'created_at' => $request->tanggal
        ]);
        return response()->json('Data berhasil disimpan', 200);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
+    // /**
+    //  * Display the specified resource.
+    //  *
+    //  * @param  int  $id
+    //  * @return \Illuminate\Http\Response
+    //  */
+    // public function show( Request $request )
+    // {
+    //     $produktivitas = Produktivitas::where('id_produktivitas', $request->id_produktivitas)->first();
+    //     return response()->json($produktivitas);
+    // }
+
+    // public function detail( $id_produktivitas)
+    // {
+    //     // cari tamaman yang jenis tanam sama panen horti
+    //     $tanaman = Tanaman::where('jenis_panen', 2)->pluck('id_tanaman');
+    //     $detail = Produktivitas::with('user','mst_kecamatan', 'mst_desa', 'mst_tanaman')
+    //     ->whereIn('tanaman_id', $tanaman)->orderBy('id_produktivitas','desc', $id_produktivitas)->first();
+
+    //      return datatables()
+    //          ->of($detail)
+    //          ->addIndexColumn()
+    //          ->addColumn('select_all', function ($detail) {
+    //             return '<input type="checkbox" name="id_produktivitas[]" value="' . $detail->id_produktivitas . '">';
+    //         })
+    //          ->addColumn('id_kecamatan', function ($detail) {
+    //              return '<option value"' . $detail->mst_kecamatan->nama_kecamatan . '">';
+    //          })
+    //          ->addColumn('id_desa', function ($detail) {
+    //              return '<option value"' . $detail->mst_desa->nama_desa . '">';
+    //          })
+    //          ->addColumn('id_tanaman', function ($detail) {
+    //              return '<option value"' . $detail->mst_tanaman->nama_tanaman . '">';
+    //          })
+    //          ->addColumn('lh_habis', function ($detail) {
+    //              return ($detail->lh_habis) . ' ha';
+    //          })
+    //          ->addColumn('lh_blm_habis', function ($detail) {
+    //              return ($detail->lh_blm_habis) . ' ha';
+    //          })
+    //          ->addColumn('kadar', function ($detail) {
+    //              return ($detail->kadar) . ' %';
+    //          })
+    //          ->addColumn('habis', function ($detail) {
+    //              return ($detail->habis) . ' ton';
+    //          })
+    //          ->addColumn('blm_habis', function ($detail) {
+    //              return ($detail->blm_habis) . ' ton';
+    //          })
+    //          ->addColumn('provitas', function ($detail) {
+    //              return ($detail->provitas) . ' ku/ha';
+    //          })
+    //          ->addColumn('harga', function ($detail) {
+    //              return 'Rp. '. ($detail->harga);
+    //          })
+    //          ->addColumn('created_by', function ($detail) {
+    //              return ($detail->user->nama);
+    //          })
+    //          ->addColumn('updated_by', function ($detail) {
+    //             return ($detail->user->nama);
+    //         })
+    //          ->addColumn('created_at', function($detail) {
+    //             return \Carbon\Carbon::parse($detail->updated_at)->format('d-m-Y');
+    //         })
+    //          ->addColumn('updated_at', function($detail) {
+    //              return \Carbon\Carbon::parse($detail->updated_at)->format('d-m-Y');
+    //         })
+    //          ->make(true);
+    // }
 
     /**
      * Show the form for editing the specified resource.
@@ -177,13 +225,15 @@ class PanenHortiController extends Controller
             // 'kecamatan_id' => $request->id_kecamatan,
             // 'desa_id' => $request->id_desa,
             'tanaman_id' => $request->id_tanaman,
+            'lh_habis' => $request->lh_habis,
+            'lh_blm_habis' => $request->lh_blm_habis,
             'kadar' => $request->kadar,
-            'produksi' => $request->produksi,
+            'habis' => $request->habis,
+            'blm_habis' => $request->blm_habis,
             'provitas' => $request->provitas,
             'harga' => $request->harga,
-            'luas_lahan' => $request->luas_lahan,
-            'created_by' => 1,
-            'created_at'  => $request->tanggal
+            'updated_by' => auth()->user()->id_user,
+            'updated_at'  => $request->tanggal
         ]);
 
         return response()->json('Data berhasil update', 200);
@@ -209,8 +259,55 @@ class PanenHortiController extends Controller
         } else {
             $produktivitas = Produktivitas::whereIn('tanaman_id', $tanaman)->get();
         }
+        $total = DB::select(DB::raw("
+        SELECT
+            id_produktivitas,
+            tb_produktivitas.updated_at AS updated_at,
+            SUM(lh_habis) AS lh_habis,
+            lh_blm_habis,
+            ROUND(kadar , 2) AS kadar,
+            habis,
+            blm_habis,
+            harga,
+            nama_kecamatan,
+            nama_desa,
+            nama_tanaman,
+            provitas,
+            tb_user.nama,
+            lh_habis,
+            (
+                SELECT ROUND(SUM(lh_habis) , 2) FROM tb_produktivitas INNER JOIN mst_tanaman ON tanaman_id = id_tanaman
+                WHERE jenis_panen = 2
+            ) as total_lh_habis,(
+                SELECT ROUND(SUM(lh_blm_habis) , 2) FROM tb_produktivitas INNER JOIN mst_tanaman ON tanaman_id = id_tanaman
+                WHERE jenis_panen = 2
+            ) as total_lh_blm_habis,(
+                SELECT ROUND(AVG(kadar) , 2) FROM tb_produktivitas INNER JOIN mst_tanaman ON tanaman_id = id_tanaman
+                WHERE jenis_panen = 2
+            ) as avg_kadar,(
+                SELECT ROUND(SUM(habis) , 2) FROM tb_produktivitas INNER JOIN mst_tanaman ON tanaman_id = id_tanaman
+                WHERE jenis_panen = 2
+            ) AS total_habis,(
+                SELECT ROUND(SUM(blm_habis) , 2) FROM tb_produktivitas INNER JOIN mst_tanaman ON tanaman_id = id_tanaman
+                WHERE jenis_panen = 2
+            ) AS total_blm_habis,(
+                SELECT ROUND(AVG(provitas) , 2) FROM tb_produktivitas INNER JOIN mst_tanaman ON tanaman_id = id_tanaman
+                WHERE jenis_panen = 2
+            ) AS avg_provitas,(
+                SELECT ROUND(AVG(harga) , 2) FROM tb_produktivitas INNER JOIN mst_tanaman ON tanaman_id = id_tanaman
+                WHERE jenis_panen = 2
+            ) AS avg_harga
+        FROM tb_produktivitas INNER JOIN mst_tanaman ON tanaman_id = id_tanaman
+        INNER JOIN mst_kecamatan ON id_kecamatan = kecamatan_id
+        INNER JOIN mst_desa ON id_desa = desa_id
+        INNER JOIN tb_user ON tb_user.id_user = created_by
+        WHERE jenis_panen = 2
+        AND tb_produktivitas.updated_at >= (now() -interval 5 year)
+        GROUP BY id_produktivitas
+    "));
 
-        $pdf = Pdf::loadView('panen.pdf_panen_horti', compact('produktivitas'))->setPaper('a4', 'landscape');
+        $pdf = Pdf::loadView('panen.pdf_panen_horti', compact('produktivitas','total'))->setPaper('a4', 'landscape');
+
 
         return $pdf->stream();
     }
