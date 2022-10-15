@@ -19,6 +19,7 @@ class CreateMstTanamanTable extends Migration
             $table->unsignedBigInteger('jenis_panen')->nullable();
             $table->unsignedBigInteger('jenis_puso')->nullable();
             $table->string('nama_tanaman',30)->unique();
+            $table->tinyInteger('convert');
         });
     }
 

@@ -20,6 +20,7 @@ class TanamanTableSeeder extends Seeder
                 'jenis_tanam' => 1,
                 'jenis_panen' => 1,
                 'jenis_puso' => 1,
+                'convert' => 1,
                 'nama_tanaman'=>'Padi Sawah',
             ],
             [
@@ -27,6 +28,7 @@ class TanamanTableSeeder extends Seeder
                 'jenis_tanam' => 1,
                 'jenis_panen' => 1,
                 'jenis_puso' => 1,
+                'convert' => 0,
                 'nama_tanaman'=>'Padi Non Sawah',
             ],
             [
@@ -34,6 +36,7 @@ class TanamanTableSeeder extends Seeder
                 'jenis_tanam' => 1,
                 'jenis_panen' => 1,
                 'jenis_puso' => 1,
+                'convert' => 1,
                 'nama_tanaman'=>'Jagung Sawah',
             ],
             [
@@ -41,6 +44,7 @@ class TanamanTableSeeder extends Seeder
                 'jenis_tanam' => 1,
                 'jenis_panen' => 1,
                 'jenis_puso' => 1,
+                'convert' => 0,
                 'nama_tanaman'=>'Jagung Non Sawah',
             ],
             [
@@ -48,6 +52,7 @@ class TanamanTableSeeder extends Seeder
                 'jenis_tanam' => 1,
                 'jenis_panen' => 1,
                 'jenis_puso' => 1,
+                'convert' => 1,
                 'nama_tanaman'=>'Kedelai Sawah',
             ],
             [
@@ -55,6 +60,7 @@ class TanamanTableSeeder extends Seeder
                 'jenis_tanam' => 1,
                 'jenis_panen' => 1,
                 'jenis_puso' => 1,
+                'convert' => 0,
                 'nama_tanaman'=>'Kedelai Non Sawah',
             ],
             [
@@ -62,6 +68,7 @@ class TanamanTableSeeder extends Seeder
                 'jenis_tanam' => 1,
                 'jenis_panen' => 1,
                 'jenis_puso' => 1,
+                'convert' => 0,
                 'nama_tanaman'=>'Kacang Tanah Sawah',
             ],
             [
@@ -69,6 +76,7 @@ class TanamanTableSeeder extends Seeder
                 'jenis_tanam' => 1,
                 'jenis_panen' => 1,
                 'jenis_puso' => 1,
+                'convert' => 0,
                 'nama_tanaman'=>'Kacang Tanah Non Sawah',
             ],
             [
@@ -76,6 +84,7 @@ class TanamanTableSeeder extends Seeder
                 'jenis_tanam' => 1,
                 'jenis_panen' => 1,
                 'jenis_puso' => 1,
+                'convert' => 0,
                 'nama_tanaman'=>'Kacang Hijau Sawah',
             ],
             [
@@ -83,6 +92,7 @@ class TanamanTableSeeder extends Seeder
                 'jenis_tanam' => 1,
                 'jenis_panen' => 1,
                 'jenis_puso' => 1,
+                'convert' => 0,
                 'nama_tanaman'=>'Kacang Hijau Non Sawah',
             ],
             [
@@ -90,6 +100,7 @@ class TanamanTableSeeder extends Seeder
                 'jenis_tanam' => 1,
                 'jenis_panen' => 1,
                 'jenis_puso' => 1,
+                'convert' => 0,
                 'nama_tanaman'=>'Ubi Kayu Sawah',
             ],
             [
@@ -97,6 +108,7 @@ class TanamanTableSeeder extends Seeder
                 'jenis_tanam' => 1,
                 'jenis_panen' => 1,
                 'jenis_puso' => 1,
+                'convert' => 0,
                 'nama_tanaman'=>'Ubi Kayu Non Sawah',
             ],
             [
@@ -104,6 +116,7 @@ class TanamanTableSeeder extends Seeder
                 'jenis_tanam' => 1,
                 'jenis_panen' => 1,
                 'jenis_puso' => 1,
+                'convert' => 0,
                 'nama_tanaman'=>'Ubi Jalar Sawah',
             ],
             [
@@ -111,6 +124,7 @@ class TanamanTableSeeder extends Seeder
                 'jenis_tanam' => 1,
                 'jenis_panen' => 1,
                 'jenis_puso' => 1,
+                'convert' => 0,
                 'nama_tanaman'=>'Ubi Jalar Non Sawah',
             ],
             [
@@ -118,6 +132,7 @@ class TanamanTableSeeder extends Seeder
                 'jenis_tanam' => 1,
                 'jenis_panen' => 1,
                 'jenis_puso' => 1,
+                'convert' => 0,
                 'nama_tanaman'=>'Porang Sawah',
             ],
             [
@@ -125,6 +140,7 @@ class TanamanTableSeeder extends Seeder
                 'jenis_tanam' => 1,
                 'jenis_panen' => 1,
                 'jenis_puso' => 1,
+                'convert' => 0,
                 'nama_tanaman'=>'Porang Non Sawah',
             ],
             [
@@ -132,6 +148,7 @@ class TanamanTableSeeder extends Seeder
                 'jenis_tanam' => 2,
                 'jenis_panen' => 2,
                 'jenis_puso' => 2,
+                'convert' => 0,
                 'nama_tanaman'=>'Bawang Merah',
             ],
             [
@@ -139,6 +156,7 @@ class TanamanTableSeeder extends Seeder
                 'jenis_tanam' => 2,
                 'jenis_panen' => 2,
                 'jenis_puso' => 2,
+                'convert' => 0,
                 'nama_tanaman'=>'Cabe Rawit',
             ],
             [
@@ -146,6 +164,7 @@ class TanamanTableSeeder extends Seeder
                 'jenis_tanam' => 2,
                 'jenis_panen' => 2,
                 'jenis_puso' => 2,
+                'convert' => 0,
                 'nama_tanaman'=>'Cabe Besar',
             ],
             [
@@ -153,6 +172,7 @@ class TanamanTableSeeder extends Seeder
                 'jenis_tanam' => 2,
                 'jenis_panen' => 2,
                 'jenis_puso' => 2,
+                'convert' => 0,
                 'nama_tanaman'=>'Cabe Kriting',
             ],
             [
@@ -160,6 +180,7 @@ class TanamanTableSeeder extends Seeder
                 'jenis_tanam' => 3,
                 'jenis_panen' => 3,
                 'jenis_puso' => 3,
+                'convert' => 0,
                 'nama_tanaman'=>'Tembakau Virginia',
             ],
             [
@@ -167,6 +188,7 @@ class TanamanTableSeeder extends Seeder
                 'jenis_tanam' => 3,
                 'jenis_panen' => 3,
                 'jenis_puso' => 3,
+                'convert' => 0,
                 'nama_tanaman'=>'Tembakau Jawa',
             ],
             [
@@ -174,6 +196,7 @@ class TanamanTableSeeder extends Seeder
                 'jenis_tanam' => 3,
                 'jenis_panen' => 3,
                 'jenis_puso' => 3,
+                'convert' => 0,
                 'nama_tanaman'=>'Tembakau Ram',
             ],
             [
@@ -181,6 +204,7 @@ class TanamanTableSeeder extends Seeder
                 'jenis_tanam' => 3,
                 'jenis_panen' => 3,
                 'jenis_puso' => 3,
+                'convert' => 0,
                 'nama_tanaman'=>'Kelapa',
             ],
             [
@@ -188,6 +212,7 @@ class TanamanTableSeeder extends Seeder
                 'jenis_tanam' => 3,
                 'jenis_panen' => 3,
                 'jenis_puso' => 3,
+                'convert' => 0,
                 'nama_tanaman'=>'Tebu',
             ],
             [
@@ -195,6 +220,7 @@ class TanamanTableSeeder extends Seeder
                 'jenis_tanam' => 3,
                 'jenis_panen' => 3,
                 'jenis_puso' => 3,
+                'convert' => 0,
                 'nama_tanaman'=>'Kopi',
             ],
             [
@@ -202,6 +228,7 @@ class TanamanTableSeeder extends Seeder
                 'jenis_tanam' => 3,
                 'jenis_panen' => 3,
                 'jenis_puso' => 3,
+                'convert' => 0,
                 'nama_tanaman'=>'Petai',
             ],
             [
@@ -209,6 +236,7 @@ class TanamanTableSeeder extends Seeder
                 'jenis_tanam' => 3,
                 'jenis_panen' => 3,
                 'jenis_puso' => 3,
+                'convert' => 0,
                 'nama_tanaman'=>'Jahe Merah',
             ],
         ];

@@ -22,10 +22,12 @@ class CreateTbProduktivitasTable extends Migration
             $table->float('tbm')->nullable()->default(0);
             $table->float('ttm')->nullable()->default(0);
             $table->float('luas_lahan')->nullable()->default(0);
+            $table->float('lh_konversi')->nullable()->default(0);
             $table->float('lh_habis')->nullable()->default(0);
             $table->float('lh_blm_habis')->nullable()->default(0);
             $table->float('kadar')->nullable()->default(0);
             $table->float('produksi')->nullable()->default(0);
+            $table->float('produksi_konversi')->nullable()->default(0);
             $table->float('habis')->nullable()->default(0);
             $table->float('blm_habis')->nullable()->default(0);
             $table->float('provitas')->nullable()->default(0);

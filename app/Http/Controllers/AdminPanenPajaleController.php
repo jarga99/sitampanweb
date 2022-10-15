@@ -96,17 +96,25 @@ class AdminPanenPajaleController extends Controller
      */
     public function store(Request $request)
     {
-        Produktivitas::create([
-            'kecamatan_id' => $request->id_kecamatan,
-            'desa_id' => $request->id_desa,
-            'tanaman_id' => $request->id_tanaman,
-            'kadar' => $request->kadar,
-            'produksi' => $request->produksi,
-            'provitas' => $request->provitas,
-            'harga' => $request->harga,
-            'luas_lahan' => $request->luas_lahan,
-            'created_by' => auth()->user()->id_user
-        ]);
+        @dd($request);
+        // $lh_convert = Tanaman::where('id_tanaman', request('id_tanaman',1))->pluck('id_tanaman');
+        // Produktivitas::create([
+        //     'kecamatan_id' => $request->id_kecamatan,
+        //     'desa_id' => $request->id_desa,
+        //     'tanaman_id' => $request->id_tanaman,
+
+        //     // if ($lh_convert == true) {
+        //     //     'luas_lahan' => $request->luas_lahan * 0.9683
+        //     // } else {
+        //     //     'luas_lahan' => $request->luas_lahan
+        //     // }
+
+        //     'kadar' => $request->kadar,
+        //     'produksi' => $request->produksi,
+        //     'provitas' => $request->provitas,
+        //     'harga' => $request->harga,
+        //     'created_by' => auth()->user()->id_user
+        // ]);
         return response()->json('Data berhasil disimpan', 200);
     }
 
