@@ -38,7 +38,7 @@ class AdminPanenPajaleController extends Controller
         $tanaman = Tanaman::where('jenis_panen', 1)->pluck('id_tanaman');
         $user = auth()->user()->id_user;
         // ambil data berdasarkan tanaman id dalam array
-        $produktivitas = Produktivitas::with('user', 'mst_kecamatan', 'mst_desa', 'mst_tanaman')->where('created_by',$user)->whereIn('tanaman_id', $tanaman)->orderBy('id_produktivitas', 'desc');
+        $produktivitas = Produktivitas::with('user', 'mst_kecamatan', 'mst_desa', 'mst_tanaman')->where('created_by', $user)->whereIn('tanaman_id', $tanaman)->orderBy('id_produktivitas', 'desc');
         if ($request->tanggal_awal != null && $request->tanggal_akhir != null) {
             $produktivitas = $produktivitas->whereBetween('created_at', [$request->tanggal_awal, $request->tanggal_akhir]);
         }
@@ -61,17 +61,23 @@ class AdminPanenPajaleController extends Controller
             ->addColumn('luas_lahan', function ($produktivitas) {
                 return ($produktivitas->luas_lahan ?? '0') . " ha";
             })
+            // ->addColumn('lh_konversi', function ($produktivitas) {
+            //     return ($produktivitas->lh_konversi ?? '0') . " ha";
+            // })
             ->addColumn('kadar', function ($produktivitas) {
                 return ($produktivitas->kadar ?? '0') . " %";
             })
             ->addColumn('produksi', function ($produktivitas) {
                 return ($produktivitas->produksi ?? '0') . " ton";
             })
+            // ->addColumn('produksi_konversi', function ($produktivitas) {
+            //     return ($produktivitas->produksi_konversi ?? '0') . " ton";
+            // })
             ->addColumn('provitas', function ($produktivitas) {
-                return ($produktivitas->provitas ?? '0') . " ku/ha";
+                return ($produktivitas->provitas ?? '0') . " ton";
             })
             ->addColumn('harga', function ($produktivitas) {
-                return "Rp. " .($produktivitas->harga);
+                return "Rp. " . ($produktivitas->harga);
             })
             ->addColumn('created_by', function ($produktivitas) {
                 return $produktivitas->user->nama ?? '-';
@@ -79,12 +85,6 @@ class AdminPanenPajaleController extends Controller
             ->addColumn('updated_at', function ($produktivitas) {
                 return \Carbon\Carbon::parse($produktivitas->updated_at)->format('d-m-Y');
             })
-            // ->addColumn('aksi', function ($produktivitas) {
-            //     return '            // ->rawColumns(['aksi', 'select_all'])
-            // ';
-            // return "Ok";
-            // })
-            // ->rawColumns(['aksi', 'select_all'])
             ->make(true);
     }
 
@@ -96,28 +96,55 @@ class AdminPanenPajaleController extends Controller
      */
     public function store(Request $request)
     {
-        @dd($request);
-        // $lh_convert = Tanaman::where('id_tanaman', request('id_tanaman',1))->pluck('id_tanaman');
-        // Produktivitas::create([
-        //     'kecamatan_id' => $request->id_kecamatan,
-        //     'desa_id' => $request->id_desa,
-        //     'tanaman_id' => $request->id_tanaman,
+        Produktivitas::create([
+            'kecamatan_id' => $request->id_kecamatan,
+            'desa_id' => $request->id_desa,
+            'tanaman_id' => $request->id_tanaman,
+            'luas_lahan' => $request->luas_lahan,
+            'kadar' => $request->kadar,
+            'provitas' => $request->provitas,
+            'produksi' => $request->luas_lahan * $request->provitas,
+            'harga' => $request->harga,
+            'created_by' => auth()->user()->id_user,
+            'created_at' => $request->tanggal,
+        ]);
+        return response()->json("Berhasil Input Luas Panen", 201);
+        // $x = Tanaman::where('id_tanaman', $request->id_tanaman)->get();
+        // if ($x[0]->convert != 1) {
+        //     Produktivitas::create([
+        //         'kecamatan_id' => $request->id_kecamatan,
+        //         'desa_id' => $request->id_desa,
+        //         'tanaman_id' => $request->id_tanaman,
+        //         'luas_lahan' => $request->luas_lahan,
+        //         'kadar' => $request->kadar,
+        //         'produksi' => $request->produksi,
+        //         'provitas' => $request->provitas,
+        //         'harga' => $request->harga,
+        //         'created_by' => auth()->user()->id_user,
+        //         'created_at' => $request->tanggal,
+        //     ]);
+        //     return response()->json("Berhasil Input Luas Panen", 201);
+        // }else{
+        //     // $lh_cvt = $request->luas_lahan * 0.9683;
+        //     // $prod_cvt = $lh_cvt* $request->provitas / 10;
 
-        //     // if ($lh_convert == true) {
-        //     //     'luas_lahan' => $request->luas_lahan * 0.9683
-        //     // } else {
-        //     //     'luas_lahan' => $request->luas_lahan
-        //     // }
-
-        //     'kadar' => $request->kadar,
-        //     'produksi' => $request->produksi,
-        //     'provitas' => $request->provitas,
-        //     'harga' => $request->harga,
-        //     'created_by' => auth()->user()->id_user
-        // ]);
-        return response()->json('Data berhasil disimpan', 200);
+        //     Produktivitas::create([
+        //         'kecamatan_id' => $request->id_kecamatan,
+        //         'desa_id' => $request->id_desa,
+        //         'tanaman_id' => $request->id_tanaman,
+        //         'luas_lahan' => $request->luas_lahan,
+        //         'kadar' => $request->kadar,
+        //         'provitas' => $request->provitas,
+        //         'produksi' => $request->luas_lahan * $request->provitas,
+        //         'harga' => $request->harga,
+        //         'created_by' => auth()->user()->id_user,
+        //         'created_at' => $request->tanggal,
+        //         // 'lh_konversi' => $lh_cvt,
+        //         // 'produksi_konversi' => $prod_cvt,
+        //     ]);
+        //     return response()->json("Berhasil Input Convert Luas Panen", 201);
+        // }
     }
-
     public function pdf_panen_pajale(Request $request)
     {
         $tanaman = Tanaman::where('jenis_panen', 1)->pluck('id_tanaman');
@@ -168,7 +195,7 @@ class AdminPanenPajaleController extends Controller
     "));
 
 
-        $pdf = Pdf::loadView('admin.panen.pdf_panen_pajale', compact('produktivitas','total'))->setPaper('a4', 'landscape');
+        $pdf = Pdf::loadView('admin.panen.pdf_panen_pajale', compact('produktivitas', 'total'))->setPaper('a4', 'landscape');
 
         return $pdf->stream();
     }

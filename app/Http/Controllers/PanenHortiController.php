@@ -80,7 +80,7 @@ class PanenHortiController extends Controller
                 return ($produktivitas->blm_habis) . ' ton';
             })
             ->addColumn('provitas', function ($produktivitas) {
-                return ($produktivitas->provitas) . ' ku/ha';
+                return ($produktivitas->provitas) . ' ton';
             })
             ->addColumn('harga', function ($produktivitas) {
                 return 'Rp. '. ($produktivitas->harga);
@@ -120,9 +120,9 @@ class PanenHortiController extends Controller
         'lh_habis' => $request->lh_habis,
         'lh_blm_habis' => $request->lh_blm_habis,
         'kadar' => $request->kadar,
-        'habis' => $request->habis,
-        'blm_habis' => $request->blm_habis,
         'provitas' => $request->provitas,
+        'habis' => $request->lh_habis * $request->provitas,
+        'blm_habis' => $request->lh_blm_habis * $request->provitas,
         'harga' => $request->harga,
         'created_by' => auth()->user()->id_user,
         'created_at' => $request->tanggal
@@ -180,7 +180,7 @@ class PanenHortiController extends Controller
     //              return ($detail->blm_habis) . ' ton';
     //          })
     //          ->addColumn('provitas', function ($detail) {
-    //              return ($detail->provitas) . ' ku/ha';
+    //              return ($detail->provitas) . ' ton';
     //          })
     //          ->addColumn('harga', function ($detail) {
     //              return 'Rp. '. ($detail->harga);
@@ -228,9 +228,9 @@ class PanenHortiController extends Controller
             'lh_habis' => $request->lh_habis,
             'lh_blm_habis' => $request->lh_blm_habis,
             'kadar' => $request->kadar,
-            'habis' => $request->habis,
-            'blm_habis' => $request->blm_habis,
             'provitas' => $request->provitas,
+            'habis' => $request->lh_habis * $request->provitas,
+            'blm_habis' => $request->lh_blm_habis * $request->provitas,
             'harga' => $request->harga,
             'updated_by' => auth()->user()->id_user,
             'updated_at'  => $request->tanggal

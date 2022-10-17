@@ -81,7 +81,7 @@ class AdminPanenHortiController extends Controller
                 return ($produktivitas->blm_habis) . ' ton';
             })
             ->addColumn('provitas', function ($produktivitas) {
-                return ($produktivitas->provitas) . ' ku/ha';
+                return ($produktivitas->provitas) . ' ton';
             })
             ->addColumn('harga', function ($produktivitas) {
                 return "Rp. " . ($produktivitas->harga);
@@ -116,11 +116,12 @@ class AdminPanenHortiController extends Controller
             'lh_habis' => $request->lh_habis,
             'lh_blm_habis' => $request->lh_blm_habis,
             'kadar' => $request->kadar,
-            'habis' => $request->habis,
-            'blm_habis' => $request->blm_habis,
             'provitas' => $request->provitas,
+            'habis' => $request->lh_habis * $request->provitas,
+            'blm_habis' => $request->lh_blm_habis * $request->provitas,
             'harga' => $request->harga,
             'created_by' => auth()->user()->id_user,
+            'created_at' => $request->tanggal,
         ]);
         return response()->json('Data berhasil disimpan', 200);
     }

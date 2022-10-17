@@ -91,6 +91,7 @@ class AdminTanamHortiController extends Controller
             'tanaman_id' => $request->id_tanaman,
             'luas_lahan' => $request->luas_lahan,
             'created_by' => auth()->user()->id_user,
+            'created_at' => $request->tanggal,
         ]);
         return response()->json('Data berhasil disimpan', 200);
     }

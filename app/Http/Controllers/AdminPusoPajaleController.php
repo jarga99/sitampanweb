@@ -84,7 +84,7 @@ class AdminPusoPajaleController extends Controller
                 return ($produktivitas_puso->produksi). ' ton';
             })
             ->addColumn('provitas', function ($produktivitas_puso) {
-                return ($produktivitas_puso->provitas). ' ku/ha';
+                return ($produktivitas_puso->provitas). ' ton';
             })
             ->addColumn('harga', function ($produktivitas_puso) {
                 return 'Rp. '.($produktivitas_puso->harga);
@@ -113,12 +113,13 @@ class AdminPusoPajaleController extends Controller
             'tanaman_id' => $request->id_tanaman,
             // 'sub_tanaman_id' =>$request->id_sub_tanaman,
             'kadar' => $request->kadar,
-            'produksi' => $request->produksi,
             // 'sub_produksi_id' =>$request->id_sub_produksi,
             'provitas' => $request->provitas,
+            'produksi' => $request->luas_lahan * $request->provitas,
             'harga' => $request->harga,
             'luas_lahan' => $request->luas_lahan,
             'created_by' => auth()->user()->id_user,
+            'created_at' => $request->tanggal,
            ]);
            return response()->json('Data berhasil disimpan', 200);
     }

@@ -85,7 +85,7 @@ class HeadPusoPerkebunanController extends Controller
                 return ($produktivitas_puso->produksi). ' ton';
             })
             ->addColumn('provitas', function ($produktivitas_puso) {
-                return ($produktivitas_puso->provitas). ' ku/ha';
+                return ($produktivitas_puso->provitas). ' ton';
             })
             ->addColumn('harga', function ($produktivitas_puso) {
                 return 'Rp. '.($produktivitas_puso->harga);

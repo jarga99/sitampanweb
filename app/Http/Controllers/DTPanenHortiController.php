@@ -46,7 +46,7 @@ class DTPanenHortiController extends Controller
                  return ($detail->blm_habis) . ' ton';
              })
              ->addColumn('provitas', function ($detail) {
-                 return ($detail->provitas) . ' ku/ha';
+                 return ($detail->provitas) . ' ton';
              })
              ->addColumn('harga', function ($detail) {
                  return 'Rp. '. ($detail->harga);

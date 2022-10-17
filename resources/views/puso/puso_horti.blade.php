@@ -23,12 +23,12 @@
         <div class="col-lg-12">
             <div class="box">
                 <div class="box-header with-border">
-                    <button onclick="updatePeriode()" class="btn btn-info"><i class="fa fa-plus-circle"></i> Filter
+                    <button onclick="updatePeriode()" class="btn btn-xs btn-info"><i class="fa fa-plus-circle"></i> Filter
                         Periode</button>
                     <br>
                     <br>
                     {{-- <button onclick="#" class="btn btn-danger "> <i class="fa fa-trash"> Hapus</i></button> --}}
-                    <button onclick="addForm();" class="btn btn-success "> <i class="fa fa-plus"> Tambah</i></button>
+                    <button onclick="addForm();" class="btn btn-xs btn-success "> <i class="fa fa-plus"> Tambah</i></button>
                     {{-- <button onclick="#" class="btn btn-success "> <i class="fa fa-upload"> Import</i></button> --}}
                     <form id="form_pdf" action="{{ route('puso.pdf_puso_horti') }}" method="get" style="display: none;">
                         @csrf
@@ -36,10 +36,10 @@
                         <input type="hidden" name="form_akhir" id="form_akhir">
                     </form>
                     <div class="btn-group">
-                        <button target="_blank" class="btn btn-success export_pdf">
+                        <button target="_blank" class="btn btn-xs btn-success export_pdf">
                             <i class="fa fa-file-pdf-o"></i> PDF
                         </button>
-                        <button class="btn btn-primary export_excel"> <i class="fa fa-file-excel-o"> Excel</i></button>
+                        <button class="btn btn-xs btn-primary export_excel"> <i class="fa fa-file-excel-o"> Excel</i></button>
                     </div>
                     <form id="form_excel" action="{{ route('puso.excel_horti') }}" method="get" style="display: none;">
                         @csrf
@@ -213,7 +213,7 @@
                             $("th#kadar").html($avg_kadar.toFixed(2) + " %");
                             $("th#hbs").html($hbs.toFixed(2) + " ton");
                             $("th#blm_hbs").html($blm_hbs.toFixed(2) + " ton");
-                            $("th#prov").html($avg_prov.toFixed(2) + " ku/ha");
+                            $("th#prov").html($avg_prov.toFixed(2) + " ton");
                             $("th#harga").html("Rp. " + $avg_harga.toFixed(2));
                         }
 
@@ -289,7 +289,7 @@
                                 $("th#kadar").html($avg_kadar.toFixed(2) + " %");
                                 $("th#hbs").html($hbs.toFixed(2) + " ton");
                                 $("th#blm_hbs").html($blm_hbs.toFixed(2) + " ton");
-                                $("th#prov").html($avg_prov.toFixed(2) + " ku/ha");
+                                $("th#prov").html($avg_prov.toFixed(2) + " ton");
                                 $("th#harga").html("Rp. " + $avg_harga.toFixed(2));
                             }, false);
                             $('#modal-content').modal("hide");

@@ -12,7 +12,7 @@
                 </div>
                 <div class="modal-body">
                     <div class="form-group row">
-                        <label for="tanggal" class="col-lg-2 col-lg-offset-1 control-label">Tanggal</label>
+                        <label for="tanggal" class="col-lg-2 col-lg-offset-1 control-label">Tanggal Input</label>
                         <div class="col-lg-6">
                             <input type="date" name="tanggal" id="tanggal" class="form-control datepicker" value="{{old('tanggal')}}" required>
                         <span class="help-block with-errors"></span>
@@ -56,7 +56,7 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="luas_lahan" class="col-lg-2 col-lg-offset-1 control-label">Luas Tanam</label>
+                        <label for="luas_lahan" class="col-lg-2 col-lg-offset-1 control-label">Luas Tanam (ha)</label>
                         <div class="col-lg-6">
                             <input type="number" step="0.01" name="luas_lahan" id="luas_lahan" class="form-control" required>
                             <span class="help-block with-errors"></span>

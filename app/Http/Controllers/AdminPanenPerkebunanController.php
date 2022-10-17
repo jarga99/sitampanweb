@@ -74,7 +74,7 @@ class AdminPanenPerkebunanController extends Controller
                 return ($produktivitas->produksi ?? '0') . " ton";
             })
             ->addColumn('provitas', function ($produktivitas) {
-                return ($produktivitas->provitas ?? '0') . " ku/ha";
+                return ($produktivitas->provitas ?? '0') . " ton";
             })
             ->addColumn('harga', function ($produktivitas) {
                 return "Rp. " .($produktivitas->harga);
@@ -105,10 +105,11 @@ class AdminPanenPerkebunanController extends Controller
             'ttm' => $request->ttm,
             'luas_lahan' => $request->luas_lahan,
             'kadar' => $request->kadar,
-            'produksi' => $request->produksi,
             'provitas' => $request->provitas,
+            'produksi' => $request->luas_lahan * $request->provitas,
             'harga' => $request->harga,
             'created_by' => auth()->user()->id_user,
+            'created_at' => $request->tanggal,
         ]);
         return response()->json('Data berhasil disimpan', 200);
     }

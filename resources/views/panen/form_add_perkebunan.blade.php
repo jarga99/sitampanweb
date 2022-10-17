@@ -12,7 +12,7 @@
                 </div>
                 <div class="modal-body">
                     <div class="form-group row">
-                        <label for="tanggal" class="col-lg-2 col-lg-offset-1 control-label">Tanggal</label>
+                        <label for="tanggal" class="col-lg-2 col-lg-offset-1 control-label">Tanggal Input</label>
                         <div class="col-lg-6">
                             <input type="date" name="tanggal" id="tanggal" class="form-control datepicker" value="{{old('tanggal')}}" required>
                         <span class="help-block with-errors"></span>
@@ -90,22 +90,22 @@
                             <span class="help-block with-errors"></span>
                         </div>
                     </div>
-                    <div class="form-group row">
+                    {{-- <div class="form-group row">
                         <label for="produksi" class="col-lg-2 col-lg-offset-1 control-label">Produksi (ton)</label>
                         <div class="col-lg-6">
                             <input type="number" step="0.01" name="produksi" id="produksi" class="form-control" required>
                             <span class="help-block with-errors"></span>
                         </div>
-                    </div>
+                    </div> --}}
                     <div class="form-group row">
-                        <label for="provitas" class="col-lg-2 col-lg-offset-1 control-label">Provitas (ku/ha)</label>
+                        <label for="provitas" class="col-lg-2 col-lg-offset-1 control-label">Provitas (ton)</label>
                         <div class="col-lg-6">
                             <input type="number" step="0.01" name="provitas" id="provitas" class="form-control" required>
                             <span class="help-block with-errors"></span>
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="harga" class="col-lg-2 col-lg-offset-1 control-label">Harga</label>
+                        <label for="harga" class="col-lg-2 col-lg-offset-1 control-label">Harga /Kg</label>
                         <div class="col-lg-6">
                             <input type="number" name="harga" id="harga" class="form-control" required>
                             <span class="help-block with-errors"></span>

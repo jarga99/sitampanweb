@@ -76,14 +76,20 @@ class PanenPajaleController extends Controller
             ->addColumn('luas_lahan', function ($produktivitas) {
                 return ($produktivitas->luas_lahan) . ' ha';
             })
+            // ->addColumn('lh_konversi', function ($produktivitas) {
+            //     return ($produktivitas->lh_konversi ?? '0') . " ha";
+            // })
             ->addColumn('kadar', function ($produktivitas) {
                 return ($produktivitas->kadar). ' %';
             })
             ->addColumn('produksi', function ($produktivitas) {
                 return ($produktivitas->produksi). ' ton';
             })
+            // ->addColumn('produksi_konversi', function ($produktivitas) {
+            //     return ($produktivitas->produksi_konversi ?? '0') . " ton";
+            // })
             ->addColumn('provitas', function ($produktivitas) {
-                return ($produktivitas->provitas). ' ku/ha';
+                return ($produktivitas->provitas). ' ton';
             })
             ->addColumn('harga', function ($produktivitas) {
                 return 'Rp. '.($produktivitas->harga);
@@ -119,15 +125,15 @@ class PanenPajaleController extends Controller
             'kecamatan_id' => $request->id_kecamatan,
             'desa_id' => $request->id_desa,
             'tanaman_id' => $request->id_tanaman,
-            'kadar' => $request->kadar,
-            'produksi' => $request->produksi,
-            'provitas' => $request->provitas,
-            'harga' => $request->harga,
             'luas_lahan' => $request->luas_lahan,
+            'kadar' => $request->kadar,
+            'provitas' => $request->provitas,
+            'produksi' => $request->luas_lahan * $request->provitas,
+            'harga' => $request->harga,
             'created_by' => auth()->user()->id_user,
-            'created_at' => $request->tanggal
-           ]);
-           return response()->json('Data berhasil disimpan', 200);
+            'created_at' => $request->tanggal,
+        ]);
+        return response()->json("Berhasil Input Luas Panen", 201);
     }
 
     /**
@@ -163,19 +169,16 @@ class PanenPajaleController extends Controller
     public function update(Request $request, $id_produktivitas)
     {
         Produktivitas::where('id_produktivitas', $id_produktivitas)->update([
-            // 'kecamatan_id' => $request->id_kecamatan,
-            // 'desa_id' => $request->id_desa,
+
             'tanaman_id' => $request->id_tanaman,
             'kadar' => $request->kadar,
-            'produksi' => $request->produksi,
             'provitas' => $request->provitas,
+            'produksi' => $request->luas_lahan * $request->provitas,
             'harga' => $request->harga,
             'luas_lahan' => $request->luas_lahan,
             'updated_by' => auth()->user()->id_user,
-            'updated_at'  => $request->tanggal
+            'updated_at'  => $request->tanggal,
         ]);
-
-        return response()->json('Data berhasil update', 200);
     }
 
     /**

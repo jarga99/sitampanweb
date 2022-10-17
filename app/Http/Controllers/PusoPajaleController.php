@@ -75,7 +75,7 @@ class PusoPajaleController extends Controller
                 return ($produktivitas_puso->produksi). ' ton';
             })
             ->addColumn('provitas', function ($produktivitas_puso) {
-                return ($produktivitas_puso->provitas). ' ku/ha';
+                return ($produktivitas_puso->provitas). ' ton';
             })
             ->addColumn('harga', function ($produktivitas_puso) {
                 return 'Rp. '.($produktivitas_puso->harga);
@@ -114,8 +114,8 @@ class PusoPajaleController extends Controller
             'tanaman_id' => $request->id_tanaman,
             'luas_lahan' => $request->luas_lahan,
             'kadar' => $request->kadar,
-            'produksi' => $request->produksi,
             'provitas' => $request->provitas,
+            'produksi' => $request->luas_lahan * $request->provitas,
             'harga' => $request->harga,
             'created_by' => auth()->user()->id_user,
             'created_at'  => $request->tanggal
@@ -161,8 +161,8 @@ class PusoPajaleController extends Controller
             'tanaman_id' => $request->id_tanaman,
             'luas_lahan' => $request->luas_lahan,
             'kadar' => $request->kadar,
-            'produksi' => $request->produksi,
             'provitas' => $request->provitas,
+            'produksi' => $request->luas_lahan * $request->provitas,
             'harga' => $request->harga,
             'updated_by' => auth()->user()->id_user,
             'updated_at'  => $request->tanggal

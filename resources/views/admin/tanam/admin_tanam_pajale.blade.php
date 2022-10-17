@@ -24,13 +24,13 @@
             <div class="box">
                 <div class="box-header with-border">
                     <input type="hidden" name="is_kecamatan" value="{{ $is_kecamatan }}">
-                    <button onclick="updatePeriode()" class="btn btn-info"><i class="fa fa-plus-circle"></i> Filter
+                    <button onclick="updatePeriode()" class="btn btn-xs btn-info"><i class="fa fa-plus-circle"></i> Filter
                         Periode</button>
                     <br>
                     <br>
                     {{-- <button onclick="deleteSelected('{{ route('panen.delete_selected') }}')" class="btn btn-danger "> <i
                             class="fa fa-trash"> Hapus</i></button> --}}
-                    <button onClick="addForm();" class="btn btn-success "> <i class="fa fa-plus"> Tambah</i></button>
+                    <button onClick="addForm();" class="btn btn-xs btn-success "> <i class="fa fa-plus"> Tambah</i></button>
                     {{-- <button onclick="#" class="btn btn-success "> <i class="fa fa-upload"> Import</i></button> --}}
                     <form id="form_pdf" action="{{ route('admin.tanam.pdf_tanam_pajale') }}" method="get"
                         style="display: none;">
@@ -39,10 +39,10 @@
                         <input type="hidden" name="form_akhir" id="form_akhir" value="{{-- $tanggalAkhir --}}">
                     </form>
                     <div class="btn-group">
-                        <button target="_blank" class="btn btn-success export_pdf">
+                        <button target="_blank" class="btn btn-xs btn-success export_pdf">
                             <i class="fa fa-file-pdf-o"></i> PDF
                         </button>
-                        <button class="btn btn-primary export_excel"> <i class="fa fa-file-excel-o"> Excel</i></button>
+                        <button class="btn btn-xs btn-primary export_excel"> <i class="fa fa-file-excel-o"> Excel</i></button>
                     </div>
                     <form id="form_excel" action="{{ route('panen.excel_pajale') }}" method="get" style="display: none;">
                         @csrf

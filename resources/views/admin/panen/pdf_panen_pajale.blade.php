@@ -36,8 +36,8 @@
                     <td>{{ $item->luas_lahan }} ha</td>
                     <td>{{ $item->kadar }} %</td>
                     <td>{{ $item->produksi }} ton</td>
-                    <td>{{ $item->provitas }} ku/ha</td>
-                    <td>Rp. {{ format_uang($item->harga) }},00</td>
+                    <td>{{ $item->provitas }} ton</td>
+                    <td>Rp. {{ format_uang($item->harga) }},00 </td>
                 </tr>
             @endforeach
         </tbody>
@@ -53,7 +53,7 @@
                 <th colspan="6">Rata-Rata :</th>
                 <th >{{$total[0]->avg_kadar}} %</th>
                 <th colspan="1"></th>
-                <th >{{$total[0]->avg_provitas}} ku/ha</th>
+                <th >{{$total[0]->avg_provitas}} ton</th>
                 <th >Rp. {{$total[0]->avg_harga}}</th>
             </tr>
         </tfoot>

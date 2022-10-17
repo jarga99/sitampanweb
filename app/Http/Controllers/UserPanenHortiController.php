@@ -52,7 +52,7 @@ class UserPanenHortiController extends Controller
                 return ($produktivitas->blm_habis) . ' ton';
             })
             ->addColumn('provitas', function ($produktivitas) {
-                return ($produktivitas->provitas). ' ku/ha';
+                return ($produktivitas->provitas). ' ton';
             })
             ->addColumn('harga', function ($produktivitas) {
                 return 'Rp. '. format_uang($produktivitas->harga).',00';

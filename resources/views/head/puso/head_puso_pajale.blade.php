@@ -171,7 +171,7 @@ Data Puso Pajale
                             $("th#luas").html($luas+ " ha");
                             $("th#kadar").html($avg_kadar.toFixed(2)+ " %");
                             $("th#prod").html($prod+" ton");
-                            $("th#prov").html($avg_prov.toFixed(2)+" ku/ha");
+                            $("th#prov").html($avg_prov.toFixed(2)+" ton");
                             $("th#harga").html("Rp. "+$avg_harga.toFixed(2));
                         }
 
@@ -234,7 +234,7 @@ Data Puso Pajale
                             $("th#luas").html($luas+ " ha");
                             $("th#kadar").html($avg_kadar.toFixed(2)+ " %");
                             $("th#prod").html($prod+" ton");
-                            $("th#prov").html($avg_prov.toFixed(2)+" ku/ha");
+                            $("th#prov").html($avg_prov.toFixed(2)+" ton");
                             $("th#harga").html("Rp. "+$avg_harga.toFixed(2));
                         },false);
                         $('#modal-content').modal("hide");

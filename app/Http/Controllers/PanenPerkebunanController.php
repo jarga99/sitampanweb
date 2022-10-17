@@ -85,7 +85,7 @@ class PanenPerkebunanController extends Controller
                 return ($produktivitas->produksi). ' ton';
             })
             ->addColumn('provitas', function ($produktivitas) {
-                return ($produktivitas->provitas). ' ku/ha';
+                return ($produktivitas->provitas). ' ton';
             })
             ->addColumn('harga', function ($produktivitas) {
                 return 'Rp. '.($produktivitas->harga);
@@ -126,8 +126,8 @@ class PanenPerkebunanController extends Controller
             'ttm' => $request->ttm,
             'luas_lahan' => $request->luas_lahan,
             'kadar' => $request->kadar,
-            'produksi' => $request->produksi,
             'provitas' => $request->provitas,
+            'produksi' => $request->luas_lahan * $request->provitas,
             'harga' => $request->harga,
             'created_by' => auth()->user()->id_user,
             'created_at' => $request->tanggal
@@ -174,11 +174,11 @@ class PanenPerkebunanController extends Controller
             'tm' => $request->tm,
             'tbm' => $request->tbm,
             'ttm' => $request->ttm,
-            'kadar' => $request->kadar,
-            'produksi' => $request->produksi,
-            'provitas' => $request->provitas,
-            'harga' => $request->harga,
             'luas_lahan' => $request->luas_lahan,
+            'kadar' => $request->kadar,
+            'provitas' => $request->provitas,
+            'produksi' => $request->luas_lahan * $request->provitas,
+            'harga' => $request->harga,
             'updated_by' => auth()->user()->id_user,
             'updated_at'  => $request->tanggal
         ]);

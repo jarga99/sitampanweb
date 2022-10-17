@@ -11,6 +11,13 @@
                     <h4 class="modal-title"></h4>
                 </div>
                 <div class="modal-body">
+                    <div class="form-group row">
+                        <label for="tanggal" class="col-lg-2 col-lg-offset-1 control-label">Tanggal Input</label>
+                        <div class="col-lg-6">
+                            <input type="date" name="tanggal" id="tanggal" class="form-control datepicker" value="{{old('tanggal')}}" required>
+                        <span class="help-block with-errors"></span>
+                        </div>
+                    </div>
                     <div class="form-group row" id="panel-kecamatan">
                         <label for="id_kecamatan" class="col-lg-2 col-lg-offset-1 control-label">Kecamatan</label>
                         <div class="col-lg-6">
@@ -49,37 +56,36 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="luas_lahan" class="col-lg-2 col-lg-offset-1 control-label">Luas Panen</label>
+                        <label for="luas_lahan" class="col-lg-2 col-lg-offset-1 control-label">Luas Panen (ha)</label>
                         <div class="col-lg-6">
-                            <p class="text-danger"><b>Harap baca!!!</b> <br> khusus tanaman <u><i>Padi Sawah, Jagung Sawah, Kedelai Sawah</i></u> <br> luas panen perlu dikonversi dengan cara nilai luas panen * 0,9683</p>
                             <input type="number" step="0.01" name="luas_lahan" id="luas_lahan" class="form-control" required>
                             <span class="help-block with-errors"></span>
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="kadar" class="col-lg-2 col-lg-offset-1 control-label">Kadar</label>
+                        <label for="kadar" class="col-lg-2 col-lg-offset-1 control-label">Kadar Air (%)</label>
                         <div class="col-lg-6">
                             <input type="number" step="0.01" name="kadar" id="kadar" class="form-control" required>
                             <span class="help-block with-errors"></span>
                         </div>
                     </div>
-                    <div class="form-group row">
-                        <label for="produksi" class="col-lg-2 col-lg-offset-1 control-label">Produksi</label>
+                    {{-- <div class="form-group row">
+                        <label for="produksi" class="col-lg-2 col-lg-offset-1 control-label">Produksi (ton)</label>
                         <div class="col-lg-6">
-                            <p class="text-danger"><b>Harap baca!!!</b> <br> khusus tanaman <u><i>Padi Sawah, Jagung Sawah, Kedelai Sawah</i></u><br> nilai produksi perlu di hitung dengan rumus yaitu : <br> Produksi = LP * Provitas (LP = luas panen yang sudah dikonversi) <br> produksi = hasil/10 <br> produksi = nilai produksi yang akan diinputkan </p>
+                            <p class="text-warning">Khusus Tanaman yang dikonversi<b> Padi Sawah, Jagung Sawah, Kedelai Sawah</b> input produksi kasih nilai 0 saja</p>
                             <input type="number" step="0.01" name="produksi" id="produksi" class="form-control" required>
                             <span class="help-block with-errors"></span>
                         </div>
-                    </div>
+                    </div> --}}
                     <div class="form-group row">
-                        <label for="provitas" class="col-lg-2 col-lg-offset-1 control-label">Provitas</label>
+                        <label for="provitas" class="col-lg-2 col-lg-offset-1 control-label">Provitas (ton)</label>
                         <div class="col-lg-6">
                             <input type="number" step="0.01" name="provitas" id="provitas" class="form-control" required>
                             <span class="help-block with-errors"></span>
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="harga" class="col-lg-2 col-lg-offset-1 control-label">Harga</label>
+                        <label for="harga" class="col-lg-2 col-lg-offset-1 control-label">Harga /Kg</label>
                         <div class="col-lg-6">
                             <input type="number" name="harga" id="harga" class="form-control" required>
                             <span class="help-block with-errors"></span>

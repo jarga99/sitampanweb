@@ -55,7 +55,7 @@ class UserPanenPerkebunanController extends Controller
                 return ($produktivitas->produksi).' ton';
             })
             ->addColumn('provitas', function ($produktivitas) {
-                return ($produktivitas->provitas). ' ku/ha';
+                return ($produktivitas->provitas). ' ton';
             })
             ->addColumn('harga', function ($produktivitas) {
                 return 'Rp. '. format_uang($produktivitas->harga).',00';

@@ -156,7 +156,7 @@
                             $("th#luas").html($luas.toFixed(2) + " ha");
                             $("th#kadar").html($avg_kadar.toFixed(2) + " %");
                             $("th#prod").html($prod.toFixed(2) + " ton");
-                            $("th#prov").html($avg_prov.toFixed(2) + " ku/ha");
+                            $("th#prov").html($avg_prov.toFixed(2) + " ton");
                             $("th#harga").html("Rp. " + $avg_harga.toFixed(2));
                         }
 
@@ -221,7 +221,7 @@
                                 $("th#luas").html($luas.toFixed(2) + " ha");
                                 $("th#kadar").html($avg_kadar.toFixed(2) + " %");
                                 $("th#prod").html($prod.toFixed(2) + " ton");
-                                $("th#prov").html($avg_prov.toFixed(2) + " ku/ha");
+                                $("th#prov").html($avg_prov.toFixed(2) + " ton");
                                 $("th#harga").html("Rp. " + $avg_harga.toFixed(2));
                             }, false);
                             $('#modal-content').modal("hide");
